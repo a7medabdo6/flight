@@ -23,8 +23,10 @@ let SeatService = class SeatService {
     }
     async create(createSeatDto, flight) {
         const seat = await this.repo.create(createSeatDto);
-        seat.flight = flight;
-        return this.repo.save(seat);
+        for (let index = 0; index < createSeatDto.length; index++) {
+            seat[index].flight = flight;
+        }
+        return this.repo.insert(seat);
     }
     async findAllByIds(ids) {
         console.log(ids, 'id');

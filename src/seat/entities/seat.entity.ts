@@ -4,6 +4,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -42,6 +44,11 @@ export class Seat {
   seat_price: string;
   @ManyToOne(() => Flight, (flight) => flight.seats) // specify inverse side as a second parameter
   flight: Flight;
+
+  @ManyToMany((type) => Seat)
+  @JoinTable()
+  seats: Seat[];
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',

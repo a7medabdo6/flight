@@ -60,15 +60,30 @@ let UsersService = class UsersService {
         return user;
     }
     async update(id, updateUser) {
-        const user = await this.findOne(id);
+        const user = await this.repo.findOne({ where: { id } });
         if (!user) {
             throw new common_1.NotFoundException('user not found');
         }
         Object.assign(user, updateUser);
         return this.repo.save(user);
     }
+    async AssignFlights(id, Flight) {
+        const user = await this.repo.findOne({ where: { id }, relations: { flight: true } });
+        if (!user) {
+            throw new common_1.NotFoundException('user not found');
+        }
+        user.flight = Flight;
+        return this.repo.save(user);
+    }
+    async getAllFlight(id) {
+        const user = await this.repo.findOne({ where: { id }, relations: { flight: true } });
+        if (!user) {
+            throw new common_1.NotFoundException('user not found');
+        }
+        return user;
+    }
     async remove(id) {
-        const user = await this.findOne(id);
+        const user = await this.repo.findOne({ where: { id } });
         if (!user) {
             throw new common_1.NotFoundException('user not found');
         }

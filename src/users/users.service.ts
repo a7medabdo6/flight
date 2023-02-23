@@ -4,6 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Flight } from 'src/flight/entities/flight.entity';
 import { Any, Not, Repository } from 'typeorm';
 import { CreateCodeDto } from './dto/create-code.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -68,16 +69,31 @@ export class UsersService {
     return user;
   }
   async update(id: number, updateUser: Partial<User>) {
-    const user = await this.findOne(id);
+    const user = await this.repo.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException('user not found');
     }
     Object.assign(user, updateUser);
     return this.repo.save(user);
   }
-
+  async AssignFlights(id: number, Flight: Flight[]) {
+    const user = await this.repo.findOne({ where: { id },relations:{flight:true} });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    // Object.assign(user, Flight);
+    user.flight = Flight;
+    return this.repo.save(user);
+  }
+  async getAllFlight(id: number) {
+    const user = await this.repo.findOne({ where: { id },relations:{flight:true} });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    return user
+  }
   async remove(id: number) {
-    const user = await this.findOne(id);
+    const user = await this.repo.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException('user not found');
     }

@@ -42,6 +42,13 @@ import { Supplier } from './supplier/entities/supplier.entity';
       username: 'doadmin',
       password: 'AVNS_vPJjdBFePeawLu5rHmC',
       database: 'defaultdb',
+
+      // username: 'root',
+      // port: 3306,
+      // host: 'localhost',
+      // database: 'flight',
+      // password: '',
+
       entities: [User, Docs, Flight, Seat, Supplier],
       synchronize: true,
     }),

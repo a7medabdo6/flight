@@ -16,7 +16,6 @@ exports.SeatController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const seat_service_1 = require("./seat.service");
-const create_seat_dto_1 = require("./dto/create-seat.dto");
 const update_seat_dto_1 = require("./dto/update-seat.dto");
 const flight_service_1 = require("../flight/flight.service");
 let SeatController = class SeatController {
@@ -25,7 +24,7 @@ let SeatController = class SeatController {
         this.flightService = flightService;
     }
     async create(createSeatDto) {
-        const flight = await this.flightService.findOne(createSeatDto.flightId);
+        const flight = await this.flightService.findOne(createSeatDto[0].flightId);
         return this.seatService.create(createSeatDto, flight);
     }
     findAll() {
@@ -43,10 +42,10 @@ let SeatController = class SeatController {
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: require("./entities/seat.entity").Seat }),
+    openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_seat_dto_1.CreateSeatDto]),
+    __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", Promise)
 ], SeatController.prototype, "create", null);
 __decorate([

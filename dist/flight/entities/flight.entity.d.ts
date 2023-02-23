@@ -1,4 +1,5 @@
 import { Seat } from 'src/seat/entities/seat.entity';
+import { User } from 'src/users/entities/user.entity';
 export declare class Flight {
     id: number;
     country: string;
@@ -12,6 +13,7 @@ export declare class Flight {
     duration: string;
     weight: string;
     seats: Seat;
+    user?: User[];
     created_at: Date;
     updated_at: Date;
 }

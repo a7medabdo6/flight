@@ -1,4 +1,5 @@
 import { Docs } from 'src/Docs/entities/Docs.entity';
+import { Flight } from 'src/flight/entities/flight.entity';
 export declare class UserDto {
     id: number;
     email: string;
@@ -6,4 +7,5 @@ export declare class UserDto {
     role: string;
     createBy: number;
     Docs: Docs;
+    flight: Flight[];
 }

@@ -6,7 +6,7 @@ export declare class SeatController {
     private readonly seatService;
     private readonly flightService;
     constructor(seatService: SeatService, flightService: FlightService);
-    create(createSeatDto: CreateSeatDto): Promise<import("./entities/seat.entity").Seat>;
+    create(createSeatDto: CreateSeatDto[]): Promise<import("typeorm").InsertResult>;
     findAll(): Promise<import("./entities/seat.entity").Seat[]>;
     findOne(id: string): Promise<import("./entities/seat.entity").Seat>;
     update(id: string, updateSeatDto: UpdateSeatDto): Promise<import("./entities/seat.entity").Seat>;

@@ -9,8 +9,8 @@ export class SeatController {
   constructor(private readonly seatService: SeatService,private readonly flightService: FlightService) {}
 
   @Post()
-  async create(@Body() createSeatDto: CreateSeatDto) {
-    const flight =await this.flightService.findOne(createSeatDto.flightId)
+  async create(@Body() createSeatDto: CreateSeatDto[]) {
+    const flight =await this.flightService.findOne(createSeatDto[0].flightId)
     return this.seatService.create(createSeatDto,flight);
   }
 

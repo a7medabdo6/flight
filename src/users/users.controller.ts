@@ -27,6 +27,7 @@ import { User } from './entities/user.entity';
 import { CurrentUserInterceptor } from '../users/interceptors/current-user.interceptor';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateCodeDto } from './dto/create-code.dto';
+import { FlightService } from 'src/flight/flight.service';
 @Controller('users')
 @Serialize(UserDto)
 @UseInterceptors(CurrentUserInterceptor)
@@ -34,6 +35,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private authService: AuthService,
+    private readonly flightService: FlightService,
   ) {}
 
   @Get('/whoami')
@@ -82,12 +84,22 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
+  @Get(':id/all-flights')
+  getAllFlight(@Param('id') id: string) {
+    return this.usersService.getAllFlight(+id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  @Post(':id/flight')
+  async flight(@Param('id') id: number, @Body() body: { ids: [] }) {
+    console.log(body.ids, 'ids');
+    const flights = await this.flightService.findAllByIds(body?.ids);
+    return this.usersService.AssignFlights(id, flights);
+  }
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);

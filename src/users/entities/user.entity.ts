@@ -1,8 +1,10 @@
 import { Docs } from 'src/Docs/entities/Docs.entity';
+import { Flight } from 'src/flight/entities/flight.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -24,7 +26,6 @@ export class User {
   @Column()
   photo: string;
 
- 
   @Column()
   password: string;
 
@@ -43,7 +44,11 @@ export class User {
   })
   active: boolean;
 
- 
+  @ManyToMany(() => Flight, (flight) => flight.user, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  flight?: Flight[];
 
   @OneToMany(() => Docs, (Docs) => Docs.user) // specify inverse side as a second parameter
   @JoinColumn()

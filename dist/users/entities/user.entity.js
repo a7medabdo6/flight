@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = exports.UserRole = void 0;
 const openapi = require("@nestjs/swagger");
 const Docs_entity_1 = require("../../Docs/entities/Docs.entity");
+const flight_entity_1 = require("../../flight/entities/flight.entity");
 const typeorm_1 = require("typeorm");
 var UserRole;
 (function (UserRole) {
@@ -20,7 +21,7 @@ var UserRole;
 })(UserRole = exports.UserRole || (exports.UserRole = {}));
 let User = class User {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, phone: { required: true, type: () => String }, photo: { required: true, type: () => String }, password: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, enum: require("./user.entity").UserRole }, active: { required: true, type: () => Boolean }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs } };
+        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, phone: { required: true, type: () => String }, photo: { required: true, type: () => String }, password: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, enum: require("./user.entity").UserRole }, active: { required: true, type: () => Boolean }, flight: { required: false, type: () => [require("../../flight/entities/flight.entity").Flight] }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs } };
     }
 };
 __decorate([
@@ -61,6 +62,13 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], User.prototype, "active", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => flight_entity_1.Flight, (flight) => flight.user, {
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "flight", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => Docs_entity_1.Docs, (Docs) => Docs.user),
     (0, typeorm_1.JoinColumn)(),

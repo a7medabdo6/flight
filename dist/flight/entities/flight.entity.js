@@ -12,10 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Flight = void 0;
 const openapi = require("@nestjs/swagger");
 const seat_entity_1 = require("../../seat/entities/seat.entity");
+const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
 let Flight = class Flight {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, country: { required: true, type: () => String }, city: { required: true, type: () => String }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, seats: { required: true, type: () => require("../../seat/entities/seat.entity").Seat }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => Number }, country: { required: true, type: () => String }, city: { required: true, type: () => String }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, seats: { required: true, type: () => require("../../seat/entities/seat.entity").Seat }, user: { required: false, type: () => [require("../../users/entities/user.entity").User] }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -67,6 +68,21 @@ __decorate([
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", seat_entity_1.Seat)
 ], Flight.prototype, "seats", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.flight, { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' }),
+    (0, typeorm_1.JoinTable)({
+        name: 'user_flight',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'flight_id',
+            referencedColumnName: 'id',
+        },
+    }),
+    __metadata("design:type", Array)
+], Flight.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({
         type: 'timestamp',

@@ -15,7 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const Docs_entity_1 = require("../../Docs/entities/Docs.entity");
 class UserDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, type: () => String }, createBy: { required: true, type: () => Number }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs } };
+        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, type: () => String }, createBy: { required: true, type: () => Number }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs }, flight: { required: true, type: () => [require("../../flight/entities/flight.entity").Flight] } };
     }
 }
 __decorate([
@@ -43,5 +43,10 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Docs_entity_1.Docs)
 ], UserDto.prototype, "Docs", void 0);
+__decorate([
+    (0, class_transformer_1.Transform)(({ obj }) => obj.flight),
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Array)
+], UserDto.prototype, "flight", void 0);
 exports.UserDto = UserDto;
 //# sourceMappingURL=user.dto.js.map

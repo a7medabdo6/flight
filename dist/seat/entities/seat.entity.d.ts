@@ -14,6 +14,7 @@ export declare class Seat {
     suppliers: string;
     seat_price: string;
     flight: Flight;
+    seats: Seat[];
     created_at: Date;
     updated_at: Date;
 }

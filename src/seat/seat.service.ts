@@ -14,11 +14,13 @@ import { Seat } from './entities/seat.entity';
 export class SeatService {
   constructor(@InjectRepository(Seat) private repo: Repository<Seat>) {}
 
-  async create(createSeatDto: CreateSeatDto, flight: Flight) {
+  async create(createSeatDto: CreateSeatDto[], flight: Flight) {
     const seat = await this.repo.create(createSeatDto);
-    seat.flight = flight;
+    for (let index = 0; index < createSeatDto.length; index++) {
+      seat[index].flight = flight;
+    }
 
-    return this.repo.save(seat);
+    return this.repo.insert(seat);
   }
   async findAllByIds(ids: []) {
     console.log(ids, 'id');

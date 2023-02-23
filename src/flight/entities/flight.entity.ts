@@ -1,4 +1,5 @@
 import { Seat } from 'src/seat/entities/seat.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -8,6 +9,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -37,6 +40,24 @@ export class Flight {
   @OneToMany(() => Seat, (seat) => seat.flight) // specify inverse side as a second parameter
   @JoinColumn()
   seats: Seat;
+  @ManyToMany(
+    () => User,
+    (user) => user.flight, //optional
+    { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' },
+  )
+  @JoinTable({
+    name: 'user_flight',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'flight_id',
+      referencedColumnName: 'id',
+    },
+  })
+  user?: User[];
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
