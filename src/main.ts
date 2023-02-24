@@ -15,7 +15,7 @@ import { urlencoded, json } from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use('/public', express.static(join(__dirname, '..', 'uploads'))); // <-
-
+  app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
