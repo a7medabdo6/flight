@@ -10,7 +10,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 export class FlightController {
   constructor(private readonly flightService: FlightService) {}
 
-   @UseGuards(AdminGuard)
+  //  @UseGuards(AdminGuard)
   @Post()
   create(@Body() createFlightDto: CreateFlightDto) {
     return this.flightService.create(createFlightDto);
