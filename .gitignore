@@ -1,9 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/flight_frontend/node_modules
 /.pnp
 .pnp.js
+/flight_backend/node_modules
 
 # testing
 /coverage
