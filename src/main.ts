@@ -17,10 +17,10 @@ async function bootstrap() {
   app.use('/public', express.static(join(__dirname, '..', 'uploads'))); // <-
   app.enableCors();
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('flight B2B example')
+    .setDescription('The flight B2B API description')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('flight B2B')
     .setExternalDoc('Postman Collection', '/docs-json')
     .build();
   const options: SwaggerDocumentOptions = {
