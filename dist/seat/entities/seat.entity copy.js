@@ -11,14 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var Seat_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Seat = void 0;
-const openapi = require("@nestjs/swagger");
 const flight_entity_1 = require("../../flight/entities/flight.entity");
 const typeorm_1 = require("typeorm");
-const SeatToSeat_entity_1 = require("./SeatToSeat.entity");
 let Seat = Seat_1 = class Seat {
-    static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, total_seat_number: { required: true, type: () => String }, available_seats: { required: true, type: () => String }, suppliers: { required: true, type: () => String }, seat_price: { required: true, type: () => String }, flight: { required: true, type: () => require("../../flight/entities/flight.entity").Flight }, seats: { required: true, type: () => [require("./seat.entity").Seat] }, seatToSeat: { required: true, type: () => [require("./SeatToSeat.entity").SeatToSeat] }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
-    }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
@@ -82,10 +77,6 @@ __decorate([
     __metadata("design:type", Array)
 ], Seat.prototype, "seats", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => SeatToSeat_entity_1.SeatToSeat, (seatToSeat) => seatToSeat.seat),
-    __metadata("design:type", Array)
-], Seat.prototype, "seatToSeat", void 0);
-__decorate([
     (0, typeorm_1.CreateDateColumn)({
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP(6)',
@@ -104,4 +95,4 @@ Seat = Seat_1 = __decorate([
     (0, typeorm_1.Entity)()
 ], Seat);
 exports.Seat = Seat;
-//# sourceMappingURL=seat.entity.js.map
+//# sourceMappingURL=seat.entity%20copy.js.map

@@ -101,7 +101,7 @@ __decorate([
 ], UsersController.prototype, "signup", null);
 __decorate([
     (0, common_1.Post)('/signin'),
-    openapi.ApiResponse({ status: 201, type: require("./entities/user.entity").User }),
+    openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),

@@ -12,6 +12,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { SeatToSeat } from './SeatToSeat.entity';
 
 @Entity()
 export class Seat {
@@ -48,6 +49,8 @@ export class Seat {
   @ManyToMany((type) => Seat)
   @JoinTable()
   seats: Seat[];
+  @OneToMany(() => SeatToSeat, (seatToSeat) => seatToSeat.seat)
+  public seatToSeat: SeatToSeat[];
 
   @CreateDateColumn({
     type: 'timestamp',

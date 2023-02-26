@@ -15,7 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const Docs_entity_1 = require("../../Docs/entities/Docs.entity");
 class UserDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, type: () => String }, createBy: { required: true, type: () => Number }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs }, flight: { required: true, type: () => [require("../../flight/entities/flight.entity").Flight] } };
+        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, type: () => String }, createBy: { required: true, type: () => Number }, Token: { required: true, type: () => String }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs }, flight: { required: true, type: () => [require("../../flight/entities/flight.entity").Flight] } };
     }
 }
 __decorate([
@@ -38,6 +38,10 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
 ], UserDto.prototype, "createBy", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], UserDto.prototype, "Token", void 0);
 __decorate([
     (0, class_transformer_1.Transform)(({ obj }) => obj.Docs),
     (0, class_transformer_1.Expose)(),

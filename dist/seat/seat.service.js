@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const seat_entity_1 = require("./entities/seat.entity");
+const SeatToSeat_entity_1 = require("./entities/SeatToSeat.entity");
 let SeatService = class SeatService {
-    constructor(repo) {
+    constructor(repo, repoTwoWay) {
         this.repo = repo;
+        this.repoTwoWay = repoTwoWay;
     }
     async create(createSeatDto, flight) {
         const seat = await this.repo.create(createSeatDto);
@@ -27,6 +29,15 @@ let SeatService = class SeatService {
             seat[index].flight = flight;
         }
         return this.repo.insert(seat);
+    }
+    async createTwoWay(createSeatTwoDto) {
+        console.log(createSeatTwoDto, 'createSeatTwoDto');
+        const seat = await this.repoTwoWay.create(createSeatTwoDto);
+        const firstSeat = await this.findOne(+createSeatTwoDto.seatId);
+        const secondSeat = await this.findOne(+createSeatTwoDto.secondseatId);
+        seat.seat = firstSeat;
+        seat.secondseat = secondSeat;
+        return this.repoTwoWay.save(seat);
     }
     async findAllByIds(ids) {
         console.log(ids, 'id');
@@ -42,7 +53,16 @@ let SeatService = class SeatService {
         return plan;
     }
     async findAll() {
-        const seat = await this.repo.find({});
+        const seat = await this.repo.find({ relations: { flight: true } });
+        return seat;
+    }
+    async findAllToWay() {
+        const seat = await this.repoTwoWay.find({
+            relations: {
+                seat: true,
+                secondseat: true,
+            },
+        });
         return seat;
     }
     async findOne(id) {
@@ -75,7 +95,9 @@ let SeatService = class SeatService {
 SeatService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(seat_entity_1.Seat)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(SeatToSeat_entity_1.SeatToSeat)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], SeatService);
 exports.SeatService = SeatService;
 //# sourceMappingURL=seat.service.js.map

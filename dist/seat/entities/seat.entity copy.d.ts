@@ -1,5 +1,4 @@
 import { Flight } from 'src/flight/entities/flight.entity';
-import { SeatToSeat } from './SeatToSeat.entity';
 export declare class Seat {
     id: number;
     airlines: string;
@@ -16,7 +15,6 @@ export declare class Seat {
     seat_price: string;
     flight: Flight;
     seats: Seat[];
-    seatToSeat: SeatToSeat[];
     created_at: Date;
     updated_at: Date;
 }

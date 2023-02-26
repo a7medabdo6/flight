@@ -6,13 +6,19 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Flight } from 'src/flight/entities/flight.entity';
 import { In, Repository } from 'typeorm';
-import { CreateSeatDto } from './dto/create-seat.dto';
+import { CreateSeatTwoDto } from './dto/create-seatTwoWay.dto';
+import { CreateSeatDto } from './dto/create-seat.dto copy';
+
 import { UpdateSeatDto } from './dto/update-seat.dto';
 import { Seat } from './entities/seat.entity';
+import { SeatToSeat } from './entities/SeatToSeat.entity';
 
 @Injectable()
 export class SeatService {
-  constructor(@InjectRepository(Seat) private repo: Repository<Seat>) {}
+  constructor(
+    @InjectRepository(Seat) private repo: Repository<Seat>,
+    @InjectRepository(SeatToSeat) private repoTwoWay: Repository<SeatToSeat>,
+  ) {}
 
   async create(createSeatDto: CreateSeatDto[], flight: Flight) {
     const seat = await this.repo.create(createSeatDto);
@@ -21,6 +27,19 @@ export class SeatService {
     }
 
     return this.repo.insert(seat);
+  }
+
+  async createTwoWay(createSeatTwoDto: CreateSeatTwoDto) {
+    console.log(createSeatTwoDto, 'createSeatTwoDto');
+
+    const seat = await this.repoTwoWay.create(createSeatTwoDto);
+    const firstSeat = await this.findOne(+createSeatTwoDto.seatId);
+    const secondSeat = await this.findOne(+createSeatTwoDto.secondseatId);
+
+    seat.seat = firstSeat;
+    seat.secondseat = secondSeat;
+
+    return this.repoTwoWay.save(seat);
   }
   async findAllByIds(ids: []) {
     console.log(ids, 'id');
@@ -36,7 +55,16 @@ export class SeatService {
     return plan;
   }
   async findAll() {
-    const seat = await this.repo.find({});
+    const seat = await this.repo.find({ relations: { flight: true } });
+    return seat;
+  }
+  async findAllToWay() {
+    const seat = await this.repoTwoWay.find({
+      relations: {
+        seat: true,
+        secondseat: true,
+      },
+    });
     return seat;
   }
 

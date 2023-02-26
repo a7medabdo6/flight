@@ -14,6 +14,7 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("../users/users.service");
 const crypto_1 = require("crypto");
 const util_1 = require("util");
+const jwt = require('jsonwebtoken');
 const scrypt = (0, util_1.promisify)(crypto_1.scrypt);
 let AuthService = class AuthService {
     constructor(usersService) {
@@ -37,13 +38,14 @@ let AuthService = class AuthService {
         if (!user) {
             throw new common_1.NotFoundException('user Not Fpund');
         }
+        let Token = jwt.sign({ user: user.id, role: user.role }, 'jsonwebtokensecret');
         const [salt, stroreHash] = user.password.split('.');
         console.log(salt);
         const hash = (await scrypt(password, salt, 32));
         if (stroreHash !== hash.toString('hex')) {
             throw new common_1.BadRequestException('Wrong password');
         }
-        return user;
+        return Object.assign(Object.assign({}, user), { Token });
     }
 };
 AuthService = __decorate([

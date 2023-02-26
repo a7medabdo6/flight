@@ -13,7 +13,19 @@ export declare class UsersController {
     whoami(user: unknown): unknown;
     getHello(i18n: I18nContext): Promise<any>;
     signup(createUserDto: CreateUserDto, session: any): Promise<User>;
-    signin(createUserDto: any, session: any): Promise<User>;
+    signin(createUserDto: any, session: any): Promise<{
+        Token: any;
+        id: number;
+        email: string;
+        phone: string;
+        photo: string;
+        password: string;
+        username: string;
+        role: import("./entities/user.entity").UserRole;
+        active: boolean;
+        flight?: import("../flight/entities/flight.entity").Flight[];
+        Docs: import("../Docs/entities/Docs.entity").Docs;
+    }>;
     signout(session: any): Promise<string>;
     findAll(userRole: string): Promise<User[]>;
     findOne(id: string): Promise<User>;

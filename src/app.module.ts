@@ -21,6 +21,7 @@ import { SeatModule } from './seat/seat.module';
 import { Seat } from './seat/entities/seat.entity';
 import { SupplierModule } from './supplier/supplier.module';
 import { Supplier } from './supplier/entities/supplier.entity';
+import { SeatToSeat } from './seat/entities/SeatToSeat.entity';
 
 @Module({
   imports: [
@@ -49,7 +50,7 @@ import { Supplier } from './supplier/entities/supplier.entity';
       // database: 'flight',
       // password: '',
 
-      entities: [User, Docs, Flight, Seat, Supplier],
+      entities: [User, Docs, Flight, Seat, SeatToSeat, Supplier],
       synchronize: true,
     }),
     UsersModule,

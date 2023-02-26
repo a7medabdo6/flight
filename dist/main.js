@@ -11,6 +11,7 @@ const express_1 = require("express");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use('/public', express.static((0, path_1.join)(__dirname, '..', 'uploads')));
+    app.enableCors();
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Cats example')
         .setDescription('The cats API description')

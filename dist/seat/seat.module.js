@@ -14,11 +14,12 @@ const seat_controller_1 = require("./seat.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const seat_entity_1 = require("./entities/seat.entity");
 const flight_module_1 = require("../flight/flight.module");
+const SeatToSeat_entity_1 = require("./entities/SeatToSeat.entity");
 let SeatModule = SeatModule_1 = class SeatModule {
 };
 SeatModule = SeatModule_1 = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([seat_entity_1.Seat]), flight_module_1.FlightModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([seat_entity_1.Seat, SeatToSeat_entity_1.SeatToSeat]), flight_module_1.FlightModule],
         exports: [SeatModule_1],
         controllers: [seat_controller_1.SeatController],
         providers: [seat_service_1.SeatService],

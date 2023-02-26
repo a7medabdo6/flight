@@ -6,6 +6,7 @@ export declare class UserDto {
     username: string;
     role: string;
     createBy: number;
+    Token: string;
     Docs: Docs;
     flight: Flight[];
 }

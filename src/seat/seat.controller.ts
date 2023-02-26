@@ -1,22 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { SeatService } from './seat.service';
-import { CreateSeatDto } from './dto/create-seat.dto';
+import { CreateSeatDto } from './dto/create-seat.dto copy';
 import { UpdateSeatDto } from './dto/update-seat.dto';
 import { FlightService } from 'src/flight/flight.service';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { CreateSeatTwoDto } from './dto/create-seatTwoWay.dto';
 
+@UseGuards(AuthGuard)
 @Controller('seat')
 export class SeatController {
-  constructor(private readonly seatService: SeatService,private readonly flightService: FlightService) {}
+  constructor(
+    private readonly seatService: SeatService,
+    private readonly flightService: FlightService,
+  ) {}
 
   @Post()
   async create(@Body() createSeatDto: CreateSeatDto[]) {
-    const flight =await this.flightService.findOne(createSeatDto[0].flightId)
-    return this.seatService.create(createSeatDto,flight);
+    const flight = await this.flightService.findOne(createSeatDto[0].flightId);
+    return this.seatService.create(createSeatDto, flight);
   }
 
+  @Post('/two-way')
+  async createTwoWay(@Body() createSeatTwoDto: CreateSeatTwoDto) {
+    return this.seatService.createTwoWay(createSeatTwoDto);
+  }
   @Get()
   findAll() {
     return this.seatService.findAll();
+  }
+  @Get('/two-way')
+  findAllTwoWay() {
+    return this.seatService.findAllToWay();
   }
 
   @Get(':id')

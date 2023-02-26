@@ -17,7 +17,8 @@ export class UserDto {
 
   @Expose()
   createBy: number;
-
+  @Expose()
+  Token: string;
   @Transform(({ obj }) => obj.Docs)
   @Expose()
   Docs: Docs;

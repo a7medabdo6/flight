@@ -8,6 +8,7 @@ import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { CreateCodeDto } from 'src/users/dto/create-code.dto';
+const jwt = require('jsonwebtoken');
 
 const scrypt = promisify(_scrypt);
 
@@ -24,13 +25,14 @@ export class AuthService {
   //   const user = await this.usersService.createcode(CreateCodeDto);
   //   return user;
   // }
-  
+
   async signup(createUserDto: CreateUserDto) {
     const { email, password, role, username } = createUserDto;
     const users = await this.usersService.findOneByEmail(email);
     if (users) {
       throw new BadRequestException('email already Registered');
     }
+
     const salt = randomBytes(8).toString('hex');
     const hash = (await scrypt(password, salt, 32)) as Buffer;
     const result = salt + '.' + hash.toString('hex');
@@ -48,6 +50,10 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException('user Not Fpund');
     }
+    let Token = jwt.sign(
+      { user: user.id, role: user.role },
+      'jsonwebtokensecret',
+    );
     const [salt, stroreHash] = user.password.split('.');
     console.log(salt);
     const hash = (await scrypt(password, salt, 32)) as Buffer;
@@ -55,6 +61,6 @@ export class AuthService {
     if (stroreHash !== hash.toString('hex')) {
       throw new BadRequestException('Wrong password');
     }
-    return user;
+    return { ...user, Token };
   }
 }

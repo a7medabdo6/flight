@@ -6,27 +6,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthGuard = void 0;
+exports.AdminGuard = void 0;
 const common_1 = require("@nestjs/common");
-const jwt = require("jsonwebtoken");
-let AuthGuard = class AuthGuard {
+const jwt = require('jsonwebtoken');
+let AdminGuard = class AdminGuard {
     canActivate(context) {
         const req = context.switchToHttp().getRequest();
         console.log(req.headers['token']);
         try {
             var decoded = jwt.verify(req.headers['token'], 'jsonwebtokensecret');
-            if (decoded) {
-                req.user = decoded;
+            if (decoded && decoded.role == 'superadmin') {
                 return decoded;
             }
+            return false;
         }
         catch (err) {
             return false;
         }
     }
 };
-AuthGuard = __decorate([
+AdminGuard = __decorate([
     (0, common_1.Injectable)()
-], AuthGuard);
-exports.AuthGuard = AuthGuard;
-//# sourceMappingURL=auth.guard.js.map
+], AdminGuard);
+exports.AdminGuard = AdminGuard;
+//# sourceMappingURL=admin.guard.js.map
