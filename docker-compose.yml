@@ -1,15 +1,16 @@
-version: '3.1'
+version: "3.1"
 services:
   nestjs-app:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: /flight_backend/Dockerfile
     container_name: nestjs_app_container
     # image: a7medabdo6/care_managment
     volumes:
-      - ./src:/App/src:ro
+      dockerfile: /flight_backend/Dockerfile
+      - ./flight_backend/src:/App/src:ro
     ports:
-      - '5000:5000'
+      - "5000:5000"
 
   nginx:
     build:
