@@ -15,7 +15,7 @@ import { FlightService } from 'src/flight/flight.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateSeatTwoDto } from './dto/create-seatTwoWay.dto';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @Controller('seat')
 export class SeatController {
   constructor(

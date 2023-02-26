@@ -5,12 +5,12 @@ import { UpdateFlightDto } from './dto/update-flight.dto';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @Controller('flight')
 export class FlightController {
   constructor(private readonly flightService: FlightService) {}
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Post()
   create(@Body() createFlightDto: CreateFlightDto) {
     return this.flightService.create(createFlightDto);
