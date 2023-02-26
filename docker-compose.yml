@@ -3,11 +3,10 @@ services:
   nestjs-app:
     build:
       context: ./flight_backend
-      dockerfile: /flight_backend/Dockerfile
+      dockerfile: Dockerfile
     container_name: nestjs_app_container
     # image: a7medabdo6/care_managment
     volumes:
-      dockerfile: /flight_backend/Dockerfile
       - ./flight_backend/src:/App/src:ro
     ports:
       - "5000:5000"
