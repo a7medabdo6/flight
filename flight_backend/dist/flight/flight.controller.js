@@ -18,8 +18,6 @@ const common_1 = require("@nestjs/common");
 const flight_service_1 = require("./flight.service");
 const create_flight_dto_1 = require("./dto/create-flight.dto");
 const update_flight_dto_1 = require("./dto/update-flight.dto");
-const admin_guard_1 = require("../guards/admin.guard");
-const auth_guard_1 = require("../guards/auth.guard");
 let FlightController = class FlightController {
     constructor(flightService) {
         this.flightService = flightService;
@@ -41,7 +39,6 @@ let FlightController = class FlightController {
     }
 };
 __decorate([
-    (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
     (0, common_1.Post)(),
     openapi.ApiResponse({ status: 201, type: require("./entities/flight.entity").Flight }),
     __param(0, (0, common_1.Body)()),
@@ -82,7 +79,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FlightController.prototype, "remove", null);
 FlightController = __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Controller)('flight'),
     __metadata("design:paramtypes", [flight_service_1.FlightService])
 ], FlightController);

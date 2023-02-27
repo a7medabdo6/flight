@@ -22,9 +22,6 @@ const update_user_dto_1 = require("./dto/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dto/user.dto");
 const auth_service_1 = require("../auth/auth.service");
-const current_user_decorator_1 = require("../decorators/current-user.decorator");
-const current_user_interceptor_1 = require("../users/interceptors/current-user.interceptor");
-const auth_guard_1 = require("../guards/auth.guard");
 const flight_service_1 = require("../flight/flight.service");
 let UsersController = class UsersController {
     constructor(usersService, authService, flightService) {
@@ -32,19 +29,15 @@ let UsersController = class UsersController {
         this.authService = authService;
         this.flightService = flightService;
     }
-    whoami(user) {
-        return user;
-    }
     async getHello(i18n) {
         return await i18n.t('test.HELLO');
     }
-    async signup(createUserDto, session) {
+    async signup(createUserDto) {
         const user = await this.authService.signup(createUserDto);
         return user;
     }
-    async signin(createUserDto, session) {
+    async signin(createUserDto) {
         const user = await this.authService.signin(createUserDto);
-        session.userId = user.id;
         return user;
     }
     async signout(session) {
@@ -74,15 +67,6 @@ let UsersController = class UsersController {
     }
 };
 __decorate([
-    (0, common_1.Get)('/whoami'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    openapi.ApiResponse({ status: 200, type: Object }),
-    __param(0, (0, current_user_decorator_1.CurrentUser)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "whoami", null);
-__decorate([
     (0, common_1.Get)('/trans'),
     openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, nestjs_i18n_1.I18n)()),
@@ -94,18 +78,16 @@ __decorate([
     (0, common_1.Post)('/signup'),
     openapi.ApiResponse({ status: 201, type: require("./entities/user.entity").User }),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "signup", null);
 __decorate([
     (0, common_1.Post)('/signin'),
     openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "signin", null);
 __decorate([
@@ -169,7 +151,6 @@ __decorate([
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
-    (0, common_1.UseInterceptors)(current_user_interceptor_1.CurrentUserInterceptor),
     __metadata("design:paramtypes", [users_service_1.UsersService,
         auth_service_1.AuthService,
         flight_service_1.FlightService])

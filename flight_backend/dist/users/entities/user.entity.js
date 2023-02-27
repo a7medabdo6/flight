@@ -33,11 +33,11 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: 'test' }),
     __metadata("design:type", String)
 ], User.prototype, "phone", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: 'test' }),
     __metadata("design:type", String)
 ], User.prototype, "photo", void 0);
 __decorate([
