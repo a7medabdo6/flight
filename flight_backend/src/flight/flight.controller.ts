@@ -14,6 +14,8 @@ import { UpdateFlightDto } from './dto/update-flight.dto';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { FlightCompanyService } from 'src/flight-company/flight-company.service';
+import { CountryService } from 'src/country/country.service';
+import { CityService } from 'src/city/city.service';
 
 //@UseGuards(AuthGuard)
 @Controller('flight')
@@ -21,6 +23,8 @@ export class FlightController {
   constructor(
     private readonly flightService: FlightService,
     private readonly flightCompanyService: FlightCompanyService,
+    private readonly countryService: CountryService,
+    private readonly city: CityService,
   ) {}
 
   //  @UseGuards(AdminGuard)
@@ -29,7 +33,16 @@ export class FlightController {
     const flightCompanyService = await this.flightCompanyService.findOne(
       createFlightDto.company_id,
     );
-    return this.flightService.create(createFlightDto, flightCompanyService);
+    const countryService = await this.countryService.findOne(
+      createFlightDto.country_id,
+    );
+    const city = await this.city.findOne(createFlightDto.city_id);
+    return this.flightService.create(
+      createFlightDto,
+      flightCompanyService,
+      countryService,
+      city,
+    );
   }
 
   @Get()

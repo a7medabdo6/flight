@@ -24,6 +24,10 @@ import { Supplier } from './supplier/entities/supplier.entity';
 import { SeatToSeat } from './seat/entities/SeatToSeat.entity';
 import { FlightCompanyModule } from './flight-company/flight-company.module';
 import { FlightCompany } from './flight-company/entities/flight-company.entity';
+import { CountryModule } from './country/country.module';
+import { CityModule } from './city/city.module';
+import { Country } from './country/entities/country.entity';
+import { City } from './city/entities/city.entity';
 
 @Module({
   imports: [
@@ -52,7 +56,17 @@ import { FlightCompany } from './flight-company/entities/flight-company.entity';
       database: 'flight',
       password: '',
 
-      entities: [User, Docs, Flight, Seat, SeatToSeat, Supplier, FlightCompany],
+      entities: [
+        User,
+        Docs,
+        Flight,
+        Seat,
+        SeatToSeat,
+        Supplier,
+        FlightCompany,
+        Country,
+        City,
+      ],
       synchronize: true,
     }),
     UsersModule,
@@ -61,6 +75,8 @@ import { FlightCompany } from './flight-company/entities/flight-company.entity';
     SeatModule,
     SupplierModule,
     FlightCompanyModule,
+    CountryModule,
+    CityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,14 +19,20 @@ const flight_service_1 = require("./flight.service");
 const create_flight_dto_1 = require("./dto/create-flight.dto");
 const update_flight_dto_1 = require("./dto/update-flight.dto");
 const flight_company_service_1 = require("../flight-company/flight-company.service");
+const country_service_1 = require("../country/country.service");
+const city_service_1 = require("../city/city.service");
 let FlightController = class FlightController {
-    constructor(flightService, flightCompanyService) {
+    constructor(flightService, flightCompanyService, countryService, city) {
         this.flightService = flightService;
         this.flightCompanyService = flightCompanyService;
+        this.countryService = countryService;
+        this.city = city;
     }
     async create(createFlightDto) {
         const flightCompanyService = await this.flightCompanyService.findOne(createFlightDto.company_id);
-        return this.flightService.create(createFlightDto, flightCompanyService);
+        const countryService = await this.countryService.findOne(createFlightDto.country_id);
+        const city = await this.city.findOne(createFlightDto.city_id);
+        return this.flightService.create(createFlightDto, flightCompanyService, countryService, city);
     }
     findAll() {
         return this.flightService.findAll();
@@ -84,7 +90,9 @@ __decorate([
 FlightController = __decorate([
     (0, common_1.Controller)('flight'),
     __metadata("design:paramtypes", [flight_service_1.FlightService,
-        flight_company_service_1.FlightCompanyService])
+        flight_company_service_1.FlightCompanyService,
+        country_service_1.CountryService,
+        city_service_1.CityService])
 ], FlightController);
 exports.FlightController = FlightController;
 //# sourceMappingURL=flight.controller.js.map

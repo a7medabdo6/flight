@@ -11,27 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Flight = void 0;
 const openapi = require("@nestjs/swagger");
+const city_entity_1 = require("../../city/entities/city.entity");
+const country_entity_1 = require("../../country/entities/country.entity");
 const flight_company_entity_1 = require("../../flight-company/entities/flight-company.entity");
 const seat_entity_1 = require("../../seat/entities/seat.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
 let Flight = class Flight {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, country: { required: true, type: () => String }, city: { required: true, type: () => String }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, company: { required: true, type: () => require("../../flight-company/entities/flight-company.entity").FlightCompany }, seats: { required: true, type: () => require("../../seat/entities/seat.entity").Seat }, user: { required: false, type: () => [require("../../users/entities/user.entity").User] }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => Number }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, company: { required: true, type: () => require("../../flight-company/entities/flight-company.entity").FlightCompany }, country: { required: true, type: () => require("../../country/entities/country.entity").Country }, city: { required: true, type: () => require("../../city/entities/city.entity").City }, seats: { required: true, type: () => require("../../seat/entities/seat.entity").Seat }, user: { required: false, type: () => [require("../../users/entities/user.entity").User] }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
     }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Flight.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Flight.prototype, "country", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Flight.prototype, "city", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: null }),
     __metadata("design:type", String)
@@ -69,6 +63,16 @@ __decorate([
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", flight_company_entity_1.FlightCompany)
 ], Flight.prototype, "company", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => country_entity_1.Country, (country) => country.flight),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", country_entity_1.Country)
+], Flight.prototype, "country", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => city_entity_1.City, (city) => city.flight),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", city_entity_1.City)
+], Flight.prototype, "city", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => seat_entity_1.Seat, (seat) => seat.flight),
     (0, typeorm_1.JoinColumn)(),

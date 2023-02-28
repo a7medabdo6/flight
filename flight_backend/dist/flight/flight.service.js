@@ -22,9 +22,11 @@ let FlightService = class FlightService {
     constructor(repo) {
         this.repo = repo;
     }
-    async create(createFlightDto, flightCompany) {
+    async create(createFlightDto, flightCompany, country, city) {
         const flight = await this.repo.create(createFlightDto);
         flight.company = flightCompany;
+        flight.country = country;
+        flight.city = city;
         return this.repo.save(flight);
     }
     async findAllByIds(ids) {
@@ -41,7 +43,13 @@ let FlightService = class FlightService {
         return plan;
     }
     async findAll() {
-        const flight = await this.repo.find({});
+        const flight = await this.repo.find({
+            relations: {
+                city: true,
+                company: true,
+                country: true,
+            },
+        });
         return flight;
     }
     async findOne(id) {
@@ -49,7 +57,14 @@ let FlightService = class FlightService {
         if (!id) {
             throw new exceptions_1.UnauthorizedException('unAuthorized');
         }
-        const flight = await this.repo.findOne({ where: { id } });
+        const flight = await this.repo.findOne({
+            where: { id },
+            relations: {
+                city: true,
+                company: true,
+                country: true,
+            },
+        });
         if (!flight) {
             throw new exceptions_1.NotFoundException('flight not found');
         }

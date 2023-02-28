@@ -4,6 +4,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
+import { City } from 'src/city/entities/city.entity';
+import { Country } from 'src/country/entities/country.entity';
 import { FlightCompany } from 'src/flight-company/entities/flight-company.entity';
 import { In, Repository } from 'typeorm';
 import { CreateFlightDto } from './dto/create-flight.dto';
@@ -14,9 +16,16 @@ import { Flight } from './entities/flight.entity';
 export class FlightService {
   constructor(@InjectRepository(Flight) private repo: Repository<Flight>) {}
 
-  async create(createFlightDto: CreateFlightDto, flightCompany: FlightCompany) {
+  async create(
+    createFlightDto: CreateFlightDto,
+    flightCompany: FlightCompany,
+    country: Country,
+    city: City,
+  ) {
     const flight = await this.repo.create(createFlightDto);
     flight.company = flightCompany;
+    flight.country = country;
+    flight.city = city;
 
     return this.repo.save(flight);
   }
@@ -34,7 +43,13 @@ export class FlightService {
     return plan;
   }
   async findAll() {
-    const flight = await this.repo.find({});
+    const flight = await this.repo.find({
+      relations: {
+        city: true,
+        company: true,
+        country: true,
+      },
+    });
     return flight;
   }
 
@@ -43,7 +58,14 @@ export class FlightService {
     if (!id) {
       throw new UnauthorizedException('unAuthorized');
     }
-    const flight = await this.repo.findOne({ where: { id } });
+    const flight = await this.repo.findOne({
+      where: { id },
+      relations: {
+        city: true,
+        company: true,
+        country: true,
+      },
+    });
     if (!flight) {
       throw new NotFoundException('flight not found');
     }
