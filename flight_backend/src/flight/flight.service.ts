@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { NotFoundException, UnauthorizedException } from '@nestjs/common/exceptions';
+import {
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FlightCompany } from 'src/flight-company/entities/flight-company.entity';
 import { In, Repository } from 'typeorm';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { UpdateFlightDto } from './dto/update-flight.dto';
@@ -8,12 +12,11 @@ import { Flight } from './entities/flight.entity';
 
 @Injectable()
 export class FlightService {
-  constructor(
-    @InjectRepository(Flight) private repo: Repository<Flight>,
-  ) {}
+  constructor(@InjectRepository(Flight) private repo: Repository<Flight>) {}
 
-  async create(createFlightDto: CreateFlightDto) {
+  async create(createFlightDto: CreateFlightDto, flightCompany: FlightCompany) {
     const flight = await this.repo.create(createFlightDto);
+    flight.company = flightCompany;
 
     return this.repo.save(flight);
   }

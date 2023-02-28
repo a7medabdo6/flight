@@ -23,6 +23,8 @@ const seat_entity_1 = require("./seat/entities/seat.entity");
 const supplier_module_1 = require("./supplier/supplier.module");
 const supplier_entity_1 = require("./supplier/entities/supplier.entity");
 const SeatToSeat_entity_1 = require("./seat/entities/SeatToSeat.entity");
+const flight_company_module_1 = require("./flight-company/flight-company.module");
+const flight_company_entity_1 = require("./flight-company/entities/flight-company.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -41,12 +43,12 @@ AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'db-mysql-sfo3-55643-do-user-9120615-0.b.db.ondigitalocean.com',
-                port: 25060,
-                username: 'doadmin',
-                password: 'AVNS_vPJjdBFePeawLu5rHmC',
-                database: 'defaultdb',
-                entities: [user_entity_1.User, Docs_entity_1.Docs, flight_entity_1.Flight, seat_entity_1.Seat, SeatToSeat_entity_1.SeatToSeat, supplier_entity_1.Supplier],
+                username: 'root',
+                port: 3306,
+                host: 'localhost',
+                database: 'flight',
+                password: '',
+                entities: [user_entity_1.User, Docs_entity_1.Docs, flight_entity_1.Flight, seat_entity_1.Seat, SeatToSeat_entity_1.SeatToSeat, supplier_entity_1.Supplier, flight_company_entity_1.FlightCompany],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
@@ -54,6 +56,7 @@ AppModule = __decorate([
             flight_module_1.FlightModule,
             seat_module_1.SeatModule,
             supplier_module_1.SupplierModule,
+            flight_company_module_1.FlightCompanyModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

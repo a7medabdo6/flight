@@ -22,8 +22,9 @@ let FlightService = class FlightService {
     constructor(repo) {
         this.repo = repo;
     }
-    async create(createFlightDto) {
+    async create(createFlightDto, flightCompany) {
         const flight = await this.repo.create(createFlightDto);
+        flight.company = flightCompany;
         return this.repo.save(flight);
     }
     async findAllByIds(ids) {

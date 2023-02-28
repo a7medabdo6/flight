@@ -1,3 +1,4 @@
+import { FlightCompany } from 'src/flight-company/entities/flight-company.entity';
 import { Seat } from 'src/seat/entities/seat.entity';
 import { User } from 'src/users/entities/user.entity';
 export declare class Flight {
@@ -12,6 +13,7 @@ export declare class Flight {
     arrival_time: string;
     duration: string;
     weight: string;
+    company: FlightCompany;
     seats: Seat;
     user?: User[];
     created_at: Date;

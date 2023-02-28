@@ -22,6 +22,8 @@ import { Seat } from './seat/entities/seat.entity';
 import { SupplierModule } from './supplier/supplier.module';
 import { Supplier } from './supplier/entities/supplier.entity';
 import { SeatToSeat } from './seat/entities/SeatToSeat.entity';
+import { FlightCompanyModule } from './flight-company/flight-company.module';
+import { FlightCompany } from './flight-company/entities/flight-company.entity';
 
 @Module({
   imports: [
@@ -38,19 +40,19 @@ import { SeatToSeat } from './seat/entities/SeatToSeat.entity';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db-mysql-sfo3-55643-do-user-9120615-0.b.db.ondigitalocean.com',
-      port: 25060,
-      username: 'doadmin',
-      password: 'AVNS_vPJjdBFePeawLu5rHmC',
-      database: 'defaultdb',
+      // host: 'db-mysql-sfo3-55643-do-user-9120615-0.b.db.ondigitalocean.com',
+      // port: 25060,
+      // username: 'doadmin',
+      // password: 'AVNS_vPJjdBFePeawLu5rHmC',
+      // database: 'defaultdb',
 
-      // username: 'root',
-      // port: 3306,
-      // host: 'localhost',
-      // database: 'flight',
-      // password: '',
+      username: 'root',
+      port: 3306,
+      host: 'localhost',
+      database: 'flight',
+      password: '',
 
-      entities: [User, Docs, Flight, Seat, SeatToSeat, Supplier],
+      entities: [User, Docs, Flight, Seat, SeatToSeat, Supplier, FlightCompany],
       synchronize: true,
     }),
     UsersModule,
@@ -58,6 +60,7 @@ import { SeatToSeat } from './seat/entities/SeatToSeat.entity';
     FlightModule,
     SeatModule,
     SupplierModule,
+    FlightCompanyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

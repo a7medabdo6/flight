@@ -1,12 +1,11 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateFlightDto {
   @IsString()
   country: string;
   @IsString()
   city: string;
-  @IsString()
-  airlines: string;
+
   @IsString()
   flight_number: string;
   @IsString()
@@ -21,4 +20,6 @@ export class CreateFlightDto {
   duration: string;
   @IsString()
   weight: string;
+  @IsNumber()
+  company_id: number;
 }

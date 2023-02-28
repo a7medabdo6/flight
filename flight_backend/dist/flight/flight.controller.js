@@ -18,12 +18,15 @@ const common_1 = require("@nestjs/common");
 const flight_service_1 = require("./flight.service");
 const create_flight_dto_1 = require("./dto/create-flight.dto");
 const update_flight_dto_1 = require("./dto/update-flight.dto");
+const flight_company_service_1 = require("../flight-company/flight-company.service");
 let FlightController = class FlightController {
-    constructor(flightService) {
+    constructor(flightService, flightCompanyService) {
         this.flightService = flightService;
+        this.flightCompanyService = flightCompanyService;
     }
-    create(createFlightDto) {
-        return this.flightService.create(createFlightDto);
+    async create(createFlightDto) {
+        const flightCompanyService = await this.flightCompanyService.findOne(createFlightDto.company_id);
+        return this.flightService.create(createFlightDto, flightCompanyService);
     }
     findAll() {
         return this.flightService.findAll();
@@ -44,7 +47,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_flight_dto_1.CreateFlightDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], FlightController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
@@ -80,7 +83,8 @@ __decorate([
 ], FlightController.prototype, "remove", null);
 FlightController = __decorate([
     (0, common_1.Controller)('flight'),
-    __metadata("design:paramtypes", [flight_service_1.FlightService])
+    __metadata("design:paramtypes", [flight_service_1.FlightService,
+        flight_company_service_1.FlightCompanyService])
 ], FlightController);
 exports.FlightController = FlightController;
 //# sourceMappingURL=flight.controller.js.map
