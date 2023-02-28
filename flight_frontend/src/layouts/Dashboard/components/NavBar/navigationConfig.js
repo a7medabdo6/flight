@@ -139,6 +139,21 @@ export default [
         href: '/Suppliers',
         icon: PeopleIcon
       },
+      {
+        title: 'Country',
+        href: '/Country',
+        icon: PeopleIcon
+      },
+      {
+        title: 'City',
+        href: '/city',
+        icon: PeopleIcon
+      },
+      {
+        title: 'Company',
+        href: '/Company',
+        icon: PeopleIcon
+      },
       // {
       //   title: 'visa',
       //   href: '/social-feed',

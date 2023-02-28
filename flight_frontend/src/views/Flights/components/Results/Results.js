@@ -240,7 +240,7 @@ const [itemData,setitemData]=useState()
                     <TableRow
                       hover
                       key={customer.id}
-                      selected={selectedCustomers.indexOf(customer.id) !== -1}
+                      selected={selectedCustomers.indexOf(customer?.id) !== -1}
                     >
                       <TableCell className='text-center' padding="checkbox">
 
@@ -252,11 +252,11 @@ const [itemData,setitemData]=useState()
                         />
                       </TableCell>
                       <TableCell className='text-center'>
-                      {customer?.country}
+                      {customer?.country?.name}
                       </TableCell>
-                      <TableCell className='text-center'>{customer?.city}</TableCell>
+                      <TableCell className='text-center'>{customer?.city?.name}</TableCell>
                       <TableCell className='text-center'>
-                      {customer?.airlines}
+                      {customer?.company?.name}
                       </TableCell>
                       <TableCell className='text-center'>{customer?.flight_number}</TableCell>
                       <TableCell className='text-center'>{customer?.departure_airport}</TableCell>

@@ -6,6 +6,8 @@ import { COLORS } from 'utils/COLORS.'
 import notify from 'utils/useNotifaction'
 import AddFlightCard from './AddFlightCard'
 import { ToastContainer } from 'react-toastify'
+import { GetflightCompanyHook } from 'Hook/Company/Get-Company-Hook'
+import { GetcountryHook } from 'Hook/Country/Get-Country-Hook'
 
 const AddFlight = ({handleClose,isSuccses,setisSuccses}) => {
     const [country,setcountry]=useState()
@@ -41,9 +43,9 @@ console.log(country);
 
         
         const data ={
-            "country": country,
-            "city": city,
-            "airlines": airlines,
+            "country_id": +country,
+            "city_id": 3,
+            "company_id": +airlines,
             "flight_number": flight_number,
             "departure_airport": departure_airport,
             "arrival_airport": arrival_airport,
@@ -72,6 +74,19 @@ useEffect(()=>{
         handleClose() 
     }
 },[data])
+
+const {data:GetData}=GetflightCompanyHook()
+
+const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
+console.log(GetflightCompanyData);
+
+
+const {data:GetDataCountry}=GetcountryHook()
+
+const {GetcountryData} =useSelector(state => state.GetcountryRedux)
+console.log(GetcountryData);
+
+
     const items = {
         itemsCountry:( <>
             <select style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -87,12 +102,23 @@ useEffect(()=>{
     }
     const Inputs={
         InputCity:( <>
-            <input onChange={HanadelCity}  style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="City" aria-label="default input example"/>
+            <input   onChange={HanadelCity}  style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="City" aria-label="default input example"/>
 
         </>),
        
         InputAirlines:( <>
-            <input onChange={Hanadelairlines} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Airlines" aria-label="default input example"/>
+        <select onChange={Hanadelairlines} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+        <option selected disabled>Open this select menu</option>
+
+            {
+                GetflightCompanyData?.map((item,index)=>{return(
+                 <option value={item?.id}>{item?.name}</option>
+
+                )})
+            }
+
+
+</select>
 
         </>),
         InputDeparture_Airport:( <>
@@ -104,7 +130,19 @@ useEffect(()=>{
 
         </>),
         InputCountry:( <>
-            <input onChange={HanadelCountry} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Country" aria-label="default input example"/>
+         <select onChange={HanadelCountry} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+        <option selected disabled>Open this select menu</option>
+
+            {
+                GetcountryData?.map((item,index)=>{return(
+                 <option value={item?.id}>{item?.name}</option>
+
+                )})
+            }
+
+
+</select>
+
 
         </>),
         InputWight:( <>

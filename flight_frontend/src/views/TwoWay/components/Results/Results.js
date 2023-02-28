@@ -32,6 +32,8 @@ import { COLORS } from 'utils/COLORS.';
 import Edite from 'views/TwoWay/Edite/Edite';
 import color from '@material-ui/core/colors/amber';
 import AddRoundTrip from 'views/TwoWay/Add-RoundTrip/AddRoundTrip';
+import { GetSeatTwoWayHook } from 'Hook/SeatTwoWay/Get-TwoWay-Hook';
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles(theme => ({
@@ -127,6 +129,14 @@ const Results = props => {
 
   const [smShowaDD, setsmShowaDD] = useState(false);
   const handelshowADD =() => setsmShowaDD(true)
+  const handelCloseADD =() => setsmShowaDD(false)
+
+
+  const {data}=GetSeatTwoWayHook()
+
+  const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
+  console.log(data);
+
 
   return (
     <div
@@ -168,7 +178,7 @@ const Results = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{padding:0}}>
-          <AddRoundTrip />
+          <AddRoundTrip handelCloseADD={handelCloseADD}/>
         </Modal.Body>
       </Modal>
 
@@ -248,7 +258,7 @@ const Results = props => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {customers.slice(0, rowsPerPage).map(customer => (
+                  {GetSeatTwoWayData?.map(customer => (
                     <TableRow
                       hover
                       key={customer.id}
@@ -260,59 +270,63 @@ const Results = props => {
                         RJ
                       </TableCell>
                       <TableCell className='text-center '>AMM-IST-AMM</TableCell>
-                      <TableCell className='text-center'>jav</TableCell>
                       <TableCell className='text-center px-0'><div>
-                        <p>R4515</p> 
+                        <p>{customer?.seat?.flight_number}</p> 
                         <hr/>
-                        <p>R7845</p>
+                        <p>{customer?.secondseat?.flight_number}</p>
+                        </div></TableCell>
+                      <TableCell className='text-center px-0'><div>
+                        <p>{customer?.seat?.departure_airport}</p> 
+                        <hr/>
+                        <p>{customer?.secondseat?.departure_airport}</p>
                         </div></TableCell>
                       <TableCell className='text-center px-0'>
                         <div>
-                        <p>AMM</p> 
+                        <p>{customer?.seat?.arrival_airport}</p> 
                         <hr/>
-                        <p>IST</p>
+                        <p>{customer?.secondseat?.arrival_airport}</p>
                         </div>
                         </TableCell>
 
                       <TableCell className='text-center px-0'>
                       <div>
-                        <p>IST</p> 
+                        <p>{customer?.seat?.departure_time}</p> 
                         <hr/>
-                        <p>AMM</p>
+                        <p>{customer?.secondseat?.departure_time}</p>
                         </div>
                       </TableCell>
 
 
                       <TableCell className='text-center px-0'>
                       <div>
-                        <p>17:00</p> 
+                        <p>{customer?.seat?.arrival_time}</p> 
                         <hr/>
-                        <p>19:00</p>
+                        <p>{customer?.secondseat?.arrival_time}</p>
                         </div>
                       </TableCell>
                       <TableCell className='text-center px-0'>
                       <div>
-                        <p>19:35</p> 
+                        <p>{customer?.seat?.duration}</p> 
                         <hr/>
-                        <p>12:52</p>
+                        <p>{customer?.secondseat?.duration}</p>
                         </div>
                       </TableCell>
                       <TableCell className='text-center px-0'>
                       <div>
-                        <p>46</p> 
+                        <p>{customer?.seat?.weight}</p> 
                         <hr/>
-                        <p>46</p>
+                        <p>{customer?.secondseat?.weight}</p>
                         </div>
                       </TableCell>
                       <TableCell className='text-center px-0'>
                       <div>
-                        <p>Sunday</p> 
+                        <p>{customer?.seat?.suppliers}</p> 
                         <hr/>
-                        <p>Sunday</p>
+                        <p>{customer?.secondseat?.suppliers}</p>
                         </div>
                       </TableCell>
                       <TableCell className='text-center'>Dayes=10</TableCell>
-                      <TableCell className='text-center'>130</TableCell>
+                      <TableCell className='text-center'>{customer?.price}</TableCell>
                      
                       <TableCell className='text-center' align="right">
                         <div className='d-flex '>

@@ -9,6 +9,11 @@ import { renderRoutes } from 'react-router-config';
 
 import theme from './theme';
 import routes from './routes';
+import UserRoutes from './UserRoutes';
+
+import B2BAdminRoutes from './B2BAdminRoutes';
+
+
 import {
   ScrollReset,
   GoogleAnalytics,
@@ -24,7 +29,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 const history = createBrowserHistory();
 const queryClient = new QueryClient()
-
+const user =JSON.parse(localStorage.getItem('user')) ;
+console.log(user);
 const App = () => {
   return (
     <QueryClientProvider client={queryClient} >
@@ -35,6 +41,8 @@ const App = () => {
             <GoogleAnalytics />
             <CookiesNotification />
             {renderRoutes(routes)}
+            {/* {user ? (user?.role === "superadmin" ? renderRoutes(routes):renderRoutes(B2BAdminRoutes)):(renderRoutes(UserRoutes))} */}
+
           </Router>
         </MuiPickersUtilsProvider>
       </ThemeProvider>

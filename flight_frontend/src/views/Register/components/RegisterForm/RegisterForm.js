@@ -14,6 +14,9 @@ import {
 } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
+import { SignUpApi } from 'Hook/Auth/SignUp-Hook';
+import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 const schema = {
   firstName: {
@@ -22,12 +25,7 @@ const schema = {
       maximum: 32
     }
   },
-  lastName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
+
   email: {
     presence: { allowEmpty: false, message: 'is required' },
     email: true,
@@ -113,13 +111,30 @@ const RegisterForm = props => {
     }));
   };
 
+  const {isLoading,mutate:SubmitSignUp,isError,error,data} =  SignUpApi()
+  const {SignUpData} = useSelector(state => state.SignUpRedux)
   const handleSubmit = async event => {
     event.preventDefault();
-    history.push('/');
+    let data ={
+      "email": formState.values.email,
+      "password": formState.values.password,
+      "username": formState.values.firstName,
+      "role": "superadmin",
+      "active": true
+    }
+
+    SubmitSignUp(data)
   };
+  useEffect(()=>{
+    if(data){
+      history.push('/auth/login');
+
+    }
+  },[data])
 
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
+
 
   return (
     <form
@@ -139,17 +154,7 @@ const RegisterForm = props => {
           value={formState.values.firstName || ''}
           variant="outlined"
         />
-        <TextField
-          error={hasError('lastName')}
-          helperText={
-            hasError('lastName') ? formState.errors.lastName[0] : null
-          }
-          label="Last name"
-          name="lastName"
-          onChange={handleChange}
-          value={formState.values.lastName || ''}
-          variant="outlined"
-        />
+       
         <TextField
           error={hasError('email')}
           fullWidth
@@ -213,6 +218,8 @@ const RegisterForm = props => {
       >
         Create account
       </Button>
+      <ToastContainer></ToastContainer>
+
     </form>
   );
 };

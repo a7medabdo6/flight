@@ -129,6 +129,23 @@ const routes = [
         component: lazy(() => import('views/Suppliers'))
       },
       {
+        path: '/Country',
+        exact: true,
+        component: lazy(() => import('views/Country'))
+      },
+      {
+        path: '/city',
+        exact: true,
+        component: lazy(() => import('views/City'))
+      },
+
+      {
+        path: '/Company',
+        exact: true,
+        component: lazy(() => import('views/Company'))
+      },
+      
+      {
         path: '/twoWay',
         exact: true,
         component: lazy(() => import('views/TwoWay'))
