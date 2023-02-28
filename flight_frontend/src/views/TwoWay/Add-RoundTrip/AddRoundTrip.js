@@ -19,9 +19,15 @@ import {
     TableRow,
     Typography
   } from '@material-ui/core';
-const AddRoundTrip = () => {
+import { CreateTwoWayApi } from 'Hook/SeatTwoWay/Create-TwoWay-Hook';
+import { useSelector } from 'react-redux';
+import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
+const AddRoundTrip = ({handelCloseADD}) => {
   const [NoDayes,setNoDayes]=useState()
 const [check,setcheck]=useState(false)
+const [DataFlightOne,setDataFlightOne]=useState()
+const [DataFlightTwo,setDataFlightTwo]=useState()
+console.log();
   const handelNoDayes=(e)=>{
     setNoDayes(e.target.value)
   }
@@ -34,6 +40,7 @@ const [check,setcheck]=useState(false)
 
     }
   },[NoDayes])
+  const [ShowTable,setShowTable]=useState(false)
     const [count,setcount]=useState(0)
     const increase = ()=>{
   setcount(count + 1)
@@ -41,6 +48,84 @@ const [check,setcheck]=useState(false)
     const Descrease = ()=>{
       setcount(count - 1)
         }
+        const {data}=GetSeatHook()
+
+        const {GetSeatData} =useSelector(state => state.GetSeatRedux)
+        console.log(GetSeatData);
+
+
+        const {mutate:SubmitCreateTwoWay,data:DataCreat} =  CreateTwoWayApi()
+        const {CreateTwoWayData,error:ERROR} = useSelector(state => state.CreateTwoWayRedux)
+const [Dayes,setDayes]=useState()
+const [flietNumOne,setflietNumOne]=useState()
+const [flietNumTwo,setflietNumTwo]=useState()
+const [priceOne,setpriceOne]=useState()
+const [priceTwo,setpriceTwo]=useState()
+const [TotalPrice,setTotalPrice]=useState()
+console.log(flietNumOne);
+
+console.log(TotalPrice);
+
+const HnadelChangeDayes =(e)=>{
+  setDayes(e.target.value)
+}
+const HandelCalculate=()=>{
+ let SupPrice = +priceOne + +priceTwo
+ console.log(SupPrice);
+ if(NoDayes === "Less"){
+  setTotalPrice(SupPrice - count)
+ }
+}
+    
+useEffect(()=>{
+  if(TotalPrice){
+    setShowTable(true)
+  }
+},[TotalPrice])
+console.log(flietNumOne);
+        const handelflietNumOne=(e)=>{
+          const item =GetSeatData?.filter((item)=>{return(
+            item.flight_number === e.target.value
+     )})
+     
+          setflietNumOne(item[0].id)
+          setpriceOne(item[0].seat_price)
+          setDataFlightOne(item[0])
+
+        }
+        
+        const handelflietNumTwo=(e)=>{
+          const item =GetSeatData?.filter((item)=>{return(
+            item.flight_number === e.target.value
+     )})
+     
+     setflietNumTwo(item[0].id)
+     setpriceTwo(item[0].seat_price)
+     setDataFlightTwo(item[0])
+
+        }
+       
+    const    handelSave=()=>{
+      const data={
+        
+        
+          
+        
+          "price": TotalPrice.toString(),
+          "seatId": +flietNumOne,
+          "secondseatId": +flietNumTwo
+        
+      }
+      SubmitCreateTwoWay(data)
+
+        }
+
+        useEffect(()=>{
+          if(DataCreat){
+            handelCloseADD()
+
+          }
+        },[DataCreat])
   return (
     <div>
         <div className='d-flex justify-content-between align-items-center '>
@@ -50,8 +135,17 @@ const [check,setcheck]=useState(false)
           <h4>Price</h4>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/>
-         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>120</h6>
+        <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          {
+            GetSeatData?.map((item,index)=>{return(
+              <option key={index}  value={item?.flight_number}>{item?.flight_number}</option>
+
+            )})
+          }
+        </select>
+        {/* <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/> */}
+         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>{priceOne}</h6>
         </div>
 
       </div>
@@ -63,8 +157,15 @@ const [check,setcheck]=useState(false)
           <h4>Price</h4>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/>
-         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>120</h6>
+        <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          {
+            GetSeatData?.map((item,index)=>{return(
+              <option key={index}   value={item?.flight_number}>{item?.flight_number}</option>
+
+            )})
+          }
+        </select>         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>{priceTwo}</h6>
         </div>
 
       </div>
@@ -84,7 +185,7 @@ const [check,setcheck]=useState(false)
      <div style={{marginBottom:"10px"}} className=' d-flex justify-content-center align-items-center flex-column'>
         <p className='text-nowrap'>Enter Dayes:</p>
         <div className=' d-flex justify-content-center align-items-center '>
-        <input className='text-center rounded' style={{width:"30px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
+        <input className='text-center rounded' onChange={HnadelChangeDayes} style={{width:"30px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
         {
           check === true ? (
             <div className=' d-flex justify-content-center align-items-center '>
@@ -102,119 +203,132 @@ const [check,setcheck]=useState(false)
      <div style={{marginBottom:"10px"}} className=' d-flex justify-content-center align-items-center flex-column'>
         <p>No Of Dayes:</p>
         <select style={{backgroundColor:COLORS.blue}} onChange={handelNoDayes} className="form-select" aria-label="Default select example">
-          <option selected value="Less">Less Or Equal</option>
+        <option selected disabled value="1">select </option>
+
+          <option  value="Less">Less Or Equal</option>
           <option value="FromTo">From - To</option>
           <option value="Gerater">Gerater Or Equal</option>
           
         </select>
      </div>
     </div>
-    <button style={{backgroundColor:COLORS.purple,marginBottom:"10px"}}  type="button" className="btn btn-secondary">Calculate</button>  
+    <button onClick={HandelCalculate} style={{backgroundColor:COLORS.purple,marginBottom:"10px"}}  type="button" className="btn btn-secondary">Calculate</button>  
 
 
 </div>
    
-<div>
-  <p style={{backgroundColor:"grey",padding:10,border:"1px solid ",borderRadius:"20px 20px 0px 0px",width:150,marginBottom:0,marginLeft:"25px"}}>Flight Details</p>
- <div style={{border:`1px solid grey`,marginTop:0,marginBottom:10,marginLeft:5,marginRight:5,borderRadius:"20px"}}>
-    <table class="table">
-  <thead>
-    <tr style={{backgroundColor:"grey"}}>
-      <th scope="col" className='tableAddRoundTripFontSize'>Flight Two way</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Airlines</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Flight No.</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Dep.APT</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Arr.APT</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Dep.Time</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Dep.Time</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Duration</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Weight</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>Supplires</th>
-      <th scope="col" className='tableAddRoundTripFontSize'>NO Of Dayes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td className='tableAddRoundTripFontSize' >AMM-IST-AMM</td>
-      <td className='tableAddRoundTripFontSize'>jAV</td>
-      <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>R12451</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>R12451</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>AMM</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>IST</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>IST</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>AMM</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>15:17</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>15:17</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>19:35</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>19:35</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>2:35</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>2:35</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize' >45</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>45</p>
-        </div>
-        </td>
-        <td>
-        <div>
-          <p className='tableAddRoundTripFontSize'>Sundays</p>
-          <hr/>
-          <p className='tableAddRoundTripFontSize'>Sundays</p>
-        </div>
-        </td>
-
-        <td className='tableAddRoundTripFontSize'>
-     Dayes= 5
-        </td>
-    </tr>
+   {
+    ShowTable === true ? (<div>
+      <p style={{backgroundColor:"grey",padding:10,border:"1px solid ",borderRadius:"20px 20px 0px 0px",width:150,marginBottom:0,marginLeft:"25px"}}>Flight Details</p>
+     <div style={{border:`1px solid grey`,marginTop:0,marginBottom:10,marginLeft:5,marginRight:5,borderRadius:"20px"}}>
+        <table class="table">
+      <thead>
+        <tr style={{backgroundColor:"grey"}}>
+          <th scope="col" className='tableAddRoundTripFontSize'>Flight Two way</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Airlines</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Flight No.</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Dep.APT</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Arr.APT</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Dep.Time</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Arr.Time</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Duration</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Weight</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>Supplires</th>
+          <th scope="col" className='tableAddRoundTripFontSize'>NO Of Dayes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className='tableAddRoundTripFontSize' >AMM-IST-AMM</td>
+          <td className='tableAddRoundTripFontSize'><div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.airlines}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.airlines}</p>
+            </div></td>
+          <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.flight_number}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.flight_number}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.departure_airport}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.departure_airport}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.arrival_airport}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.arrival_airport}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.departure_time}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.departure_time}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.arrival_time}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.arrival_time}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.duration}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.duration}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize' >{DataFlightOne?.weight}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.weight}</p>
+            </div>
+            </td>
+            <td>
+            <div>
+              <p className='tableAddRoundTripFontSize'>{DataFlightOne?.suppliers}</p>
+              <hr/>
+              <p className='tableAddRoundTripFontSize'>{DataFlightTwo?.suppliers}</p>
+            </div>
+            </td>
     
-   
-  </tbody>
-</table>
-   </div>
-</div>
+            <td className='tableAddRoundTripFontSize'>
+         Dayes= {Dayes}
+            </td>
+        </tr>
+        
+       
+      </tbody>
+    </table>
+       </div>
+    </div>):null
+   }
 
-<div className='d-flex justify-content-center align-items-center'>
+{
+  ShowTable === true ? (
+    <div className='d-flex justify-content-center align-items-center'>
   <h4>Total Price :</h4>
-  <input className='text-center rounded ms-3' style={{width:"60px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
+  <input disabled value={TotalPrice} className='text-center rounded ms-3' style={{width:"60px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
 
 </div>
+  ):null
+}
+
   
 
 <div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
-      <button style={{marginRight:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Add</button>
-        <button style={{marginLeft:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Cancel</button>  
+      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary">Add</button>
+        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseADD}  type="button" className="btn btn-secondary">Cancel</button>  
       </div>
 
 

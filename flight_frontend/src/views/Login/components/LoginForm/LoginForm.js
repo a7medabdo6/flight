@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Button, TextField } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
 import { login } from 'actions';
+import { SignInApi } from 'Hook/Auth/SignIn-Hook';
+import { ToastContainer } from 'react-toastify';
 
 const schema = {
   email: {
@@ -40,6 +42,10 @@ const useStyles = makeStyles(theme => ({
 const LoginForm = props => {
   const { className, ...rest } = props;
 
+
+  const {isLoading,mutate:SubmitSignIn,isError,error,data} =  SignInApi()
+  const {SignInData} = useSelector(state => state.SignInRedux)
+console.log(SignInData);
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -83,11 +89,33 @@ const LoginForm = props => {
   const handleSubmit = async event => {
     event.preventDefault();
     // dispatch(login());
-    router.history.push('/');
+    let data = {
+    
+      "email": formState.values.email,
+      "password": formState.values.password
+  }
+
+  SubmitSignIn(data)
+
   };
 
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
+    const { history } = useRouter();
+
+   
+    useEffect(()=>{
+      if(data){
+        localStorage.setItem('user', JSON.stringify(SignInData));
+        localStorage.setItem('token', JSON.stringify(SignInData?.Token));
+
+        setTimeout(()=>{
+          history.push('/');
+
+        },[2000])
+  
+      }
+    },[data])
 
   return (
     <form
@@ -130,6 +158,8 @@ const LoginForm = props => {
       >
         Sign in
       </Button>
+      <ToastContainer></ToastContainer>
+
     </form>
   );
 };

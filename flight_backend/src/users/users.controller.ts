@@ -39,7 +39,7 @@ export class UsersController {
   ) {}
 
   @Get('/whoami')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   whoami(@CurrentUser() user: unknown) {
     return user;
   }

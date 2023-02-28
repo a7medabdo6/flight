@@ -125,9 +125,18 @@ const TopBar = props => {
       mounted = false;
     };
   }, []);
-
+const user = localStorage.getItem('user');
+const token = localStorage.getItem('token');
   const handleLogout = () => {
-    history.push('/auth/login');
+    if(user !== null && token !== null){
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      history.push('/auth/login');
+
+    }else{
+      history.push('/auth/login');
+
+    }
     // dispatch(logout());
   };
 
