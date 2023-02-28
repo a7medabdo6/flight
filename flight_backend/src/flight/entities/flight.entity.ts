@@ -1,3 +1,6 @@
+import { City } from 'src/city/entities/city.entity';
+import { Country } from 'src/country/entities/country.entity';
+import { FlightCompany } from 'src/flight-company/entities/flight-company.entity';
 import { Seat } from 'src/seat/entities/seat.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
@@ -11,17 +14,15 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
 export class Flight {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
-  country: string;
-  @Column()
-  city: string;
-  @Column()
+
+  @Column({ default: null })
   airlines: string;
   @Column()
   flight_number: string;
@@ -37,6 +38,18 @@ export class Flight {
   duration: string;
   @Column()
   weight: string;
+  @ManyToOne(() => FlightCompany, (flightCompany) => flightCompany.flight) // specify inverse side as a second parameter
+  @JoinColumn()
+  company: FlightCompany;
+
+  @ManyToOne(() => Country, (country) => country.flight) // specify inverse side as a second parameter
+  @JoinColumn()
+  country: Country;
+
+  @ManyToOne(() => City, (city) => city.flight) // specify inverse side as a second parameter
+  @JoinColumn()
+  city: City;
+
   @OneToMany(() => Seat, (seat) => seat.flight) // specify inverse side as a second parameter
   @JoinColumn()
   seats: Seat;

@@ -30,7 +30,7 @@ import { CreateCodeDto } from './dto/create-code.dto';
 import { FlightService } from 'src/flight/flight.service';
 @Controller('users')
 @Serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
+// @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -38,11 +38,11 @@ export class UsersController {
     private readonly flightService: FlightService,
   ) {}
 
-  @Get('/whoami')
+  // @Get('/whoami')
   // @UseGuards(AuthGuard)
-  whoami(@CurrentUser() user: unknown) {
-    return user;
-  }
+  // whoami(@CurrentUser() user: unknown) {
+  //   return user;
+  // }
   @Get('/trans')
   async getHello(@I18n() i18n: I18nContext) {
     return await i18n.t('test.HELLO');
@@ -57,15 +57,14 @@ export class UsersController {
   //   return user;
   // }
   @Post('/signup')
-  async signup(@Body() createUserDto: CreateUserDto, @Session() session: any) {
+  async signup(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.signup(createUserDto);
     // session.userId = user.id;
     return user;
   }
   @Post('/signin')
-  async signin(@Body() createUserDto: any, @Session() session: any) {
+  async signin(@Body() createUserDto: any) {
     const user = await this.authService.signin(createUserDto);
-    session.userId = user.id;
     return user;
   }
   @Post('/signout')

@@ -1,9 +1,15 @@
 import { FlightService } from './flight.service';
 import { CreateFlightDto } from './dto/create-flight.dto';
 import { UpdateFlightDto } from './dto/update-flight.dto';
+import { FlightCompanyService } from 'src/flight-company/flight-company.service';
+import { CountryService } from 'src/country/country.service';
+import { CityService } from 'src/city/city.service';
 export declare class FlightController {
     private readonly flightService;
-    constructor(flightService: FlightService);
+    private readonly flightCompanyService;
+    private readonly countryService;
+    private readonly city;
+    constructor(flightService: FlightService, flightCompanyService: FlightCompanyService, countryService: CountryService, city: CityService);
     create(createFlightDto: CreateFlightDto): Promise<import("./entities/flight.entity").Flight>;
     findAll(): Promise<import("./entities/flight.entity").Flight[]>;
     findOne(id: string): Promise<import("./entities/flight.entity").Flight>;

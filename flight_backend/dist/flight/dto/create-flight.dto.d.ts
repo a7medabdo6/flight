@@ -1,7 +1,4 @@
 export declare class CreateFlightDto {
-    country: string;
-    city: string;
-    airlines: string;
     flight_number: string;
     departure_airport: string;
     arrival_airport: string;
@@ -9,4 +6,7 @@ export declare class CreateFlightDto {
     arrival_time: string;
     duration: string;
     weight: string;
+    company_id: number;
+    country_id: number;
+    city_id: number;
 }

@@ -10,10 +10,9 @@ export declare class UsersController {
     private authService;
     private readonly flightService;
     constructor(usersService: UsersService, authService: AuthService, flightService: FlightService);
-    whoami(user: unknown): unknown;
     getHello(i18n: I18nContext): Promise<any>;
-    signup(createUserDto: CreateUserDto, session: any): Promise<User>;
-    signin(createUserDto: any, session: any): Promise<{
+    signup(createUserDto: CreateUserDto): Promise<User>;
+    signin(createUserDto: any): Promise<{
         Token: any;
         id: number;
         email: string;

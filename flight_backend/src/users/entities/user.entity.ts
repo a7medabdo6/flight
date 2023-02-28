@@ -21,9 +21,9 @@ export class User {
   id: number;
   @Column()
   email: string;
-  @Column()
+  @Column({ default: 'test' })
   phone: string;
-  @Column()
+  @Column({ default: 'test' })
   photo: string;
 
   @Column()
