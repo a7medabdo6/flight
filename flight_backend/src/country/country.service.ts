@@ -28,7 +28,7 @@ export class CountryService {
     return country;
   }
   async findAll() {
-    const country = await this.repo.find({});
+    const country = await this.repo.find({ relations: { city: true } });
     return country;
   }
 
@@ -37,7 +37,12 @@ export class CountryService {
     if (!id) {
       throw new NotFoundException('Country not found');
     }
-    const country = await this.repo.findOne({ where: { id } });
+    const country = await this.repo.findOne({
+      where: { id },
+      relations: {
+        city: true,
+      },
+    });
     if (!country) {
       throw new NotFoundException('country not found');
     }
