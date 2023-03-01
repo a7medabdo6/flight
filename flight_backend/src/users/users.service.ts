@@ -77,7 +77,10 @@ export class UsersService {
     return this.repo.save(user);
   }
   async AssignFlights(id: number, Flight: Flight[]) {
-    const user = await this.repo.findOne({ where: { id },relations:{flight:true} });
+    const user = await this.repo.findOne({
+      where: { id },
+      relations: { flight: true },
+    });
     if (!user) {
       throw new NotFoundException('user not found');
     }
@@ -86,11 +89,14 @@ export class UsersService {
     return this.repo.save(user);
   }
   async getAllFlight(id: number) {
-    const user = await this.repo.findOne({ where: { id },relations:{flight:true} });
+    const user = await this.repo.findOne({
+      where: { id },
+      relations: ['flight', 'flight.country', 'flight.city'],
+    });
     if (!user) {
       throw new NotFoundException('user not found');
     }
-    return user
+    return user;
   }
   async remove(id: number) {
     const user = await this.repo.findOne({ where: { id } });
