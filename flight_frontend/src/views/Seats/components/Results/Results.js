@@ -31,7 +31,7 @@ import getInitials from 'utils/getInitials';
 import { ReviewStars, GenericMoreButton, TableEditBar } from 'components';
 import Calender from 'views/Seats/AddSeats/Calender';
 import { COLORS } from 'utils/COLORS.';
-import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook';
+import { GetFlightHook } from 'Hook/Flight/Get-Countries-Hook';
 import { useSelector } from 'react-redux';
 import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
 import { DeletSeatApi } from 'Hook/Seat/Delet-Seat-Hook';

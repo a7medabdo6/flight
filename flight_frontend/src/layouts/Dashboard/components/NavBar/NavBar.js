@@ -81,7 +81,7 @@ const NavBar = props => {
       </div> */}
       <Divider className={classes.divider} />
       <nav className={classes.navigation}>
-        {navigationConfig.map(list => (
+        {navigationConfig().map(list => (
           <Navigation
           
             component="div"

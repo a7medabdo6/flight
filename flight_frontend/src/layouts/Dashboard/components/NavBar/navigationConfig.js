@@ -25,8 +25,25 @@ import AirlineSeatReclineExtraOutlinedIcon from '@material-ui/icons/AirlineSeatR
 import ReceiptOutlinedIcon from '@material-ui/icons/ReceiptOutlined';
 import SwapVertOutlinedIcon from '@material-ui/icons/SwapVertOutlined';
 import { Label } from 'components';
+import Countries from './Countries';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-export default [
+ const RoutesList=()=> {
+  const [arr, setarr] = useState([])
+  const items=Countries()
+  useEffect(() => {
+console.log(items,"items") 
+// setarr(items) 
+if(items.length>0){
+  setarr(items)
+}
+    return () => {
+      
+    }
+  }, [items])
+ 
+return [
   {
     title: 'Pages',
     pages: [
@@ -74,27 +91,7 @@ export default [
                     title: 'One Way',
                     href: '/Seats',
                     icon:ArrowRightAltOutlinedIcon,
-                    children: [
-                      {
-                        title: 'Turkey',
-                        href: '/Seats',
-                        
-                        children: [
-                         { title: 'Istanbul',
-                        href: '/Seats',
-                       
-                        children: [
-                          {
-                            title: 'Jav',
-                            href: '/Seats',
-                            icon:FlightOutlinedIcon
-        
-                          },
-                        ]
-                      }
-                        ]
-                      }
-                    ]
+                    children: arr
                   },
                   {
                     title: 'Two Way',
@@ -336,3 +333,6 @@ export default [
   //   ]
   // }
 ];
+ }
+  
+export default RoutesList
