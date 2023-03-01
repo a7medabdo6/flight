@@ -8,6 +8,8 @@ import AddFlightCard from './AddFlightCard'
 import { ToastContainer } from 'react-toastify'
 import { GetflightCompanyHook } from 'Hook/Company/Get-Company-Hook'
 import { GetcountryHook } from 'Hook/Country/Get-Country-Hook'
+import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook'
+
 
 const AddFlight = ({handleClose,isSuccses,setisSuccses}) => {
     const [country,setcountry]=useState()
@@ -32,7 +34,7 @@ console.log(country);
     const Hanadelarrival_time =(e)=>{  setarrival_time(e.target.value)  }
     const Hanadelduration =(e)=>{setduration(e.target.value)}     
     const Hanadelweight =(e)=>{   setweight(e.target.value)  }
-
+    const [called,setcalled]=useState(false)
 
     const {isLoading,mutate:SubmitCreateFlight,isError,error:handelerror,data} =  CreateFlightApi()
     const {CreateFlightData,error} = useSelector(state => state.CreateFlightRedux)
@@ -81,11 +83,23 @@ const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
 console.log(GetflightCompanyData);
 
 
-const {data:GetDataCountry}=GetcountryHook()
+const {data:GetDataa}=GetcountryHook()
 
 const {GetcountryData} =useSelector(state => state.GetcountryRedux)
 console.log(GetcountryData);
 
+const {data:ffff,refetch}=GetOnecountryHook(country,called)
+
+useEffect(()=>{
+    if(country){
+        refetch()
+    }
+},[country])
+console.log(country,"country");
+
+
+const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
+console.log(GetOnecountryData);
 
     const items = {
         itemsCountry:( <>
@@ -102,7 +116,18 @@ console.log(GetcountryData);
     }
     const Inputs={
         InputCity:( <>
-            <input   onChange={HanadelCity}  style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="City" aria-label="default input example"/>
+         <select onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+        <option selected disabled>Open this select menu</option>
+
+            {
+                GetOnecountryData?.city?.map((item,index)=>{return(
+                 <option value={item?.id}>{item?.name}</option>
+
+                )})
+            }
+
+
+</select>
 
         </>),
        

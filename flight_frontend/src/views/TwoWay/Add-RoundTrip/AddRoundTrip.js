@@ -73,7 +73,17 @@ const HandelCalculate=()=>{
  let SupPrice = +priceOne + +priceTwo
  console.log(SupPrice);
  if(NoDayes === "Less"){
-  setTotalPrice(SupPrice - count)
+  if(Dayes <= 5){
+    setTotalPrice(SupPrice - count)
+
+  }
+ }
+
+ if(NoDayes === "Gerater"){
+  if(Dayes > 5){
+    setTotalPrice(SupPrice - count)
+
+  }
  }
 }
     

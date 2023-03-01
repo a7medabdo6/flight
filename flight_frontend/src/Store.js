@@ -28,6 +28,7 @@ import GetflightCompanyRedux from "./Redux/Company/Get-Company-Redux"
 import EditeflightCompanyRedux from "./Redux/Company/Edite-Company-Redux"
 import DeletflightCompanyRedux from "./Redux/Company/Delet-Company-Redux"
 import CreateflightCompanyRedux from "./Redux/Company/Delet-Company-Redux"
+import GetOnecountryRedux from "./Redux/Country/Get-One-Country-Redux"
 export const store = configureStore({
     reducer: {
         GetFlightRedux: GetFlightRedux,
@@ -59,5 +60,6 @@ export const store = configureStore({
         EditeflightCompanyRedux:EditeflightCompanyRedux,
         DeletflightCompanyRedux:DeletflightCompanyRedux,
         CreateflightCompanyRedux:CreateflightCompanyRedux,
+        GetOnecountryRedux:GetOnecountryRedux,
     }
 })
