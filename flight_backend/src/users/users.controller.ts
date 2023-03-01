@@ -28,6 +28,7 @@ import { CurrentUserInterceptor } from '../users/interceptors/current-user.inter
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateCodeDto } from './dto/create-code.dto';
 import { FlightService } from 'src/flight/flight.service';
+import { UserCountryDto } from './dto/UserCountry.dto copy';
 @Controller('users')
 @Serialize(UserDto)
 // @UseInterceptors(CurrentUserInterceptor)
@@ -83,6 +84,7 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
+  @Serialize(UserCountryDto)
   @Get(':id/all-flights')
   getAllFlight(@Param('id') id: string) {
     return this.usersService.getAllFlight(+id);

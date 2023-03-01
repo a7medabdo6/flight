@@ -23,6 +23,7 @@ const serialize_interceptor_1 = require("../interceptors/serialize.interceptor")
 const user_dto_1 = require("./dto/user.dto");
 const auth_service_1 = require("../auth/auth.service");
 const flight_service_1 = require("../flight/flight.service");
+const UserCountry_dto_copy_1 = require("./dto/UserCountry.dto copy");
 let UsersController = class UsersController {
     constructor(usersService, authService, flightService) {
         this.usersService = usersService;
@@ -115,6 +116,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
+    (0, serialize_interceptor_1.Serialize)(UserCountry_dto_copy_1.UserCountryDto),
     (0, common_1.Get)(':id/all-flights'),
     openapi.ApiResponse({ status: 200, type: require("./entities/user.entity").User }),
     __param(0, (0, common_1.Param)('id')),
