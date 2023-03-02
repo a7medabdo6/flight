@@ -1,12 +1,12 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { DapartureAirport } from 'src/daparture-airport/entities/daparture-airport.entity';
 
 export class CreateFlightDto {
   
 
   @IsString()
   flight_number: string;
-  @IsString()
-  departure_airport: string;
+
   @IsString()
   arrival_airport: string;
   @IsString()
@@ -23,4 +23,7 @@ export class CreateFlightDto {
   country_id: number;
   @IsNumber()
   city_id: number;
+  @IsNumber()
+  @IsOptional()
+  departure_airport: DapartureAirport;
 }

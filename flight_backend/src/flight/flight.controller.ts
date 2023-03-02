@@ -16,6 +16,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { FlightCompanyService } from 'src/flight-company/flight-company.service';
 import { CountryService } from 'src/country/country.service';
 import { CityService } from 'src/city/city.service';
+import { DapartureAirportService } from 'src/daparture-airport/daparture-airport.service';
 
 //@UseGuards(AuthGuard)
 @Controller('flight')
@@ -25,6 +26,8 @@ export class FlightController {
     private readonly flightCompanyService: FlightCompanyService,
     private readonly countryService: CountryService,
     private readonly city: CityService,
+    private readonly departureAirport: DapartureAirportService,
+
   ) {}
 
   //  @UseGuards(AdminGuard)
@@ -36,12 +39,17 @@ export class FlightController {
     const countryService = await this.countryService.findOne(
       createFlightDto.country_id,
     );
+    const departureAirport = await this.departureAirport.findOne(
+      +createFlightDto.departure_airport,
+    );
     const city = await this.city.findOne(createFlightDto.city_id);
     return this.flightService.create(
       createFlightDto,
       flightCompanyService,
       countryService,
       city,
+      departureAirport
+
     );
   }
 

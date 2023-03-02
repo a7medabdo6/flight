@@ -1,4 +1,5 @@
 import { Country } from 'src/country/entities/country.entity';
+import { DapartureAirport } from 'src/daparture-airport/entities/daparture-airport.entity';
 import { Flight } from 'src/flight/entities/flight.entity';
 import {
   Column,
@@ -25,6 +26,9 @@ export class City {
   @ManyToOne(() => Country, (country) => country.city) // specify inverse side as a second parameter
   @JoinColumn()
   country: Country;
+
+  @OneToMany(() => DapartureAirport, (DapartureAirport) => DapartureAirport.city) // specify inverse side as a second parameter
+  departure_airport: DapartureAirport;
 
   @CreateDateColumn({
     type: 'timestamp',

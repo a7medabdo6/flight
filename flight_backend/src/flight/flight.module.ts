@@ -6,13 +6,15 @@ import { Flight } from './entities/flight.entity';
 import { FlightCompanyModule } from 'src/flight-company/flight-company.module';
 import { CountryModule } from 'src/country/country.module';
 import { CityModule } from 'src/city/city.module';
+import { DapartureAirportModule } from 'src/daparture-airport/daparture-airport.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Flight]),
     FlightCompanyModule,
     CountryModule,
-    CityModule
+    CityModule,
+    DapartureAirportModule
   ],
 
   controllers: [FlightController],

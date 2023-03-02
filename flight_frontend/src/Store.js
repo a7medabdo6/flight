@@ -29,7 +29,8 @@ import EditeflightCompanyRedux from "./Redux/Company/Edite-Company-Redux"
 import DeletflightCompanyRedux from "./Redux/Company/Delet-Company-Redux"
 import CreateflightCompanyRedux from "./Redux/Company/Delet-Company-Redux"
 import GetOnecountryRedux from "./Redux/Country/Get-One-Country-Redux"
-import GetCountriesRedux from 'Redux/Flight/Get-Countries-Redux';
+import GetCountriesRedux from 'Redux/Flight/Get-Countries-Redux'
+import GetFlightBasedCompanyHook from "./Redux/Flight/Get-Flight-Based-Comapny-Redux"
 export const store = configureStore({
     reducer: {
         GetFlightRedux: GetFlightRedux,
@@ -64,5 +65,6 @@ export const store = configureStore({
         DeletflightCompanyRedux:DeletflightCompanyRedux,
         CreateflightCompanyRedux:CreateflightCompanyRedux,
         GetOnecountryRedux:GetOnecountryRedux,
+        GetFlightBasedCompanyHook:GetFlightBasedCompanyHook
     }
 })

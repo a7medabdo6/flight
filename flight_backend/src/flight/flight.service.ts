@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { City } from 'src/city/entities/city.entity';
 import { Country } from 'src/country/entities/country.entity';
+import { DapartureAirport } from 'src/daparture-airport/entities/daparture-airport.entity';
 import { FlightCompany } from 'src/flight-company/entities/flight-company.entity';
 import { In, Repository } from 'typeorm';
 import { CreateFlightDto } from './dto/create-flight.dto';
@@ -21,11 +22,13 @@ export class FlightService {
     flightCompany: FlightCompany,
     country: Country,
     city: City,
+    Departure_airport:DapartureAirport
   ) {
     const flight = await this.repo.create(createFlightDto);
     flight.company = flightCompany;
     flight.country = country;
     flight.city = city;
+    flight.departure_airport=Departure_airport
 
     return this.repo.save(flight);
   }

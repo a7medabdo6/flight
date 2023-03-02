@@ -179,15 +179,15 @@ console.log(GetOnecountryData);
 
         </>),
         InputArrivalTime:( <>
-            <input onChange={Hanadelarrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Arrival Time" aria-label="default input example"/>
+            <input onChange={Hanadelarrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Arrival Time" aria-label="default input example"/>
 
         </>),
         InputDepatureTime:( <>
-            <input onChange={Hanadeldeparture_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Depature Time" aria-label="default input example"/>
+            <input onChange={Hanadeldeparture_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Depature Time" aria-label="default input example"/>
 
         </>),
         InputDurationTime:( <>
-            <input onChange={Hanadelduration} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Duration" aria-label="default input example"/>
+            <input onChange={Hanadelduration} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Duration" aria-label="default input example"/>
 
         </>),
     }

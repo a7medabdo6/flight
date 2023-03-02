@@ -1,5 +1,6 @@
 import { City } from 'src/city/entities/city.entity';
 import { Country } from 'src/country/entities/country.entity';
+import { DapartureAirport } from 'src/daparture-airport/entities/daparture-airport.entity';
 import { FlightCompany } from 'src/flight-company/entities/flight-company.entity';
 import { Seat } from 'src/seat/entities/seat.entity';
 import { User } from 'src/users/entities/user.entity';
@@ -26,8 +27,7 @@ export class Flight {
   airlines: string;
   @Column()
   flight_number: string;
-  @Column()
-  departure_airport: string;
+  
   @Column()
   arrival_airport: string;
   @Column()
@@ -45,7 +45,9 @@ export class Flight {
   @ManyToOne(() => Country, (country) => country.flight) // specify inverse side as a second parameter
   @JoinColumn()
   country: Country;
-
+  @ManyToOne(() => DapartureAirport, (dapartureAirport) => dapartureAirport.flight) // specify inverse side as a second parameter
+  @JoinColumn()
+  departure_airport: DapartureAirport;
   @ManyToOne(() => City, (city) => city.flight) // specify inverse side as a second parameter
   @JoinColumn()
   city: City;

@@ -39,7 +39,7 @@ export class CityService {
     if (!id) {
       throw new NotFoundException('City not found');
     }
-    const City = await this.repo.findOne({ where: { id } });
+    const City = await this.repo.findOne({ where: { id },relations:{departure_airport:true} });
     if (!City) {
       throw new NotFoundException('City not found');
     }

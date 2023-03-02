@@ -1,3 +1,5 @@
+import { GetflightCompanyHook } from 'Hook/Company/Get-Company-Hook'
+import { GetFlightBasedCompanyHook } from 'Hook/Flight/Get-Flight-Based-Comapny-Hook'
 import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook'
 import { GetOneFlightHook } from 'Hook/Flight/Get-One-Flight-Hook'
 import { CreateSeatApi } from 'Hook/Seat/Create-Seat-Hook'
@@ -11,37 +13,62 @@ import { COLORS } from 'utils/COLORS.'
 import AddSeatsCard from './AddSeatsCard'
 
 const AddSeats = ({handleClose}) => {
+  const [IDAirLines,setIDAirLines] =useState()
+  const [airlinesName,setairlinesName] =useState()
+  const {data:GetDataComapny}=GetflightCompanyHook()
 
+  const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
+  console.log(airlinesName);
 
     const {data:getFlight}=GetFlightHook()
 
     const {GetFlightData} =useSelector(state => state.GetFlightRedux)
     console.log(GetFlightData);
     const [FlightNum,setFlightNum]=useState()
-    const handelchange=(e)=>{
+    const {data:FlightNumBasedCompany,refetch:refetchFlightNumBasedCompany}=GetFlightBasedCompanyHook(IDAirLines)
 
-    
+    const {GetFlightBasedCompanyData} =useSelector(state => state.GetFlightBasedCompanyHook)
+    const handelchange=(e)=>{
+    //  const name = e.target.getAttribute("data-name");
+    //  console.log(name,"nameeeee")
+    let val=e.target.value.split('-')
+      setIDAirLines(val[0])
+      setairlinesName(val[1])
         setFlightNum(GetFlightData?.filter((item)=>{return(
        item.airlines === e.target.value
 )}))
     }
 const [id,setid]=useState()
-console.log(id);
+console.log(IDAirLines);
     const handelChange=(e)=>{
       const item =GetFlightData?.filter((item)=>{return(
         item.flight_number === e.target.value
  )})
  console.log(item);
-        setid(item[0].id);
+        setid(e.target.value);
     }
 
     const {data,refetch}=GetOneFlightHook(id)
 
     const {GetOneFlightData} =useSelector(state => state.GetOneFlightRedux)
    
-   
+   /**
+    * ---------------------------------------------------------
+    */
 
+const [FlightBasedCompany,setFlightBasedCompany]=useState()
+
+useEffect(()=>{
+  if(GetFlightBasedCompanyData){
+    setFlightBasedCompany(GetFlightBasedCompanyData?.map((item)=>{return(item?.flight)}))
+  }
+},[GetFlightBasedCompanyData])
+console.log(GetFlightBasedCompanyData);
+
+console.log(FlightBasedCompany);
     const [SeatPrice,setSeatPrice]=useState()
+    const [SeatPricecompany,setSeatPricecompany]=useState()
+
     const [ArrivalDate,setArrivalDate]=useState()
     const [departureDate,setdepartureDate]=useState()
     const [Total,setTotal]=useState()
@@ -56,6 +83,7 @@ console.log(id);
     const [airlines,setairlines]=useState()
     const [FlightNumber,setFlightNumber]=useState()
     const [FlightItem,setFlightItem]=useState()
+    
 
     console.log(FlightItem);
 
@@ -72,7 +100,11 @@ console.log(id);
       setSeatPrice(e.target.value)
 
     }
+    const HandelSeatPricecompany=(e)=>{
+      setSeatPricecompany(e.target.value)
 
+    }
+    
     const HandelArrivalDate=(e)=>{
       setArrivalDate(e.target.value)
 
@@ -124,6 +156,7 @@ const {GetsupplierData} =useSelector(state => state.GetsupplierRedux)
 
 const {isLoading,mutate:SubmitCreateseat,isError,error,data:CreateSeatdata} =  CreateSeatApi()
 const {CreateSeatData} = useSelector(state => state.CreateSeatRedux)
+console.log(departureDate);
 const HandelSave=()=>{
   const data =[
     // {
@@ -144,20 +177,22 @@ const HandelSave=()=>{
     // }
     {
     
-      "airlines": airlines,
+      "airlines": airlinesName,
       "flight_number": FlightNumber,
       "departure_airport":departure_airport,
       "arrival_airport": arrival_airport,
       "departure_time": departure_time,
       "arrival_time": arrival_time,
-      // "departure_date": departureDate,
-      // "arrival_date": ArrivalDate,
+      "departure_date": departureDate,
+      "arrival_date": ArrivalDate,
       "duration": duration,
       "weight": weight,
       "total_seat_number": Total,
       "available_seats": AVAseates,
       "suppliers": suppliers,
-      "seat_price": SeatPrice,
+      "seat_price_enduser": SeatPrice,
+    "seat_price_company": SeatPricecompany,
+      // "seat_price": SeatPrice,
       "flightId":id
 }
   ]
@@ -180,8 +215,8 @@ console.log(item)
 
             <option selected>Open this select menu</option>
             {
-                GetFlightData?.map((item,index)=>{return (
-                    <option key={index} value={item.airlines}>{item.airlines}</option>
+                GetflightCompanyData?.map((item,index)=>{return (
+                    <option key={index} value={`${item?.id}-${item.name}`}>{item.name}</option>
 
                 )})
             }
@@ -212,13 +247,15 @@ console.log(item)
   
   <option selected>Open this select menu</option>
   {
-    FlightNum?.map((item,index)=>{
+    FlightBasedCompany?.map((item,index)=>{
       
        
       
       return(
-        
-        <option   key={item.id} value={item.flight_number}>{item.flight_number}</option>
+        item.map((flight)=>{return(
+          <option   key={flight.id} value={flight.id}>{flight.flight_number}</option>
+
+        )})
 
     )})
   }
@@ -237,6 +274,10 @@ console.log(item)
           <input onChange={HandelSeatPrice} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
 
       </>),
+       InputSeatsPriceCompany:( <>
+        <input onChange={HandelSeatPricecompany } style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",width:"50%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
+
+    </>),
          InputAvailableSeatsNumber:( <>
           <input onChange={HandelAVAseates} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="AVA Seats No." aria-label="default input example"/>
 
@@ -246,7 +287,7 @@ console.log(item)
 
       </>),
         InputArrivalTime:( <>
-            <input value={arrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Arrival Time" aria-label="default input example"/>
+            <input value={arrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Arrival Time" aria-label="default input example"/>
 
         </>),
           InputArrivalDate:( <>
@@ -267,11 +308,11 @@ console.log(item)
 
       </>),
         InputDurationTime:( <>
-            <input value={duration} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Duration" aria-label="default input example"/>
+            <input value={duration} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Duration" aria-label="default input example"/>
 
         </>),
           InputDepatureTime:( <>
-            <input value={departure_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Duration" aria-label="default input example"/>
+            <input value={departure_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Duration" aria-label="default input example"/>
 
         </>),
     }
@@ -281,7 +322,7 @@ console.log(item)
         <div>
 
            <AddSeatsCard title="Airlines" Chosing={items.itemsAirLiens}/>
-           <AddSeatsCard title="Departure Date" Chosing={Inputs.InputDurationDate}/>
+           <AddSeatsCard title="Departure Date" Chosing={Inputs.InputDepatureDate}/>
 
            <AddSeatsCard title="Departure Airport" Chosing={items.itemsDepartureAirport}/>
            <AddSeatsCard title="Departure Time" Chosing={Inputs.InputDepatureTime}/>
@@ -298,11 +339,15 @@ console.log(item)
            <AddSeatsCard title="Arrival Time" Chosing={Inputs.InputArrivalTime}/>
            <AddSeatsCard title="Wight" Chosing={Inputs.InputWight}/>
            <AddSeatsCard title="Available Seats" Chosing={Inputs.InputAvailableSeatsNumber}/>
-           <AddSeatsCard title="Seat Price" Chosing={Inputs.InputSeatsPrice}/>
+           <AddSeatsCard title="Seat Price (User)" Chosing={Inputs.InputSeatsPrice}/>
+
+           
 
         </div>
+
         </div>
-       
+        <AddSeatsCard  title="Seat Price (Company)" Chosing={Inputs.InputSeatsPriceCompany}/>
+
 
         <div className='d-flex justify-content-center align-items-center'>
         <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}}>Add</button>

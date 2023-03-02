@@ -28,6 +28,8 @@ import { CountryModule } from './country/country.module';
 import { CityModule } from './city/city.module';
 import { Country } from './country/entities/country.entity';
 import { City } from './city/entities/city.entity';
+import { DapartureAirportModule } from './daparture-airport/daparture-airport.module';
+import { DapartureAirport } from './daparture-airport/entities/daparture-airport.entity';
 
 @Module({
   imports: [
@@ -66,6 +68,7 @@ import { City } from './city/entities/city.entity';
         FlightCompany,
         Country,
         City,
+        DapartureAirport
       ],
       synchronize: true,
     }),
@@ -77,6 +80,7 @@ import { City } from './city/entities/city.entity';
     FlightCompanyModule,
     CountryModule,
     CityModule,
+    DapartureAirportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
