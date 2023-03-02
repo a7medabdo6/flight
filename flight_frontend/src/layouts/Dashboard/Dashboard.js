@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/styles';
 import { LinearProgress } from '@material-ui/core';
 
 import { NavBar, TopBar, ChatBar } from './components';
+import { GetCountriesHook } from 'Hook/Flight/Get-Countries-Hook';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,6 +50,20 @@ const Dashboard = props => {
   const handleNavBarMobileClose = () => {
     setOpenNavBarMobile(false);
   };
+  const user =localStorage.getItem("user")
+  const parsedUser=JSON.parse(user)
+    const {data}= GetCountriesHook(parsedUser?.id)
+useEffect(() => {
+  if(user){
+    
+
+  }
+  
+
+  return () => {
+    
+  }
+}, [user])
 
   return (
     <div className={classes.root}>

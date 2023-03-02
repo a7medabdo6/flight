@@ -9,7 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 import AddSeats from './AddSeats/AddSeats';
 import { COLORS } from 'utils/COLORS.';
 import { jsPDF } from "jspdf";
-import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook';
+import { GetFlightHook } from 'Hook/Flight/Get-Countries-Hook';
 import { useSelector } from 'react-redux';
 import EditeSeats from './EditeSeat/EditeSeat';
 
