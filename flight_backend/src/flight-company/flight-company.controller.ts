@@ -59,6 +59,10 @@ export class FlightCompanyController {
   findOne(@Param('id') id: string) {
     return this.flightCompanyService.findOne(+id);
   }
+  @Get(':id/flights')
+  findAllFlights(@Param('id') id: string) {
+    return this.flightCompanyService.findAllFlights(+id);
+  }
 
   @Patch(':id')
   update(

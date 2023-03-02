@@ -28,6 +28,11 @@ export class Seat {
   @Column()
   arrival_airport: string;
   @Column()
+  departure_date: string;
+  @Column()
+  arrival_date: string;
+
+  @Column()
   departure_time: string;
   @Column()
   arrival_time: string;
@@ -42,7 +47,9 @@ export class Seat {
   @Column()
   suppliers: string;
   @Column()
-  seat_price: string;
+  seat_price_enduser: string;
+  @Column()
+  seat_price_company: string;
   @ManyToOne(() => Flight, (flight) => flight.seats) // specify inverse side as a second parameter
   flight: Flight;
 
