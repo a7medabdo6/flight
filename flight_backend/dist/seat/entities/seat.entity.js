@@ -17,7 +17,7 @@ const typeorm_1 = require("typeorm");
 const SeatToSeat_entity_1 = require("./SeatToSeat.entity");
 let Seat = Seat_1 = class Seat {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, total_seat_number: { required: true, type: () => String }, available_seats: { required: true, type: () => String }, suppliers: { required: true, type: () => String }, seat_price: { required: true, type: () => String }, flight: { required: true, type: () => require("../../flight/entities/flight.entity").Flight }, seats: { required: true, type: () => [require("./seat.entity").Seat] }, seatToSeat: { required: true, type: () => [require("./SeatToSeat.entity").SeatToSeat] }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => Number }, airlines: { required: true, type: () => String }, flight_number: { required: true, type: () => String }, departure_airport: { required: true, type: () => String }, arrival_airport: { required: true, type: () => String }, departure_date: { required: true, type: () => String }, arrival_date: { required: true, type: () => String }, departure_time: { required: true, type: () => String }, arrival_time: { required: true, type: () => String }, duration: { required: true, type: () => String }, weight: { required: true, type: () => String }, total_seat_number: { required: true, type: () => String }, available_seats: { required: true, type: () => String }, suppliers: { required: true, type: () => String }, seat_price_enduser: { required: true, type: () => String }, seat_price_company: { required: true, type: () => String }, flight: { required: true, type: () => require("../../flight/entities/flight.entity").Flight }, seats: { required: true, type: () => [require("./seat.entity").Seat] }, seatToSeat: { required: true, type: () => [require("./SeatToSeat.entity").SeatToSeat] }, created_at: { required: true, type: () => Date }, updated_at: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -40,6 +40,14 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Seat.prototype, "arrival_airport", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Seat.prototype, "departure_date", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Seat.prototype, "arrival_date", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -71,7 +79,11 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Seat.prototype, "seat_price", void 0);
+], Seat.prototype, "seat_price_enduser", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Seat.prototype, "seat_price_company", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => flight_entity_1.Flight, (flight) => flight.seats),
     __metadata("design:type", flight_entity_1.Flight)

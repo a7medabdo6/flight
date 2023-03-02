@@ -35,6 +35,9 @@ let FlightCompanyController = class FlightCompanyController {
     findOne(id) {
         return this.flightCompanyService.findOne(+id);
     }
+    findAllFlights(id) {
+        return this.flightCompanyService.findAllFlights(+id);
+    }
     update(id, updateFlightCompanyDto) {
         return this.flightCompanyService.update(+id, updateFlightCompanyDto);
     }
@@ -77,6 +80,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], FlightCompanyController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)(':id/flights'),
+    openapi.ApiResponse({ status: 200, type: [require("./entities/flight-company.entity").FlightCompany] }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], FlightCompanyController.prototype, "findAllFlights", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./entities/flight-company.entity").FlightCompany }),

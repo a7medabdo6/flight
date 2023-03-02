@@ -10,6 +10,7 @@ export declare class FlightCompanyController {
     }): Promise<import("./entities/flight-company.entity").FlightCompany>;
     findAll(): Promise<import("./entities/flight-company.entity").FlightCompany[]>;
     findOne(id: string): Promise<import("./entities/flight-company.entity").FlightCompany>;
+    findAllFlights(id: string): Promise<import("./entities/flight-company.entity").FlightCompany[]>;
     update(id: string, updateFlightCompanyDto: UpdateFlightCompanyDto): Promise<import("./entities/flight-company.entity").FlightCompany>;
     remove(id: string): Promise<import("./entities/flight-company.entity").FlightCompany>;
 }

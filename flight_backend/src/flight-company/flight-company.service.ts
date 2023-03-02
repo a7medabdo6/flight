@@ -37,6 +37,13 @@ export class FlightCompanyService {
     const flightCompoany = await this.repo.find({});
     return flightCompoany;
   }
+  async findAllFlights(id: number) {
+    const flightCompoany = await this.repo.find({
+      where: { id },
+      relations: { flight: true },
+    });
+    return flightCompoany;
+  }
 
   async findOne(id: number) {
     console.log(id, 'id');

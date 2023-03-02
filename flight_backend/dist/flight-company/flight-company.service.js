@@ -42,6 +42,13 @@ let FlightCompanyService = class FlightCompanyService {
         const flightCompoany = await this.repo.find({});
         return flightCompoany;
     }
+    async findAllFlights(id) {
+        const flightCompoany = await this.repo.find({
+            where: { id },
+            relations: { flight: true },
+        });
+        return flightCompoany;
+    }
     async findOne(id) {
         console.log(id, 'id');
         if (!id) {
