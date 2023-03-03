@@ -11,13 +11,13 @@ jobs:
       uses : SamKirkland/FTP-Deploy-Action@4.3.2
       with:
         server: ftp.engaz-soft.com
-        username: engafkiw
-        password: Kalli.inx2
+        username: cicd@engaz-soft.com
+        password: Kalli.linx2
     - name: running command ssh
       uses: appleboy/ssh-action@master
       with:
         host: ftp.engaz-soft.com
-        username: engafkiw
+        username: cicd@engaz-soft.com
         password: Kalli.linx2
         port: 21
         script: |
