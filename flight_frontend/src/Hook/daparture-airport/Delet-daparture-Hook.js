@@ -31,7 +31,7 @@ export const DeletdapartureApi = (id) =>{
           // router.history.push('/');
           QueryClient.invalidateQueries('GetdapartureHook');
 
-             notify("The daparture  has been Deleted","success")    
+             notify("The AirPort  has been Deleted","success")    
   
 //    setTimeout(() => {
 //       router.history.push('/');

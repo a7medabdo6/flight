@@ -12,11 +12,14 @@ import { EditeSeatInfo } from "Redux/Seat/Edite-Saet-Redux";
 
 
 
-export const EditeSeatApi = (FormData) => {
+
+export const EditeSeatApi = (formdata) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const QueryClient = useQueryClient();
-    return useMutation((FormData)=> (UseEditeSeatData(FormData)), {
+    console.log(formdata);
+
+    return useMutation((formdata)=> (UseEditeSeatData(formdata)), {
       onSuccess: res => {
         
         

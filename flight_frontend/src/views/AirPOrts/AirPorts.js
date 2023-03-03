@@ -122,7 +122,7 @@ console.log(GetCityData);
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Add New daparture</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Add New AirPort</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

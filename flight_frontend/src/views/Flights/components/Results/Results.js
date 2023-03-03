@@ -132,7 +132,7 @@ console.log(showEdite);
 
 const [itemData,setitemData]=useState()
 
-
+console.log(itemData);
   return (
     <div
       {...rest}
@@ -247,7 +247,7 @@ const [itemData,setitemData]=useState()
                         <Checkbox
                         
                           color="primary"
-                          onChange={(e) => {return(setitemData(customer))}  }
+                          onChange={(e) => {return(setitemData(customer?.id))}  }
                           value={itemData}
                         />
                       </TableCell>
@@ -259,7 +259,7 @@ const [itemData,setitemData]=useState()
                       {customer?.company?.name}
                       </TableCell>
                       <TableCell className='text-center'>{customer?.flight_number}</TableCell>
-                      <TableCell className='text-center'>{customer?.departure_airport}</TableCell>
+                      <TableCell className='text-center'>{customer?.departure_airport?.name}</TableCell>
                       <TableCell className='text-center'>
                       {customer?.arrival_airport}
                       </TableCell>
@@ -282,6 +282,7 @@ const [itemData,setitemData]=useState()
                   ))}
                 </TableBody>
               </Table>
+              
             </div>
           </PerfectScrollbar>
         </CardContent>
@@ -299,7 +300,14 @@ const [itemData,setitemData]=useState()
       </Card>
       <TableEditBar selected={selectedCustomers} />
       <ToastContainer></ToastContainer>
-
+      <Button
+          style={{backgroundColor:COLORS.orange,position:"relative",width:"100%"}}
+          onClick={handleShow}
+          color="primary"
+            variant="contained"
+          >
+          Save
+          </Button>
     </div>
   );
 };

@@ -51,7 +51,7 @@ console.log(IDAirLines);
     const {data,refetch}=GetOneFlightHook(id)
 
     const {GetOneFlightData} =useSelector(state => state.GetOneFlightRedux)
-   
+   console.log(GetOneFlightData);
    /**
     * ---------------------------------------------------------
     */
@@ -100,6 +100,9 @@ console.log(FlightBasedCompany);
       setSeatPrice(e.target.value)
 
     }
+   const  Hnadeldeparture_airport=(e)=>{
+      setdeparture_airport(e.target.value)
+    }
     const HandelSeatPricecompany=(e)=>{
       setSeatPricecompany(e.target.value)
 
@@ -145,6 +148,7 @@ console.log(FlightBasedCompany);
             setdeparture_time(GetOneFlightData?.departure_time)
             setarrival_airport(GetOneFlightData?.arrival_airport)
             setdeparture_airport(GetOneFlightData?.departure_airport)
+            setdepartureDate(GetOneFlightData?.departure_date)
         }
     },[GetOneFlightData])
  
@@ -225,7 +229,7 @@ console.log(item)
         </>),
      itemsDepartureAirport:( <>
      
-     <input value={departure_airport} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="departure airport" aria-label="default input example"/>
+     <input value={departure_airport} onChange={Hnadeldeparture_airport} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="departure airport" aria-label="default input example"/>
 
                
             </>),
@@ -287,7 +291,7 @@ console.log(item)
 
       </>),
         InputArrivalTime:( <>
-            <input value={arrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Arrival Time" aria-label="default input example"/>
+            <input value={arrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Arrival Time" aria-label="default input example"/>
 
         </>),
           InputArrivalDate:( <>
@@ -312,7 +316,7 @@ console.log(item)
 
         </>),
           InputDepatureTime:( <>
-            <input value={departure_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Duration" aria-label="default input example"/>
+            <input value={departure_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Duration" aria-label="default input example"/>
 
         </>),
     }
@@ -346,7 +350,10 @@ console.log(item)
         </div>
 
         </div>
+        <div style={{marginLeft:"245px"}}>
         <AddSeatsCard  title="Seat Price (Company)" Chosing={Inputs.InputSeatsPriceCompany}/>
+
+        </div>
 
 
         <div className='d-flex justify-content-center align-items-center'>

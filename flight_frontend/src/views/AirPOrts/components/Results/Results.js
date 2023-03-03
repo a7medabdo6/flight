@@ -141,7 +141,11 @@ console.log(showEdite);
   const {mutate:SubmitCreatedaparture,data:DATAEDITE} =  EditedapartureApi()
   const {EditedapartureData,error:ERROR} = useSelector(state => state.EditedapartureRedux)
   console.log(EditedapartureData);
-
+useEffect(()=>{
+  if(DATAEDITE){
+    handleCloseEdite()
+  }
+},[DATAEDITE])
   const HandelSave =()=>{
 const FormData={
   data :{
@@ -188,7 +192,7 @@ useEffect(()=>{
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite daparture</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite AirPort</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -249,7 +253,7 @@ useEffect(()=>{
         // }
           action={<GenericMoreButton />}
           title={
-            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>daparture</h2>
+            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>AirPorts</h2>
           }
         />
         <Divider />

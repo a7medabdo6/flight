@@ -34,8 +34,8 @@ const[disabledcity,setdisabledcity]=useState(true)
     const [duration,setduration]=useState()
     const [weight,setweight]=useState()
     const [selected, setSelected] = useState(null);
+    const [selectedArival, setselectedArival] = useState(null);
 
-console.log(departure_airport);
     const HanadelCountry =(e)=>{     setcountry(e.target.value.toUpperCase()) }
     const HanadelCity =(e)=>{ 
         let val=e.target.value.split('-')
@@ -47,9 +47,14 @@ console.log(departure_airport);
     const Hanadeldeparture_airport =(selectedOption)=>{ 
         setSelected(selectedOption)
     console.log(`Option selected:`, selectedOption)
-        setdeparture_airport(selectedOption?.value.toUpperCase())
+        setdeparture_airport(selectedOption?.value)
      }
-    const Hanadelarrival_airport =(e)=>{    setarrival_airport(e.target.value.toUpperCase())  }
+    const Hanadelarrival_airport =(selectedOption)=>{ 
+        setselectedArival(selectedOption)
+
+        setarrival_airport(selectedOption?.label.toUpperCase())
+
+         }
     const Hanadeldeparture_time =(e)=>{    setdeparture_time(e.target.value) }
     const Hanadelarrival_time =(e)=>{  setarrival_time(e.target.value)  }
     const Hanadelduration =(e)=>{setduration(e.target.value)}     
@@ -68,7 +73,7 @@ console.log(departure_airport);
             "city_id": +cityID,
             "company_id": +airlines,
             "flight_number": flight_number,
-            "departure_airport": departure_airport,
+            "departure_airport": +departure_airport,
             "arrival_airport": arrival_airport,
             "departure_time": departure_time,
             "arrival_time": arrival_time,
@@ -270,11 +275,11 @@ const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
 
         </>),
         InputArrivalTime:( <>
-            <input onChange={Hanadelarrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Arrival Time" aria-label="default input example"/>
+            <input onChange={Hanadelarrival_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Arrival Time" aria-label="default input example"/>
 
         </>),
         InputDepatureTime:( <>
-            <input onChange={Hanadeldeparture_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="date" placeholder="Depature Time" aria-label="default input example"/>
+            <input onChange={Hanadeldeparture_time} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Depature Time" aria-label="default input example"/>
 
         </>),
         InputDurationTime:( <>

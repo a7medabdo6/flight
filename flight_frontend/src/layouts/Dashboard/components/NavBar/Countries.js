@@ -10,24 +10,17 @@ function Countries() {
    var arr=[]
    useEffect(() => {
     console.log(GetCountriesData,"GetCountriesData")
-
-    if(GetCountriesData.length>0){
+        if(GetCountriesData.length>0){
         for (let index = 0; index < GetCountriesData.length; index++) {
-            if(GetCountriesData[index]?.country){
-             return   arr.push({
+            if(GetCountriesData[index]?.country?.name){
+            
+                arr.push({
                     title: GetCountriesData[index]?.country?.name,
                     href: '/Seats',
                     children: [
-                        { title: 'Istanbul',
+                        { title: GetCountriesData[index]?.city?.name,
                        href: '/Seats',
                       
-                       children: [
-                         {
-                           title: 'Jav', 
-                           href: '/Seats',
-             
-                         },
-                       ]
                      }
                        ]
                     
@@ -39,7 +32,7 @@ function Countries() {
             
         }
         console.log(arr,"countriessssssssss")
-
+        return arr
        
     }
    

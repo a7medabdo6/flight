@@ -10,10 +10,12 @@ import { useSelector } from 'react-redux';
 const Calender = ({customersData,handelhidesm}) => {
 
 console.log(customersData);
+const [airlinesName,setairlinesName] =useState(customersData?.airlines)
+const [SeatPricecompany,setSeatPricecompany]=useState(customersData?.seat_price_company)
 
-  const [SeatPrice,setSeatPrice]=useState(customersData?.seat_price)
-  const [ArrivalDate,setArrivalDate]=useState()
-  const [departureDate,setdepartureDate]=useState()
+  const [SeatPrice,setSeatPrice]=useState(customersData?.seat_price_enduser)
+  const [ArrivalDate,setArrivalDate]=useState(customersData?.  arrival_date)
+  const [departureDate,setdepartureDate]=useState(customersData?.departure_date)
   const [Total,setTotal]=useState(customersData?.total_seat_number)
   const [AVAseates,setAVAseates]=useState(customersData?.available_seats)
   const [departure_airport,setdeparture_airport]=useState(customersData?.departure_airport)
@@ -24,8 +26,8 @@ console.log(customersData);
   const [weight,setweight]=useState(customersData?.weight)
   const [suppliers,setsuppliers]=useState(customersData?.suppliers)
   const [airlines,setairlines]=useState(customersData?.airlines)
-  const [FlightNumber,setFlightNumber]=useState(customersData?.flight_number)
-  const [id,setid]=useState(customersData?.id)
+  const [FlightNumber,setFlightNumber]=useState(customersData?.flight?.flight_number)
+  const [id,setid]=useState(customersData?.flight?.id)
 console.log(FlightNumber);
   const [FlightItem,setFlightItem]=useState()
     const today = new Date()
@@ -34,7 +36,8 @@ console.log(FlightNumber);
     tomorrow.setDate(tomorrow.getDate() + 1)
   
     const [values, setValues] = useState([today])
-    console.log(values.length);
+    let cal =values?.map((item)=>{return(`${item?.day}-${item?.month?.number}-${item?.year}`)})
+    console.log(cal);
     const datePickerRef = useRef()
     const shwCalnder= () => datePickerRef.current.openCalendar()
     useEffect(()=>{
@@ -62,31 +65,38 @@ setFlightId(rusult[0]?.id)
 
       },[rusult])
       console.log(flighId);
-    const HandelSave =()=>{
+
+      const handelSupmit=()=>{
+       let DepTime= cal?.map((item)=>{return(  HandelSave(item))})
+       
+      }
+    const HandelSave =(DepTime)=>{
       const data =[
        
         {
-    
-          "airlines": airlines,
+       
+          "airlines": airlinesName,
           "flight_number": FlightNumber,
           "departure_airport":departure_airport,
           "arrival_airport": arrival_airport,
-          "departure_time": departure_time,
+          "departure_time": DepTime,
           "arrival_time": arrival_time,
-          // "departure_date": departureDate,
-          // "arrival_date": ArrivalDate,
+          "departure_date": departureDate,
+          "arrival_date": ArrivalDate,
           "duration": duration,
           "weight": weight,
           "total_seat_number": Total,
           "available_seats": AVAseates,
           "suppliers": suppliers,
-          "seat_price": SeatPrice,
-          "flightId":flighId
+          "seat_price_enduser": SeatPrice,
+        "seat_price_company": SeatPricecompany,
+          // "seat_price": SeatPrice,
+          "flightId":id
     }
       ]
-      values.map((item)=>{
-        return(SubmitCreateseat(data))
-      })
+     
+       SubmitCreateseat(data)
+    
      
 
     }
@@ -116,7 +126,7 @@ setFlightId(rusult[0]?.id)
     </DatePicker>
 
     <div className='d-flex justify-content-center align-items-center'>
-        <button onClick={HandelSave}  type="button" className="btn btn-secondary me-2" style={{marginTop:"300px"}} >Add</button>
+        <button onClick={handelSupmit}  type="button" className="btn btn-secondary me-2" style={{marginTop:"300px"}} >Add</button>
 
         <button type="button" onClick={handelhidesm} className="btn btn-secondary  " style={{marginTop:"300px"}}>Cancel</button>
 

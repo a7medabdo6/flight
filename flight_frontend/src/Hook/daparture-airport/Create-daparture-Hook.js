@@ -24,7 +24,7 @@ export const CreatedapartureApi = data =>{
           // localStorage.setItem('user', JSON.stringify(result.data));
           // localStorage.setItem('token', JSON.stringify(result.data.token));
           //  window.location.replace('/');
-          notify("The daparture  has been created","success")    
+          notify("The AirPort  has been created","success")    
           QueryClient.invalidateQueries('GetdapartureHook');
 
         //   setTimeout(()=>{ router.history.push('/CarePlan');

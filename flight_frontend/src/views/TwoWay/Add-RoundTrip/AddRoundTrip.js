@@ -27,7 +27,7 @@ const AddRoundTrip = ({handelCloseADD}) => {
 const [check,setcheck]=useState(false)
 const [DataFlightOne,setDataFlightOne]=useState()
 const [DataFlightTwo,setDataFlightTwo]=useState()
-console.log();
+console.log(DataFlightOne);
   const handelNoDayes=(e)=>{
     setNoDayes(e.target.value)
   }
@@ -99,7 +99,7 @@ console.log(flietNumOne);
      )})
      
           setflietNumOne(item[0].id)
-          setpriceOne(item[0].seat_price)
+          setpriceOne(item[0].seat_price_enduser)
           setDataFlightOne(item[0])
 
         }
@@ -110,7 +110,7 @@ console.log(flietNumOne);
      )})
      
      setflietNumTwo(item[0].id)
-     setpriceTwo(item[0].seat_price)
+     setpriceTwo(item[0].seat_price_enduser)
      setDataFlightTwo(item[0])
 
         }

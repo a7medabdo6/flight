@@ -27,7 +27,7 @@ export const EditedapartureApi = (FormData) => {
         // router.history.push('/');
         QueryClient.invalidateQueries('GetdapartureHook');
 
-        notify("The daparture  has been Edite","success")    
+        notify("The AirPort  has been Edite","success")    
 
 
   
