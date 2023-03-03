@@ -49,6 +49,7 @@ let FlightService = class FlightService {
                 city: true,
                 company: true,
                 country: true,
+                departure_airport: true
             },
         });
         return flight;

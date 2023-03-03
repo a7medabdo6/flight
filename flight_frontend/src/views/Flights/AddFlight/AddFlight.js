@@ -9,11 +9,22 @@ import { ToastContainer } from 'react-toastify'
 import { GetflightCompanyHook } from 'Hook/Company/Get-Company-Hook'
 import { GetcountryHook } from 'Hook/Country/Get-Country-Hook'
 import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook'
+import { GetAirPortBasecCityHook } from 'Hook/daparture-airport/Get-Airport-Based-City-Hook'
+import Select from 'react-select'
+import { GetdapartureHook } from 'Hook/daparture-airport/Get-daparture-Hook'
 
 
 const AddFlight = ({handleClose,isSuccses,setisSuccses}) => {
+
+
+   
+
+
     const [country,setcountry]=useState()
     const [city,setcity]=useState()
+    const [cityID,setcityID]=useState()
+    const [chickcity,setchickcity]=useState(false)
+const[disabledcity,setdisabledcity]=useState(true)
     const [airlines,setairlines]=useState()
     const [flight_number,setflight_number]=useState()
     const [departure_airport,setdeparture_airport]=useState()
@@ -22,13 +33,22 @@ const AddFlight = ({handleClose,isSuccses,setisSuccses}) => {
     const [arrival_time,setarrival_time]=useState()
     const [duration,setduration]=useState()
     const [weight,setweight]=useState()
-console.log(country);
+    const [selected, setSelected] = useState(null);
 
+console.log(departure_airport);
     const HanadelCountry =(e)=>{     setcountry(e.target.value.toUpperCase()) }
-    const HanadelCity =(e)=>{  setcity(e.target.value.toUpperCase())  }
+    const HanadelCity =(e)=>{ 
+        let val=e.target.value.split('-')
+        setcityID(val[0])
+
+         setcity(val[1].toUpperCase())  }
     const Hanadelairlines =(e)=>{    setairlines(e.target.value.toUpperCase())    }
     const Hanadelflight_number =(e)=>{     setflight_number(e.target.value.toUpperCase())  }
-    const Hanadeldeparture_airport =(e)=>{   setdeparture_airport(e.target.value.toUpperCase()) }
+    const Hanadeldeparture_airport =(selectedOption)=>{ 
+        setSelected(selectedOption)
+    console.log(`Option selected:`, selectedOption)
+        setdeparture_airport(selectedOption?.value.toUpperCase())
+     }
     const Hanadelarrival_airport =(e)=>{    setarrival_airport(e.target.value.toUpperCase())  }
     const Hanadeldeparture_time =(e)=>{    setdeparture_time(e.target.value) }
     const Hanadelarrival_time =(e)=>{  setarrival_time(e.target.value)  }
@@ -36,9 +56,8 @@ console.log(country);
     const Hanadelweight =(e)=>{   setweight(e.target.value)  }
     const [called,setcalled]=useState(false)
 
-    const {isLoading,mutate:SubmitCreateFlight,isError,error:handelerror,data} =  CreateFlightApi()
+    const {mutate:SubmitCreateFlight,isError,error:handelerror,data} =  CreateFlightApi()
     const {CreateFlightData,error} = useSelector(state => state.CreateFlightRedux)
-    console.log(CreateFlightData);
 
 
     const HandelSave =()=>{
@@ -46,7 +65,7 @@ console.log(country);
         
         const data ={
             "country_id": +country,
-            "city_id": 3,
+            "city_id": +cityID,
             "company_id": +airlines,
             "flight_number": flight_number,
             "departure_airport": departure_airport,
@@ -60,7 +79,6 @@ console.log(country);
 
     }
 
-console.log(data);
     useEffect(()=>{
         if(error){
             if(error !== [] )
@@ -71,35 +89,87 @@ console.log(data);
         }
     },[error])
 
+    const {data:GetDataAirPort,refetch:refetchAirPort,isLoading}=GetAirPortBasecCityHook(cityID,chickcity)
+
+    const {GetAirPortBasecCityData} =useSelector(state => state.GetAirPortBasecCityRedux)
+    console.log(GetAirPortBasecCityData?.departure_airport);
+console.log(isLoading);
 useEffect(()=>{
     if(data){
         handleClose() 
     }
 },[data])
 
+useEffect(()=>{
+    if(cityID){
+        refetchAirPort()
+setchickcity(true)
+    }
+},[cityID])
+
+
+const [options,setoptions]=useState([]) 
+const [optionsArrival,setoptionsArrival]=useState([]) 
+console.log(optionsArrival);
+const {data:GetDataArrivalAirport}=GetdapartureHook()
+
+const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
+console.log(GetdapartureData);
+const [ArrivalAirPOrt,setArrivalAirPOrt]=useState("gfh")
+
+useEffect(()=>{
+    if(departure_airport){
+        setArrivalAirPOrt(GetdapartureData?.filter((item)=>{return(item?.id != departure_airport)}))
+        // console.log(ArrivalAirPOrt,departure_airport,ArrivalAirPOrt,"fffffffffffff");
+
+    }
+    // console.log(GetdapartureData,"fffffffffffff GetdapartureData");
+
+},[departure_airport,GetdapartureData])
+
+
+useEffect(()=>{
+  
+     console.log(ArrivalAirPOrt,"fffffffffffff ArrivalAirPOrt");
+
+},[ArrivalAirPOrt])
+
+
+
+
+useEffect(()=>{
+    if(GetDataAirPort){
+        setoptions(GetAirPortBasecCityData?.departure_airport?.map((item)=>{  return({ value: `${item?.id}`, label: `${item?.name}` })  }))
+    }
+},[GetDataAirPort])
+
+
+useEffect(()=>{
+    if(departure_airport){
+        setoptionsArrival(GetdapartureData?.map((item)=>{  return({ value: `${item?.id}`, label: `${item?.name}` })  }))
+    }
+},[departure_airport])
+
 const {data:GetData}=GetflightCompanyHook()
 
 const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
-console.log(GetflightCompanyData);
 
 
 const {data:GetDataa}=GetcountryHook()
 
 const {GetcountryData} =useSelector(state => state.GetcountryRedux)
-console.log(GetcountryData);
 
 const {data:ffff,refetch}=GetOnecountryHook(country,called)
 
 useEffect(()=>{
     if(country){
         refetch()
+        setdisabledcity(false)
     }
 },[country])
-console.log(country,"country");
 
 
 const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-console.log(GetOnecountryData);
 
     const items = {
         itemsCountry:( <>
@@ -116,12 +186,12 @@ console.log(GetOnecountryData);
     }
     const Inputs={
         InputCity:( <>
-         <select onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+         <select disabled={disabledcity} onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
         <option selected disabled>Open this select menu</option>
 
             {
                 GetOnecountryData?.city?.map((item,index)=>{return(
-                 <option value={item?.id}>{item?.name}</option>
+                 <option value={`${item?.id}-${item.name}`}>{item?.name}</option>
 
                 )})
             }
@@ -147,11 +217,32 @@ console.log(GetOnecountryData);
 
         </>),
         InputDeparture_Airport:( <>
-            <input onChange={Hanadeldeparture_airport} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Departure Airport" aria-label="default input example"/>
+          <Select onChange={Hanadeldeparture_airport}
+          
+           styles={{
+    control: (baseStyles, state) => ({
+      ...baseStyles,
+      backgroundColor:COLORS.blue,
+      borderRadius:"10px",
+      width:"100%"
+    }),
+  }} options={options} />
+
+            {/* <input onChange={Hanadeldeparture_airport} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Departure Airport" aria-label="default input example"/> */}
 
         </>),
         InputArrival_Airport:( <>
-            <input onChange={Hanadelarrival_airport} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Arrival_Airport" aria-label="default input example"/>
+           <Select onChange={Hanadelarrival_airport}
+          
+          styles={{
+   control: (baseStyles, state) => ({
+     ...baseStyles,
+     backgroundColor:COLORS.blue,
+     borderRadius:"10px",
+     width:"100%"
+   }),
+ }} options={optionsArrival} />
+            {/* <input onChange={Hanadelarrival_airport} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Arrival_Airport" aria-label="default input example"/> */}
 
         </>),
         InputCountry:( <>

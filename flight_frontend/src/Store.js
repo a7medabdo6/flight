@@ -31,6 +31,11 @@ import CreateflightCompanyRedux from "./Redux/Company/Delet-Company-Redux"
 import GetOnecountryRedux from "./Redux/Country/Get-One-Country-Redux"
 import GetCountriesRedux from 'Redux/Flight/Get-Countries-Redux'
 import GetFlightBasedCompanyHook from "./Redux/Flight/Get-Flight-Based-Comapny-Redux"
+import CreatedapartureRedux from "./Redux/daparture-airport/Create-daparture-Redux"
+import DeletdapartureRedux from "./Redux/daparture-airport/Delet-daparture-Redux"
+import EditedapartureRedux from "./Redux/daparture-airport/Edite-daparture-Redux"
+import GetdapartureRedux from "./Redux/daparture-airport/Get-daparture-Redux"
+import GetAirPortBasecCityRedux from "./Redux/daparture-airport/Get-Airport-Based-City-Redux"
 export const store = configureStore({
     reducer: {
         GetFlightRedux: GetFlightRedux,
@@ -65,6 +70,11 @@ export const store = configureStore({
         DeletflightCompanyRedux:DeletflightCompanyRedux,
         CreateflightCompanyRedux:CreateflightCompanyRedux,
         GetOnecountryRedux:GetOnecountryRedux,
-        GetFlightBasedCompanyHook:GetFlightBasedCompanyHook
+        GetFlightBasedCompanyHook:GetFlightBasedCompanyHook,
+        CreatedapartureRedux:CreatedapartureRedux,
+        DeletdapartureRedux:DeletdapartureRedux,
+        EditedapartureRedux:EditedapartureRedux,
+        GetdapartureRedux:GetdapartureRedux,
+        GetAirPortBasecCityRedux:GetAirPortBasecCityRedux,
     }
 })

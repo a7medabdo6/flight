@@ -134,6 +134,12 @@ const routes = [
         component: lazy(() => import('views/Country'))
       },
       {
+        path: '/AirPOrts',
+        exact: true,
+        component: lazy(() => import('views/AirPOrts'))
+      },
+      
+      {
         path: '/city',
         exact: true,
         component: lazy(() => import('views/City'))
