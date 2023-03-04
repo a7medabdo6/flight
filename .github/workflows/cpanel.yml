@@ -19,6 +19,7 @@ jobs:
         host: ftp.engaz-soft.com
         username: cicd@engaz-soft.com
         password: Kalli.linx2
+        key: ${{ secrets.key }}
         port: 21
         script: |
           cd flight_backend/
