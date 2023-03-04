@@ -1,3 +1,4 @@
+import { Country } from 'src/country/entities/country.entity';
 import { Docs } from 'src/Docs/entities/Docs.entity';
 import { Flight } from 'src/flight/entities/flight.entity';
 import {
@@ -49,6 +50,11 @@ export class User {
     onUpdate: 'NO ACTION',
   })
   flight?: Flight[];
+  @ManyToMany(() => Country, (country) => country.user, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  country?: Country[];
 
   @OneToMany(() => Docs, (Docs) => Docs.user) // specify inverse side as a second parameter
   @JoinColumn()

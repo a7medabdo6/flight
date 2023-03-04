@@ -15,6 +15,7 @@ export declare class AuthService {
         role: import("../users/entities/user.entity").UserRole;
         active: boolean;
         flight?: import("../flight/entities/flight.entity").Flight[];
+        country?: import("../country/entities/country.entity").Country[];
         Docs: import("../Docs/entities/Docs.entity").Docs;
     }>;
 }

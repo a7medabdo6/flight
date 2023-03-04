@@ -4,6 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Country } from 'src/country/entities/country.entity';
 import { Flight } from 'src/flight/entities/flight.entity';
 import { Any, Not, Repository } from 'typeorm';
 import { CreateCodeDto } from './dto/create-code.dto';
@@ -88,6 +89,18 @@ export class UsersService {
     user.flight = Flight;
     return this.repo.save(user);
   }
+  async AssignCountries(id: number, country: Country[]) {
+    const user = await this.repo.findOne({
+      where: { id },
+      relations: { country: true },
+    });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    // Object.assign(user, Flight);
+    user.country = country;
+    return this.repo.save(user);
+  }
   async getAllFlight(id: number) {
     const user = await this.repo.findOne({
       where: { id },
@@ -98,6 +111,17 @@ export class UsersService {
     }
     return user;
   }
+  async getAllCountries(id: number) {
+    const user = await this.repo.findOne({
+      where: { id },
+      relations: ['country', 'country.city'],
+    });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    return user;
+  }
+
   async remove(id: number) {
     const user = await this.repo.findOne({ where: { id } });
     if (!user) {

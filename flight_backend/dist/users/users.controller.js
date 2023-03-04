@@ -24,11 +24,13 @@ const user_dto_1 = require("./dto/user.dto");
 const auth_service_1 = require("../auth/auth.service");
 const flight_service_1 = require("../flight/flight.service");
 const UserCountry_dto_copy_1 = require("./dto/UserCountry.dto copy");
+const country_service_1 = require("../country/country.service");
 let UsersController = class UsersController {
-    constructor(usersService, authService, flightService) {
+    constructor(usersService, authService, flightService, countryService) {
         this.usersService = usersService;
         this.authService = authService;
         this.flightService = flightService;
+        this.countryService = countryService;
     }
     async getHello(i18n) {
         return await i18n.t('test.HELLO');
@@ -62,6 +64,14 @@ let UsersController = class UsersController {
         console.log(body.ids, 'ids');
         const flights = await this.flightService.findAllByIds(body === null || body === void 0 ? void 0 : body.ids);
         return this.usersService.AssignFlights(id, flights);
+    }
+    async country(id, body) {
+        console.log(body.ids, 'ids');
+        const countries = await this.countryService.findAllByIds(body === null || body === void 0 ? void 0 : body.ids);
+        return this.usersService.AssignCountries(id, countries);
+    }
+    getAllCountries(id) {
+        return this.usersService.getAllCountries(+id);
     }
     remove(id) {
         return this.usersService.remove(+id);
@@ -143,6 +153,23 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "flight", null);
 __decorate([
+    (0, common_1.Post)(':id/country'),
+    openapi.ApiResponse({ status: 201, type: require("./entities/user.entity").User }),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "country", null);
+__decorate([
+    (0, common_1.Get)(':id/all-countries'),
+    openapi.ApiResponse({ status: 200, type: require("./entities/user.entity").User }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getAllCountries", null);
+__decorate([
     (0, common_1.Delete)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./entities/user.entity").User }),
     __param(0, (0, common_1.Param)('id')),
@@ -155,7 +182,8 @@ UsersController = __decorate([
     (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     __metadata("design:paramtypes", [users_service_1.UsersService,
         auth_service_1.AuthService,
-        flight_service_1.FlightService])
+        flight_service_1.FlightService,
+        country_service_1.CountryService])
 ], UsersController);
 exports.UsersController = UsersController;
 //# sourceMappingURL=users.controller.js.map

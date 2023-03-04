@@ -78,10 +78,31 @@ let UsersService = class UsersService {
         user.flight = Flight;
         return this.repo.save(user);
     }
+    async AssignCountries(id, country) {
+        const user = await this.repo.findOne({
+            where: { id },
+            relations: { country: true },
+        });
+        if (!user) {
+            throw new common_1.NotFoundException('user not found');
+        }
+        user.country = country;
+        return this.repo.save(user);
+    }
     async getAllFlight(id) {
         const user = await this.repo.findOne({
             where: { id },
             relations: ['flight', 'flight.country', 'flight.city'],
+        });
+        if (!user) {
+            throw new common_1.NotFoundException('user not found');
+        }
+        return user;
+    }
+    async getAllCountries(id) {
+        const user = await this.repo.findOne({
+            where: { id },
+            relations: ['country', 'country.city'],
         });
         if (!user) {
             throw new common_1.NotFoundException('user not found');
