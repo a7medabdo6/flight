@@ -110,7 +110,8 @@ console.log(SignInData);
         localStorage.setItem('token', JSON.stringify(SignInData?.Token));
 
         setTimeout(()=>{
-          history.push('/');
+          window.location.replace('/');
+          // history.push('/');
 
         },[2000])
   

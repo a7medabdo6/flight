@@ -96,7 +96,6 @@ const Login = () => {
             Sign in
           </Typography>
           <Typography variant="subtitle2">
-            Sign in on the internal platform
           </Typography>
           <LoginForm className={classes.loginForm} />
           <Divider className={classes.divider} />
@@ -113,37 +112,16 @@ const Login = () => {
         </CardContent>
         <CardMedia
           className={classes.media}
-          image="/images/auth.png"
+          image="/images/logos/10732936.jpg"
           title="Cover"
         >
           <Typography
             color="inherit"
             variant="subtitle1"
           >
-            Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they
-            sold out High Life.
+           Welcome to our site, we wish you happy times
           </Typography>
-          <div className={classes.person}>
-            <Avatar
-              alt="Person"
-              className={classes.avatar}
-              src="/images/avatars/avatar_2.png"
-            />
-            <div>
-              <Typography
-                color="inherit"
-                variant="body1"
-              >
-                Ekaterina Tankova
-              </Typography>
-              <Typography
-                color="inherit"
-                variant="body2"
-              >
-                Manager at inVision
-              </Typography>
-            </div>
-          </div>
+          
         </CardMedia>
       </Card>
     </Page>

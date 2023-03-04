@@ -302,7 +302,7 @@ useEffect(()=>{
                     >
                        <TableCell className='text-center'>
                         <div>
-                          <img style={{width:"50px",height:"50px"}} src="/images/logos/logo--white.svg" alt="logo"/>
+                          <img style={{width:"50px",height:"50px"}} src="/images/logos/orange.png" alt="logo"/>
                         </div>
                       </TableCell>
                       <TableCell className='text-center'>

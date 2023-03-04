@@ -31,9 +31,9 @@ export const SignInApi = data =>{
         // },2000)
   
   
-//    setTimeout(() => {
-//       router.history.push('/');
-//    }, 2000);
+   setTimeout(() => {
+      router.history.push('/presentation');
+   }, 2000);
     
         },
         onError: err => {

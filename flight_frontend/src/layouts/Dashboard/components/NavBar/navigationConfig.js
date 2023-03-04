@@ -47,11 +47,11 @@ return [
   {
     title: 'Pages',
     pages: [
-      {
-        title: 'Overview',
-        href: '/overview',
-        icon: HomeIcon
-      },
+      // {
+      //   title: 'Overview',
+      //   href: '/overview',
+      //   icon: HomeIcon
+      // },
       {
         title: 'Dashboards',
         href: '/dashboards',
@@ -152,7 +152,7 @@ return [
         icon: PeopleIcon
       },
       {
-        title: 'AirPOrts',
+        title: 'AirPorts',
         href: '/AirPOrts',
         icon: PeopleIcon
       },

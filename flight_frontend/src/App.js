@@ -40,8 +40,8 @@ const App = () => {
             <ScrollReset />
             <GoogleAnalytics />
             <CookiesNotification />
-            {renderRoutes(routes)}
-            {/* {user ? (user?.role === "superadmin" ? renderRoutes(routes):renderRoutes(B2BAdminRoutes)):(renderRoutes(UserRoutes))} */}
+            {/* {renderRoutes(routes)} */}
+            {user ? (user?.role === "superadmin" ? renderRoutes(routes):renderRoutes(B2BAdminRoutes)):(renderRoutes(UserRoutes))}
 
           </Router>
         </MuiPickersUtilsProvider>

@@ -128,15 +128,14 @@ const TopBar = props => {
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
   const handleLogout = () => {
-    if(user !== null && token !== null){
+   
       localStorage.removeItem('user');
       localStorage.removeItem('token');
-      history.push('/auth/login');
+      
+      window.location.replace('/');
 
-    }else{
-      history.push('/auth/login');
 
-    }
+ 
     // dispatch(logout());
   };
 

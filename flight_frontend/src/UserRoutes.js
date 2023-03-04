@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/presentation" />
+    component: () => <Redirect to="/auth/login" />
   },
   {
     path: '/auth',
@@ -84,16 +84,16 @@ const routes = [
       //   exact: true,
       //   component: lazy(() => import('views/Chat'))
       // },
-      {
-        path: '/dashboards/analytics',
-        exact: true,
-        component: DashboardAnalyticsView
-      },
-      {
-        path: '/dashboards/default',
-        exact: true,
-        component: DashboardDefaultView
-      },
+      // {
+      //   path: '/dashboards/analytics',
+      //   exact: true,
+      //   component: DashboardAnalyticsView
+      // },
+      // {
+      //   path: '/dashboards/default',
+      //   exact: true,
+      //   component: DashboardDefaultView
+      // },
       // {
       //   path: '/invoices/:id',
       //   exact: true,
