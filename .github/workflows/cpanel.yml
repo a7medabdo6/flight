@@ -4,31 +4,37 @@ push:
     branches:
       - main
 jobs:
+build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        run: npm install    
+      - name: Generate build
+        run: npm run build
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-    - name: Install SSH Key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.key }}
-        known_hosts: unnecessary
-    - name: Upload ftp
+    - uses: actions/checkout@v2
+    - name: Upload ftp
       uses : SamKirkland/FTP-Deploy-Action@4.3.2
       with:
         server: ftp.engaz-soft.com
         username: cicd@engaz-soft.com
-        password: Kalli.linx2
-    - name: running command ssh
-      uses: appleboy/ssh-action@master
-      with:
-        host: ftp.engaz-soft.com
-        username: cicd@engaz-soft.com
-        password: Kalli.linx2
-        key: ${{ secrets.key }}
-        port: 21
-        script: |
-          
+        password: Kalli.linx2
 
+
+
+
+
+
+
+
+
+          
