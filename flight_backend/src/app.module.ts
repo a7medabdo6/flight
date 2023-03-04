@@ -46,17 +46,17 @@ import { DapartureAirport } from './daparture-airport/entities/daparture-airport
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db-mysql-sfo3-55643-do-user-9120615-0.b.db.ondigitalocean.com',
-      port: 25060,
-      username: 'doadmin',
-      password: 'AVNS_vPJjdBFePeawLu5rHmC',
-      database: 'defaultdb',
+      // host: 'db-mysql-sfo3-55643-do-user-9120615-0.b.db.ondigitalocean.com',
+      // port: 25060,
+      // username: 'doadmin',
+      // password: 'AVNS_vPJjdBFePeawLu5rHmC',
+      // database: 'defaultdb',
 
-      // username: 'root',
-      // port: 3306,
-      // host: 'localhost',
-      // database: 'flight',
-      // password: '',
+      username: 'root',
+      port: 3306,
+      host: 'localhost',
+      database: 'flight',
+      password: '',
 
       entities: [
         User,
@@ -68,7 +68,7 @@ import { DapartureAirport } from './daparture-airport/entities/daparture-airport
         FlightCompany,
         Country,
         City,
-        DapartureAirport
+        DapartureAirport,
       ],
       synchronize: true,
     }),

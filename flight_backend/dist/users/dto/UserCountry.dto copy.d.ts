@@ -1,4 +1,4 @@
-import { Flight } from 'src/flight/entities/flight.entity';
+import { Country } from 'src/country/entities/country.entity';
 export declare class UserCountryDto {
-    flight: Flight[];
+    country: Country[];
 }

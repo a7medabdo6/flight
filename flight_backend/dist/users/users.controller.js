@@ -20,7 +20,6 @@ const users_service_1 = require("./users.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
-const user_dto_1 = require("./dto/user.dto");
 const auth_service_1 = require("../auth/auth.service");
 const flight_service_1 = require("../flight/flight.service");
 const UserCountry_dto_copy_1 = require("./dto/UserCountry.dto copy");
@@ -179,7 +178,6 @@ __decorate([
 ], UsersController.prototype, "remove", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
-    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     __metadata("design:paramtypes", [users_service_1.UsersService,
         auth_service_1.AuthService,
         flight_service_1.FlightService,

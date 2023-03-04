@@ -31,7 +31,7 @@ import { FlightService } from 'src/flight/flight.service';
 import { UserCountryDto } from './dto/UserCountry.dto copy';
 import { CountryService } from 'src/country/country.service';
 @Controller('users')
-@Serialize(UserDto)
+// @Serialize(UserDto)
 // @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
