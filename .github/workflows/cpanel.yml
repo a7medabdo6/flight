@@ -20,12 +20,17 @@ jobs:
         run: cd flight_frontend && npm install --force --ignore-engines
         env:
           CI: false
-      - name: Building project
+      - name: Building project frontend
         run: cd flight_frontend && npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=32768
           CI: false
-
+          
+      - name: Building project backend
+        run: cd flight_backend && npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=32768
+          CI: false
       - name: running command ssh
         uses: appleboy/ssh-action@master
         with:
