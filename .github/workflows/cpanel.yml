@@ -20,6 +20,11 @@ jobs:
         run: cd flight_frontend && npm install --force --ignore-engines
         env:
           CI: false
+      - name: Installing dependencies
+
+        run: cd flight_backend && npm install --force --ignore-engines
+        env:
+          CI: false
       - name: Building project frontend
         run: cd flight_frontend && npm run build
         env:
