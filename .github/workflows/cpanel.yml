@@ -17,11 +17,11 @@ jobs:
           node-version: "16"
       - name: Installing dependencies
 
-        run: cd flight_frontend && yarn install --force --ignore-engines
+        run: cd flight_frontend && npm install --force --ignore-engines
         env:
           CI: false
       - name: Building project
-        run: cd flight_frontend && yarn run build:staging
+        run: cd flight_frontend && npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=32768
           CI: false
