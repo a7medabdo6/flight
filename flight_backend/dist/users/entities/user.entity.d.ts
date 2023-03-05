@@ -1,3 +1,4 @@
+import { Country } from 'src/country/entities/country.entity';
 import { Docs } from 'src/Docs/entities/Docs.entity';
 import { Flight } from 'src/flight/entities/flight.entity';
 export declare enum UserRole {
@@ -14,5 +15,6 @@ export declare class User {
     role: UserRole;
     active: boolean;
     flight?: Flight[];
+    country?: Country[];
     Docs: Docs;
 }

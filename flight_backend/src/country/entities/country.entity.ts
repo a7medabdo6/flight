@@ -1,9 +1,12 @@
 import { City } from 'src/city/entities/city.entity';
 import { Flight } from 'src/flight/entities/flight.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -23,6 +26,23 @@ export class Country {
   @OneToMany(() => City, (city) => city.country) // specify inverse side as a second parameter
   city: City;
 
+  @ManyToMany(
+    () => User,
+    (user) => user.country, //optional
+    { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' },
+  )
+  @JoinTable({
+    name: 'user_country',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'country_id',
+      referencedColumnName: 'id',
+    },
+  })
+  user?: User[];
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',

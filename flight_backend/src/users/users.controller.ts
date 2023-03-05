@@ -29,14 +29,16 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateCodeDto } from './dto/create-code.dto';
 import { FlightService } from 'src/flight/flight.service';
 import { UserCountryDto } from './dto/UserCountry.dto copy';
+import { CountryService } from 'src/country/country.service';
 @Controller('users')
-@Serialize(UserDto)
+// @Serialize(UserDto)
 // @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private authService: AuthService,
     private readonly flightService: FlightService,
+    private readonly countryService: CountryService,
   ) {}
 
   // @Get('/whoami')
@@ -100,6 +102,16 @@ export class UsersController {
     console.log(body.ids, 'ids');
     const flights = await this.flightService.findAllByIds(body?.ids);
     return this.usersService.AssignFlights(id, flights);
+  }
+  @Post(':id/country')
+  async country(@Param('id') id: number, @Body() body: { ids: [] }) {
+    console.log(body.ids, 'ids');
+    const countries = await this.countryService.findAllByIds(body?.ids);
+    return this.usersService.AssignCountries(id, countries);
+  }
+  @Get(':id/all-countries')
+  getAllCountries(@Param('id') id: string) {
+    return this.usersService.getAllCountries(+id);
   }
   @Delete(':id')
   remove(@Param('id') id: string) {

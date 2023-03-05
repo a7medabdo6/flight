@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = exports.UserRole = void 0;
 const openapi = require("@nestjs/swagger");
+const country_entity_1 = require("../../country/entities/country.entity");
 const Docs_entity_1 = require("../../Docs/entities/Docs.entity");
 const flight_entity_1 = require("../../flight/entities/flight.entity");
 const typeorm_1 = require("typeorm");
@@ -21,7 +22,7 @@ var UserRole;
 })(UserRole = exports.UserRole || (exports.UserRole = {}));
 let User = class User {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, phone: { required: true, type: () => String }, photo: { required: true, type: () => String }, password: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, enum: require("./user.entity").UserRole }, active: { required: true, type: () => Boolean }, flight: { required: false, type: () => [require("../../flight/entities/flight.entity").Flight] }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs } };
+        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, phone: { required: true, type: () => String }, photo: { required: true, type: () => String }, password: { required: true, type: () => String }, username: { required: true, type: () => String }, role: { required: true, enum: require("./user.entity").UserRole }, active: { required: true, type: () => Boolean }, flight: { required: false, type: () => [require("../../flight/entities/flight.entity").Flight] }, country: { required: false, type: () => [require("../../country/entities/country.entity").Country] }, Docs: { required: true, type: () => require("../../Docs/entities/Docs.entity").Docs } };
     }
 };
 __decorate([
@@ -69,6 +70,13 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], User.prototype, "flight", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => country_entity_1.Country, (country) => country.user, {
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "country", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => Docs_entity_1.Docs, (Docs) => Docs.user),
     (0, typeorm_1.JoinColumn)(),

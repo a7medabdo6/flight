@@ -14,9 +14,9 @@ const class_transformer_1 = require("class-transformer");
 class UserCountryDto {
 }
 __decorate([
-    (0, class_transformer_1.Transform)(({ obj }) => obj.flight),
+    (0, class_transformer_1.Transform)(({ obj }) => obj.country),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Array)
-], UserCountryDto.prototype, "flight", void 0);
+], UserCountryDto.prototype, "country", void 0);
 exports.UserCountryDto = UserCountryDto;
 //# sourceMappingURL=UserCountry.dto%20copy.js.map

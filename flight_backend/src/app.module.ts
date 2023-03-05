@@ -68,7 +68,7 @@ import { DapartureAirport } from './daparture-airport/entities/daparture-airport
         FlightCompany,
         Country,
         City,
-        DapartureAirport
+        DapartureAirport,
       ],
       synchronize: true,
     }),

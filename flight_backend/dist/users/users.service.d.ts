@@ -1,3 +1,4 @@
+import { Country } from 'src/country/entities/country.entity';
 import { Flight } from 'src/flight/entities/flight.entity';
 import { Repository } from 'typeorm';
 import { CreateCodeDto } from './dto/create-code.dto';
@@ -17,6 +18,8 @@ export declare class UsersService {
     findOneByEmail(email: string): Promise<User>;
     update(id: number, updateUser: Partial<User>): Promise<User>;
     AssignFlights(id: number, Flight: Flight[]): Promise<User>;
+    AssignCountries(id: number, country: Country[]): Promise<User>;
     getAllFlight(id: number): Promise<User>;
+    getAllCountries(id: number): Promise<User>;
     remove(id: number): Promise<User>;
 }

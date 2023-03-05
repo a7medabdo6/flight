@@ -49,11 +49,11 @@ AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'db-mysql-sfo3-55643-do-user-9120615-0.b.db.ondigitalocean.com',
-                port: 25060,
-                username: 'doadmin',
-                password: 'AVNS_vPJjdBFePeawLu5rHmC',
-                database: 'defaultdb',
+                username: 'root',
+                port: 3306,
+                host: 'localhost',
+                database: 'flight',
+                password: '',
                 entities: [
                     user_entity_1.User,
                     Docs_entity_1.Docs,
@@ -64,7 +64,7 @@ AppModule = __decorate([
                     flight_company_entity_1.FlightCompany,
                     country_entity_1.Country,
                     city_entity_1.City,
-                    daparture_airport_entity_1.DapartureAirport
+                    daparture_airport_entity_1.DapartureAirport,
                 ],
                 synchronize: true,
             }),

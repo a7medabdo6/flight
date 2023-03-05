@@ -5,11 +5,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { User } from './entities/user.entity';
 import { FlightService } from 'src/flight/flight.service';
+import { CountryService } from 'src/country/country.service';
 export declare class UsersController {
     private readonly usersService;
     private authService;
     private readonly flightService;
-    constructor(usersService: UsersService, authService: AuthService, flightService: FlightService);
+    private readonly countryService;
+    constructor(usersService: UsersService, authService: AuthService, flightService: FlightService, countryService: CountryService);
     getHello(i18n: I18nContext): Promise<any>;
     signup(createUserDto: CreateUserDto): Promise<User>;
     signin(createUserDto: any): Promise<{
@@ -23,6 +25,7 @@ export declare class UsersController {
         role: import("./entities/user.entity").UserRole;
         active: boolean;
         flight?: import("../flight/entities/flight.entity").Flight[];
+        country?: import("../country/entities/country.entity").Country[];
         Docs: import("../Docs/entities/Docs.entity").Docs;
     }>;
     signout(session: any): Promise<string>;
@@ -33,5 +36,9 @@ export declare class UsersController {
     flight(id: number, body: {
         ids: [];
     }): Promise<User>;
+    country(id: number, body: {
+        ids: [];
+    }): Promise<User>;
+    getAllCountries(id: string): Promise<User>;
     remove(id: string): Promise<User>;
 }
