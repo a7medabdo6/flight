@@ -1,3 +1,41 @@
+name: DMS Dashboard React (Staging)
+
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  # To build the project
+  build-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out code
+        uses: actions/checkout@v3
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Installing dependencies
+        run: yarn install --force --ignore-engines
+        env:
+          CI: false
+      - name: Building project
+        run: yarn run build:staging
+        env:
+          NODE_OPTIONS: --max-old-space-size=32768
+          CI: false
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz -e "ssh -t -p ${{ secrets.SSH_PORT }}" build ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/onpixie/DMS_React_test
 
 
 
