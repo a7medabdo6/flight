@@ -3,7 +3,7 @@ name: DMS Dashboard React (Staging)
 on:
   push:
     branches:
-      - dev
+      - main
 jobs:
   # To build the project
   build-staging:
