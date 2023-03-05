@@ -36,14 +36,19 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=32768
           CI: false
-      - name: running command ssh
-        uses: appleboy/ssh-action@master
+      - name: Upload ftp
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-         host: ftp.engaz-soft.com
+           server: ftp.engaz-soft.com
+           username: cicd@engaz-soft.com
+           password: Kalli.linx2
+ 
 
-         username: engafkiw
-         password: Kalli.linx2
-         port: 21
+
+
+
+
+
 
 
 
