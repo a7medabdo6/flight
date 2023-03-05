@@ -26,17 +26,24 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=32768
           CI: false
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
+      - name: running command ssh
+        uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.SSH_KEY }}
-          known_hosts: unnecessary
+         host: ftp.engaz-soft.com
 
-      - name: Adding Known Hosts
-        run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
+         username: engafkiw
+         password: Kalli.linx2
+         port: 21
 
-      - name: Deploy with rsync
-        run: rsync -avz -e "ssh -t -p ${{ secrets.SSH_PORT }}" build ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/onpixie/DMS_React_test
+
+
+
+
+
+
+
+
+
 
 
 
