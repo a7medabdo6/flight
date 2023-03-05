@@ -32,10 +32,11 @@ import { useState } from 'react';
  const RoutesList=()=> {
   const [arr, setarr] = useState([])
   const items=Countries()
+  console.log(arr,"ddddd");
   useEffect(() => {
 console.log(items,"items") 
 // setarr(items) 
-if(items.length>0){
+if(items?.length>0){
   setarr(items)
 }
     return () => {

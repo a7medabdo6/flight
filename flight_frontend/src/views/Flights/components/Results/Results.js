@@ -33,6 +33,7 @@ import { DeletFlightApi } from 'Hook/Flight/Delet-Flight-Hook';
 import { useSelector } from 'react-redux';
 import EditeFlight from 'views/Flights/EditeFlight/EditeFlight';
 import { useEffect } from 'react';
+import { AddFlightByCheckBoxtApi } from 'Hook/Flight/Use-Add-Flight-By-CheckBox-Hook';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -131,8 +132,44 @@ console.log(showEdite);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
 const [itemData,setitemData]=useState()
+const user =JSON.parse(localStorage.getItem('user')) ;
 
-console.log(itemData);
+const [ids,setides]=useState([])
+const navdata =JSON.parse(localStorage.getItem("navbarcountry"))
+const array =navdata?.map((item)=>{return(item?.id)})
+console.log(array);
+const handelchangecheckbox=(e)=>{
+  let value =e.target.value
+console.log(value);
+if(array?.length === 0){
+  setides((oldarry)=>[...oldarry,value])
+
+}else if(array?.length > 0){
+  setides((oldarry)=>[...oldarry,value,array])
+}
+
+console.log(ids);
+}
+const {data:AddFlightByCheckData,mutate:SubmitAddFlightByCheckBox} =  AddFlightByCheckBoxtApi()
+const {AddFlightByCheckBoxtData} = useSelector(state => state.AddFlightByCheckBoxtRedux)
+console.log(AddFlightByCheckBoxtData);
+
+const AddFlightCheckBox =()=>{
+
+  const formdata={
+    data:{
+      "ids":ids
+
+    },
+    id:user?.id
+  }
+
+// const  id=user?.id
+
+
+  SubmitAddFlightByCheckBox(formdata)
+}
+
   return (
     <div
       {...rest}
@@ -247,8 +284,8 @@ console.log(itemData);
                         <Checkbox
                         
                           color="primary"
-                          onChange={(e) => {return(setitemData(customer?.id))}  }
-                          value={itemData}
+                          onChange={(e) => {return(handelchangecheckbox(e),setitemData(customer?.id))}  }
+                          value={customer?.country?.id}
                         />
                       </TableCell>
                       <TableCell className='text-center'>
@@ -302,7 +339,7 @@ console.log(itemData);
       <ToastContainer></ToastContainer>
       <Button
           style={{backgroundColor:COLORS.orange,position:"relative",width:"100%"}}
-          onClick={handleShow}
+          onClick={AddFlightCheckBox}
           color="primary"
             variant="contained"
           >

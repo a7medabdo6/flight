@@ -131,6 +131,8 @@ const token = localStorage.getItem('token');
    
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      localStorage.removeItem('navbarcountry');
+
       
       window.location.replace('/');
 

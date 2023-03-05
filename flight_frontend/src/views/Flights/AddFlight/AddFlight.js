@@ -93,7 +93,7 @@ const[disabledcity,setdisabledcity]=useState(true)
     
         }
     },[error])
-
+console.log(cityID);
     const {data:GetDataAirPort,refetch:refetchAirPort,isLoading}=GetAirPortBasecCityHook(cityID,chickcity)
 
     const {GetAirPortBasecCityData} =useSelector(state => state.GetAirPortBasecCityRedux)

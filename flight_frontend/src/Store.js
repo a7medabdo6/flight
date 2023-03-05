@@ -36,6 +36,8 @@ import DeletdapartureRedux from "./Redux/daparture-airport/Delet-daparture-Redux
 import EditedapartureRedux from "./Redux/daparture-airport/Edite-daparture-Redux"
 import GetdapartureRedux from "./Redux/daparture-airport/Get-daparture-Redux"
 import GetAirPortBasecCityRedux from "./Redux/daparture-airport/Get-Airport-Based-City-Redux"
+import AddFlightByCheckBoxtRedux from "./Redux/Flight/Use-Add-Flight-By-CheckBox-Redux"
+import GetcountryNavBarRedux from "./Redux/Country/Get-Country-NavBar-Redux"
 export const store = configureStore({
     reducer: {
         GetFlightRedux: GetFlightRedux,
@@ -76,5 +78,7 @@ export const store = configureStore({
         EditedapartureRedux:EditedapartureRedux,
         GetdapartureRedux:GetdapartureRedux,
         GetAirPortBasecCityRedux:GetAirPortBasecCityRedux,
+        AddFlightByCheckBoxtRedux:AddFlightByCheckBoxtRedux,
+        GetcountryNavBarRedux:GetcountryNavBarRedux,
     }
 })
