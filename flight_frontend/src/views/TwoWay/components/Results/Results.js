@@ -153,7 +153,7 @@ const Results = props => {
       >
         <Modal.Header style={{margin:0,padding:0}} >
           <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
-            <h5 style={{color:"white"}} className='p-2'>Edite</h5>
+            <h5 style={{color:"white"}} className='p-2'>EDITE</h5>
             
           </Modal.Title>
         </Modal.Header>
@@ -173,7 +173,7 @@ const Results = props => {
       >
         <Modal.Header style={{margin:0,padding:0}} >
           <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
-            <h5 style={{color:"white"}} className='p-2'>Add Round</h5>
+            <h5 style={{color:"white"}} className='p-2'>Add Round Trip</h5>
             
           </Modal.Title>
         </Modal.Header>

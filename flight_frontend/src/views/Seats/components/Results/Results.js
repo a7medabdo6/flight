@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
   inner: {
     minWidth: 700,
+    width:"100%"
    
     
   },
@@ -69,7 +70,7 @@ const Results = props => {
 
   const [open, setOpen] = useState(false)
 
-  const { className, customers, ...rest } = props;
+  const { className, customers,handleShowADD, ...rest } = props;
 
   const classes = useStyles();
 
@@ -235,7 +236,7 @@ const [showEdite, setShowEdite] = useState(false);
         {Math.ceil(customers.length / rowsPerPage)}
       </Typography> */}
       <Card style={{fontSize:"50px"}}>
-        
+     
         <CardHeader
         // style={{margin:"0px",padding:0}}
         // avatar={
@@ -246,14 +247,25 @@ const [showEdite, setShowEdite] = useState(false);
         // }
           action={<GenericMoreButton />}
           title={
+            <div className='d-flex justify-content-between align-items-center'>
             <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Seats</h2>
+            <Button
+            style={{backgroundColor:COLORS.orange}}
+           onClick={handleShowADD}
+             color="primary"
+             variant="contained"
+           >
+           Add New Seat
+           </Button>
+           </div>
           }
         />
         <Divider />
         <CardContent className={classes.content}>
           <PerfectScrollbar style={{overflow:"auto"}}>
+        
             <div className={classes.inner}  >
-       
+           
 
               <Table >
                 
@@ -265,7 +277,10 @@ const [showEdite, setShowEdite] = useState(false);
 
 
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.APT</TableCell>
+                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.Date</TableCell>
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.APT</TableCell>
+                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.Date</TableCell>
+
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.Time</TableCell>
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.Time</TableCell>
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Duration</TableCell>
@@ -273,8 +288,10 @@ const [showEdite, setShowEdite] = useState(false);
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>To.Seats No.</TableCell>
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Avail.Seats</TableCell>
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Suppliers</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>S.price</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Craeted At</TableCell>
+                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>U.S.price</TableCell>
+                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>CO.S.price</TableCell>
+
+                    {/* <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Craeted At</TableCell> */}
 
                     <TableCell style={{fontSize:"13px",color:"white"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
@@ -288,28 +305,34 @@ const [showEdite, setShowEdite] = useState(false);
                     >
                      
                       
-                      <TableCell className='text-center'>
+                      <TableCell className='text-center' style={{padding:"6px"}}>
                         {customer?.airlines}
                       </TableCell>
-                      <TableCell className='text-center'>{customer?.flight_number}</TableCell>
-                      <TableCell className='text-center'>{customer?.departure_airport}</TableCell>
-                      <TableCell className='text-center'>{customer?.arrival_airport}</TableCell>
-                      <TableCell className='text-center'>{customer?.departure_time}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.flight_number}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.departure_airport}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.departure_date}</TableCell>
 
-                      <TableCell className='text-center'>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.arrival_airport}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.arrival_date}</TableCell>
+
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.departure_time}</TableCell>
+
+                      <TableCell className='text-center' style={{padding:"6px"}}>
                       {customer?.arrival_time}
                       </TableCell>
 
 
-                      <TableCell className='text-center'>{customer?.duration}</TableCell>
-                      <TableCell className='text-center'>{customer?.weight}</TableCell>
-                      <TableCell className='text-center'>{customer?.total_seat_number}</TableCell>
-                      <TableCell className='text-center'>{customer?.available_seats}</TableCell>
-                      <TableCell className='text-center'>{customer?.suppliers}</TableCell>
-                      <TableCell className='text-center'>{customer?.seat_price}</TableCell>
-                      <TableCell className='text-center'>{customer?.created_at}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.duration}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.weight}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.total_seat_number}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.available_seats}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.suppliers}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.seat_price_enduser}</TableCell>
+                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.seat_price_company}</TableCell>
 
-                      <TableCell className='text-center' align="right">
+                      {/* <TableCell className='text-center' style={{padding:"6px"}}>{customer?.created_at}</TableCell> */}
+
+                      <TableCell className='text-center' align="right" style={{padding:"6px"}}>
                         <div className='d-flex '>
                         <i onClick={()=>{return(handleShow(),setid(customer?.id))}} className="fa-solid fa-trash-can m-1"></i>
 

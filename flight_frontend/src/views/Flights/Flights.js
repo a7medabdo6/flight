@@ -97,6 +97,7 @@ console.log(show);
           className={classes.results}
           customers={customers}
           GetFlightData={GetFlightData}
+          handleShowADD={handleShow} handleClose={handleClose}
         />
       )}
     </Page>

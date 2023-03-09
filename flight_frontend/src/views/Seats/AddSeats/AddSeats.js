@@ -350,7 +350,7 @@ console.log(item)
         </div>
 
         </div>
-        <div style={{marginLeft:"245px"}}>
+        <div className='addseatCO-Price' >
         <AddSeatsCard  title="Seat Price (Company)" Chosing={Inputs.InputSeatsPriceCompany}/>
 
         </div>

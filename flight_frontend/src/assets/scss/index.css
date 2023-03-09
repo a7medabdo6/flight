@@ -67,6 +67,20 @@ input[type=number] {
 
 }
 
+.textinputround{
+  width: 65px;
+  height: 30px;
+ }
+ .MuiTableCell-root{
+  padding: 4px !important;
+ }
+ .makeStyles-fab-145{
+  display: none !important;
+ }
+
+ .addseatCO-Price{
+  margin-left: 245px;
+ }
 @media only screen and (max-width: 600px) {
   .tableAddRoundTripFontSize{
     font-size: 8px;
@@ -74,4 +88,11 @@ input[type=number] {
     padding-right: 0 !important;
   
   }
+ .textinputround{
+  width: 32px;
+ }
+ 
+ .addseatCO-Price{
+  margin-left: 100px;
+ }
 }

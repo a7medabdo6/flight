@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Results = props => {
-  const { className,GetFlightData, customers, ...rest } = props;
+  const { className,GetFlightData,handleShowADD,handleCloseADD, customers, ...rest } = props;
 
   const classes = useStyles();
 
@@ -238,13 +238,24 @@ const AddFlightCheckBox =()=>{
         // }
           action={<GenericMoreButton />}
           title={
+            <div className='d-flex justify-content-between align-items-center'>
             <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Flight</h2>
+            <Button
+            style={{backgroundColor:COLORS.orange}}
+            onClick={handleShowADD}
+            color="primary"
+              variant="contained"
+            >
+            Add New Flight
+            </Button>
+            </div>
           }
         />
         <Divider />
         <CardContent className={classes.content}>
           <PerfectScrollbar style={{overflow:"auto"}}>
             <div className={classes.inner}  >
+           
               <Table >
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>

@@ -140,9 +140,10 @@ console.log(flietNumOne);
     <div>
         <div className='d-flex justify-content-between align-items-center '>
       <div className='m-3'>
-        <div className='d-flex justify-content-between align-items-center '>
-          <h4>AMM-IST</h4>
-          <h4>Price</h4>
+        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"14px"}}>
+          <h5>AMM
+- IST </h5>
+          <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
         <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -155,16 +156,16 @@ console.log(flietNumOne);
           }
         </select>
         {/* <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/> */}
-         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>{priceOne}</h6>
+         <h6 className='m-3 rounded ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
         </div>
 
       </div>
 
 
       <div className='m-3'>
-        <div className='d-flex justify-content-between align-items-center '>
-          <h4>IST-AMM</h4>
-          <h4>Price</h4>
+        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"14px"}}>
+          <h5>IST-AMM</h5>
+          <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
         <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -175,7 +176,7 @@ console.log(flietNumOne);
 
             )})
           }
-        </select>         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>{priceTwo}</h6>
+        </select>         <h6 className='m-3 rounded ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
         </div>
 
       </div>
@@ -186,7 +187,7 @@ console.log(flietNumOne);
       <div className='d-flex justify-content-center align-items-center flex-column'>
         <p className='text-nowrap'>Increase / descrease Price</p>
       </div>
-      <div className='d-flex justify-content-end align-items-center mb-2 '>
+      <div className='d-flex justify-content-end align-items-center mb-2 ' style={{marginRight:"32px"}}>
       <button onClick={increase} type="button" className="btn btn-secondary">+</button>
         <p className='d-flex justify-content-center align-items-center rounded ' style={{padding:20,backgroundColor:COLORS.blue,margin:0,height:"35px"}}>{count}</p>
         <button onClick={Descrease} type="button" className="btn btn-secondary">-</button>  
@@ -195,12 +196,12 @@ console.log(flietNumOne);
      <div style={{marginBottom:"10px"}} className=' d-flex justify-content-center align-items-center flex-column'>
         <p className='text-nowrap'>Enter Dayes:</p>
         <div className=' d-flex justify-content-center align-items-center '>
-        <input className='text-center rounded' onChange={HnadelChangeDayes} style={{width:"30px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
+        <input className='text-center rounded textinputround' onChange={HnadelChangeDayes} style={{backgroundColor:"#D6DCE5"}} type="number" />
         {
           check === true ? (
             <div className=' d-flex justify-content-center align-items-center '>
             <p style={{margin:15}}>To</p>
-            <input className='text-center rounded' style={{width:"30px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
+            <input className='text-center rounded textinputround' style={{backgroundColor:"#D6DCE5"}} type="number" />
             </div>
           ):null
         }

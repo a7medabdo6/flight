@@ -81,23 +81,21 @@ return [
               {
                 title: 'Flights',
                 href: '/Flight',
-                icon:FlightOutlinedIcon
               },
               {
                 title: 'Seats',
-                href: '/Seats',
-                icon:AirlineSeatReclineExtraOutlinedIcon,
+                
                 children: [
-                  {
-                    title: 'One Way',
-                    href: '/Seats',
-                    icon:ArrowRightAltOutlinedIcon,
-                    children: arr
-                  },
                   {
                     title: 'Two Way',
                     href: '/TwoWay',
-                    icon:SwapVertOutlinedIcon
+
+                    
+                  },
+                  {
+                    title: 'One Way',
+                    href: '/Seats',
+                    children: arr
 
                   },
 

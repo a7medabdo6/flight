@@ -14,26 +14,26 @@ setcount(count + 1)
     <div>
      <div className='d-flex justify-content-between align-items-center'>
       <div className='m-3'>
-        <div className='d-flex justify-content-between align-items-center '>
-          <h4>AMM-IST</h4>
-          <h4>Price</h4>
+        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"14px"}}>
+          <h5>AMM-IST</h5>
+          <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
         <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/>
-         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>120</h6>
+         <h6 className='m-3 rounded  d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>120</h6>
         </div>
 
       </div>
 
 
       <div className='m-3'>
-        <div className='d-flex justify-content-between align-items-center '>
-          <h4>IST-AMM</h4>
-          <h4>Price</h4>
+        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"14px"}}>
+          <h5>IST-AMM</h5>
+          <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
         <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/>
-         <h6 className='ms-3 rounded p-2' style={{backgroundColor:"grey",color:"white"}}>120</h6>
+         <h6 className='m-3 rounded d-flex justify-content-center align-items-center' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>120</h6>
         </div>
 
       </div>

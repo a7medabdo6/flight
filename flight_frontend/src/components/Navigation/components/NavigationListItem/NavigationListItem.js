@@ -22,12 +22,13 @@ const useStyles = makeStyles(theme => ({
   item: {
     display: 'block',
     paddingTop: 0,
+
     paddingBottom: 0
   },
   itemLeaf: {
     display: 'flex',
     paddingTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   button: {
     color: colors.blueGrey[800],
@@ -102,7 +103,9 @@ const NavigationListItem = props => {
 
   const style = {
     color:"white",
-    paddingLeft
+    paddingLeft:"5px",
+
+    
   };
 
   if (children) {

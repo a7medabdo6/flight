@@ -21,7 +21,7 @@ const NavigationList = props => {
   const { pages, ...rest } = props;
 
   return (
-    <List>
+    <List  >
       {pages.reduce(
         (items, page) => reduceChildRoutes({ items, page, ...rest }),
         []
@@ -44,7 +44,48 @@ const reduceChildRoutes = props => {
       exact: false
     });
 
-    items.push(
+    if (page.children.length === 2 &&(page.children[0].title=="Two Way"||page.children[0].title=="One Way")) {
+      const arr1 =[]
+     const arr2 =[]
+
+
+      arr1.push(
+     page.children[0]
+      )
+
+       arr2.push(
+     page.children[1]
+      )
+console.log(arr1);
+ items.push(
+      <NavigationListItem
+      
+        depth={depth}
+        icon={page.icon}
+        key={page.title}
+        label={page.label}
+        open={Boolean(open)}
+        title={page.title}
+      >
+        <div className='d-flex justify-content-around align items-center' >
+          
+        <NavigationList
+        
+          depth={depth + 1}
+          pages={arr1}
+          router={router}
+        />
+        <NavigationList
+          depth={depth + 1}
+          pages={arr2}
+          router={router}
+        />
+        </div>
+        
+      </NavigationListItem>
+    );
+    }else{
+ items.push(
       <NavigationListItem
       
         depth={depth}
@@ -61,6 +102,9 @@ const reduceChildRoutes = props => {
         />
       </NavigationListItem>
     );
+    }
+
+   
   } else {
     items.push(
       <NavigationListItem

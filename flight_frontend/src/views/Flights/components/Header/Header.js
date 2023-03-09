@@ -48,14 +48,7 @@ const Header = props => {
         </Grid>
         <Grid item style={{position:"absolute",right:"5px",marginBottom:"5px"}} >
           
-          <Button
-          style={{backgroundColor:COLORS.orange}}
-          onClick={handleShow}
-          color="primary"
-            variant="contained"
-          >
-          Add New Flight
-          </Button>
+         
         </Grid>
       </Grid>
     </div>

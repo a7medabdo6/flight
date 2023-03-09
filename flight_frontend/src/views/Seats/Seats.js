@@ -84,13 +84,14 @@ const Seats = () => {
 
       
 
-      <Header handleShow={handleShow} />
+      <Header  />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
       /> */}
       {customers && (
         <Results
+        handleShowADD={handleShow}
           className={classes.results}
           customers={customers}
         />
