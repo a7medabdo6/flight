@@ -68,7 +68,7 @@ console.log(show);
 
 <Modal
         className=''
-        size="lg"
+        size="md"
         show={show}
         onHide={handleClose}
         aria-labelledby="example-modal-sizes-title-lg"

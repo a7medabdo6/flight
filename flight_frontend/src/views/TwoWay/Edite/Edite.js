@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { COLORS } from 'utils/COLORS.'
 
-const Edite = () => {
+const Edite = ({handelHide}) => {
   const [count,setcount]=useState(0)
   const increase = ()=>{
 setcount(count + 1)
@@ -57,7 +57,7 @@ setcount(count + 1)
      <div>
      <div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
       <button style={{marginRight:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Add</button>
-        <button style={{marginLeft:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Cancel</button>  
+        <button onClick={handelHide} style={{marginLeft:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Cancel</button>  
       </div>
      </div>
     </div>

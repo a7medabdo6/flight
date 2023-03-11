@@ -119,7 +119,7 @@ const routes = [
 
 
       {
-        path: '/Seats',
+        path: '/seats/one-way/:country/:city',
         exact: true,
         component: lazy(() => import('views/Seats'))
       },

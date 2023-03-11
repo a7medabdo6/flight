@@ -67,6 +67,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto'
   },
   active: {
+    backgroundColor:"rgb(255 102 0 / 55%)",
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
     '& $icon': {

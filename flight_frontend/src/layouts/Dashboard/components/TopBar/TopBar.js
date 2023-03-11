@@ -193,18 +193,28 @@ const token = localStorage.getItem('token');
       <Toolbar style={{backgroundColor:COLORS.purple}}>
         <RouterLink to="/">
           <img
-          style={{height:"80px",width:"160px"}}
+          style={{height:"110px",width:"170px"}}
             alt="Logo"
             src="/images/logos/orange.png"
           />
         </RouterLink>
-        <Button
+        <div className='d-flex justify-content-center align-items-center' style={{marginLeft:"100px"}}>
+        <img 
+           style={{height:"50px",width:"50px",objectFit: "cover",borderRadius:"50%"}}
+          src='/images/logos/PLANE.jpg'/>
+          <div style={{marginLeft:"20px"}}>
+            <p style={{marginBottom:0,fontSize:"22px"}}>{userLogin?.username}</p>
+            <p style={{width:"150px",fontSize:"13px"}}>us-cairo,egypt</p>
+          </div>
+          
+        </div>
+        {/* <Button
           style={{backgroundColor:"white",marginLeft:"100px",widows:"100px"}}
           color="black"
             variant="contained"
           >
           {userLogin?.username}
-          </Button>
+          </Button> */}
         <div className={classes.flexGrow} />
         <Hidden smDown>
           <div

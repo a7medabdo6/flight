@@ -257,7 +257,7 @@ const HandelSave=()=>{
 
         </>),
         InputSeatsPriceCompany:( <>
-          <input onChange={HandelSeatPricecompany } value={SeatPricecompany} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",width:"50%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
+          <input onChange={HandelSeatPricecompany } value={SeatPricecompany} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
   
       </>),
     }
@@ -289,7 +289,7 @@ const HandelSave=()=>{
         </div>
         </div>
 
-        <div style={{marginLeft:"245px"}}>
+        <div className='w-100 d-flex justify-content-center align-items-center' >
         <EditSeatsCard  title="Seat Price (Company)" Chosing={Inputs.InputSeatsPriceCompany}/>
 
         </div>

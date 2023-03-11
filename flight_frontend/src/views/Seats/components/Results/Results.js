@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Avatar,
   Card,
@@ -63,14 +63,23 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   }
 }));
-
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: "white",
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: "#E3E3E3",
+    },
+  },
+}))(TableRow);
 const Results = props => {
 
 
 
   const [open, setOpen] = useState(false)
 
-  const { className, customers,handleShowADD, ...rest } = props;
+  const { className,city,country, customers,handleShowADD, ...rest } = props;
 
   const classes = useStyles();
 
@@ -167,7 +176,7 @@ const [showEdite, setShowEdite] = useState(false);
    
    <Modal
         className=''
-        size="lg"
+        size="md"
         show={showEdite}
         onHide={handleCloseEdite}
         aria-labelledby="example-modal-sizes-title-lg"
@@ -247,7 +256,8 @@ const [showEdite, setShowEdite] = useState(false);
         // }
           action={<GenericMoreButton />}
           title={
-            <div className='d-flex justify-content-between align-items-center'>
+            <div>
+  <div className='d-flex justify-content-between align-items-center'>
             <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Seats</h2>
             <Button
             style={{backgroundColor:COLORS.orange}}
@@ -258,6 +268,19 @@ const [showEdite, setShowEdite] = useState(false);
            Add New Seat
            </Button>
            </div>
+           <div>
+            <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Seat</a></li>
+    <li class="breadcrumb-item"><a href="#">One Way</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{country}</li>
+    <li class="breadcrumb-item active" aria-current="page">{city}</li>
+
+  </ol>
+</nav>
+           </div>
+            </div>
+          
           }
         />
         <Divider />
@@ -298,7 +321,7 @@ const [showEdite, setShowEdite] = useState(false);
                 </TableHead>
                 <TableBody>
                   {GetSeatData?.map(customer => (
-                    <TableRow
+                    <StyledTableRow
                       hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
@@ -343,7 +366,7 @@ const [showEdite, setShowEdite] = useState(false);
                         
                         
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>

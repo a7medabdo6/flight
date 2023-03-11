@@ -94,7 +94,7 @@ return [
                   },
                   {
                     title: 'One Way',
-                    href: '/Seats',
+                    href: '/seats',
                     children: arr
 
                   },

@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Avatar,
   Card,
@@ -60,7 +60,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   }
 }));
-
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: "white",
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: "#E3E3E3",
+    },
+  },
+}))(TableRow);
 const Results = props => {
 
 
@@ -126,6 +135,8 @@ const Results = props => {
   const [smShow, setSmShow] = useState(false);
   
   const handelshow =() => setSmShow(true)
+  const handelHide =() => setSmShow(false)
+
 
   const [smShowaDD, setsmShowaDD] = useState(false);
   const handelshowADD =() => setsmShowaDD(true)
@@ -146,19 +157,19 @@ const Results = props => {
    
     
 <Modal
-        size="lg"
+        size="md"
         show={smShow}
         onHide={() => setSmShow(false)}
         aria-labelledby="example-modal-sizes-title-sm"
       >
         <Modal.Header style={{margin:0,padding:0}} >
           <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
-            <h5 style={{color:"white"}} className='p-2'>EDITE</h5>
+            <h5 style={{color:"white"}} className='p-2'>EDIT</h5>
             
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{padding:0}}>
-          <Edite />
+          <Edite handelHide={handelHide} />
         </Modal.Body>
       </Modal>
 
@@ -206,6 +217,16 @@ const Results = props => {
           title={
             <div className='d-flex justify-content-start  flex-column'>
             <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Seats</h2>
+            <div>
+            <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Seat</a></li>
+    <li class="breadcrumb-item"><a href="#">two Way</a></li>
+    <li class="breadcrumb-item active" aria-current="page">data</li>
+
+  </ol>
+</nav>
+           </div>
             <div className='d-flex justify-content-start align-items-center'>
             <Checkbox color={COLORS.purple}
                       
@@ -218,7 +239,7 @@ const Results = props => {
             variant="contained"
             onClick={handelshow}
           >
-          Edite
+          Edit
           </Button>
             </div>
             </div>
@@ -259,16 +280,19 @@ const Results = props => {
                 </TableHead>
                 <TableBody>
                   {GetSeatTwoWayData?.map(customer => (
-                    <TableRow
+                      <StyledTableRow
                       hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
                     >
                      
-                      
+                     
+
                       <TableCell className='text-center'>
                         RJ
                       </TableCell>
+                      
+
                       <TableCell className='text-center '>AMM-IST-AMM</TableCell>
                       <TableCell className='text-center px-0'><div>
                         <p>{customer?.seat?.flight_number}</p> 
@@ -339,7 +363,10 @@ const Results = props => {
                         
                         
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
+
+                    
+                    
                   ))}
                 </TableBody>
               </Table>

@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Avatar,
   Card,
@@ -61,6 +61,17 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   }
 }));
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: "white",
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: "#E3E3E3",
+    },
+  },
+}))(TableRow);
 
 const Results = props => {
   const { className,GetcountryData, customers, ...rest } = props;
@@ -269,7 +280,7 @@ useEffect(()=>{
                 </TableHead>
                 <TableBody>
                   {GetcountryData?.map(customer => (
-                    <TableRow
+                    <StyledTableRow
                       hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
@@ -291,7 +302,7 @@ useEffect(()=>{
 
                         
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>

@@ -279,7 +279,7 @@ console.log(item)
 
       </>),
        InputSeatsPriceCompany:( <>
-        <input onChange={HandelSeatPricecompany } style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",width:"50%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
+        <input onChange={HandelSeatPricecompany } style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
 
     </>),
          InputAvailableSeatsNumber:( <>
@@ -350,7 +350,7 @@ console.log(item)
         </div>
 
         </div>
-        <div className='addseatCO-Price' >
+        <div className='w-100 d-flex justify-content-center align-items-center' >
         <AddSeatsCard  title="Seat Price (Company)" Chosing={Inputs.InputSeatsPriceCompany}/>
 
         </div>

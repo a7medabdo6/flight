@@ -156,7 +156,7 @@ console.log(EditeFlightData)
        
 
         <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edite</button>
+        <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edit</button>
 
         <button type="button" className="btn btn-secondary m-5 px-5" onClick={handleCloseEdite}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 

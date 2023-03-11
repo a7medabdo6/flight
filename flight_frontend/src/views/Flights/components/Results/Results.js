@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Avatar,
   Card,
@@ -59,6 +59,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   }
 }));
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: "white",
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: "#E3E3E3",
+    },
+  },
+}))(TableRow);
 
 const Results = props => {
   const { className,GetFlightData,handleShowADD,handleCloseADD, customers, ...rest } = props;
@@ -178,14 +188,14 @@ const AddFlightCheckBox =()=>{
 
 <Modal
         className=''
-        size="lg"
+        size="md"
         show={showEdite}
         onHide={handleCloseEdite}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite Flight</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Edit Flight</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -204,14 +214,18 @@ const AddFlightCheckBox =()=>{
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Alert</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Delet Flight</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+        <div className='d-flex justify-content-center align-items-center flex-column '>
+          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  flight ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3'>
+          <button type="button" className="btn btn-secondary m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+<button type="button" className="btn btn-secondary m-2 " onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+          </div>
+       
 
         </div>
         
@@ -285,7 +299,7 @@ const AddFlightCheckBox =()=>{
                 </TableHead>
                 <TableBody>
                   {GetFlightData?.map(customer => (
-                    <TableRow
+                    <StyledTableRow
                       hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer?.id) !== -1}
@@ -326,7 +340,7 @@ const AddFlightCheckBox =()=>{
 
                         
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>
@@ -348,14 +362,17 @@ const AddFlightCheckBox =()=>{
       </Card>
       <TableEditBar selected={selectedCustomers} />
       <ToastContainer></ToastContainer>
+      <div className='w-100 d-flex flex-row-reverse mt-2'>
       <Button
-          style={{backgroundColor:COLORS.orange,position:"relative",width:"100%"}}
+          style={{backgroundColor:COLORS.orange}}
           onClick={AddFlightCheckBox}
           color="primary"
             variant="contained"
           >
-          Save
+          Add Selected Flights
           </Button>
+      </div>
+     
     </div>
   );
 };

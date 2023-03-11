@@ -37,10 +37,10 @@ useEffect(()=>{
               let city = countryNavBar[index]?.city[i]?.name
               arr.push({
                   title: country,
-                  href: '/Seats',
+                  href: `/seats/one-way/${country}`,
                   children: [
                       { title: city,
-                     href: '/Seats',
+                     href: `/seats/one-way/${country}/${city}`,
                     
                    }
                      ]
