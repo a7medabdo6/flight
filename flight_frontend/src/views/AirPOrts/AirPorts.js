@@ -52,7 +52,7 @@ const CustomerManagementList = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShowAdd = () => setShow(true);
 
 console.log(show);
  
@@ -156,7 +156,7 @@ console.log(GetCityData);
 
     
        
-      <Header handleShow={handleShow} handleClose={handleClose} />
+      <Header  handleClose={handleClose} />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
@@ -166,6 +166,7 @@ console.log(GetCityData);
           className={classes.results}
           customers={customers}
           GetdapartureData={GetdapartureData}
+          handleShowAdd={handleShowAdd}
         />
       )}
     </Page>

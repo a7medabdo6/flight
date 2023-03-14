@@ -29,9 +29,9 @@ const Header = props => {
         spacing={3}
       >
         <Grid item style={{width:"100%"}}>
-          <img 
+          {/* <img 
            style={{height:"150px",width:"100%",objectFit: "cover"}}
-          src='/images/logos/travel41.jpg'/>
+          src='/images/logos/travel41.jpg'/> */}
           {/* <Typography
             component="h2"
             gutterBottom
@@ -47,7 +47,7 @@ const Header = props => {
           </Typography> */}
         </Grid>
         <Grid item style={{position:"absolute",right:"5px",marginBottom:"5px"}} >
-          
+{/*           
           <Button
           style={{backgroundColor:COLORS.orange}}
           onClick={handleShow}
@@ -55,7 +55,7 @@ const Header = props => {
             variant="contained"
           >
           Add New Country
-          </Button>
+          </Button> */}
         </Grid>
       </Grid>
     </div>

@@ -10,11 +10,13 @@ import EditeFlightCard from './EditeFlightCard'
 import { EditeFlightApi } from 'Hook/Flight/Edite-Flight-Hook'
 
 const EditeFlight = ({id,handleCloseEdite,customerData}) => {
-    const [country,setcountry]=useState(customerData?.country)
-    const [city,setcity]=useState(customerData?.city)
+    console.log(customerData);
+    
+    const [country,setcountry]=useState(customerData?.country?.name)
+    const [city,setcity]=useState(customerData?.city?.name)
     const [airlines,setairlines]=useState(customerData?.airlines)
     const [flight_number,setflight_number]=useState(customerData?.flight_number)
-    const [departure_airport,setdeparture_airport]=useState(customerData?.departure_airport)
+    const [departure_airport,setdeparture_airport]=useState(customerData?.departure_airport?.id)
     const [arrival_airport,setarrival_airport]=useState(customerData?.arrival_airport)
     const [departure_time,setdeparture_time]=useState(customerData?.departure_time)
     const [arrival_time,setarrival_time]=useState(customerData?.arrival_time)
@@ -130,7 +132,7 @@ console.log(EditeFlightData)
 
         </>),
         InputDurationTime:( <>
-            <input onChange={Hanadelduration} value={duration} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="time" placeholder="Duration" aria-label="default input example"/>
+            <input onChange={Hanadelduration} value={duration} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Duration" aria-label="default input example"/>
 
         </>),
     }

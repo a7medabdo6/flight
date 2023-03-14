@@ -22,7 +22,7 @@ import {
 import { CreateTwoWayApi } from 'Hook/SeatTwoWay/Create-TwoWay-Hook';
 import { useSelector } from 'react-redux';
 import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
-const AddRoundTrip = ({handelCloseADD}) => {
+const EditRoundTrip = ({handelCloseEdit}) => {
   const [NoDayes,setNoDayes]=useState()
 const [check,setcheck]=useState(false)
 const [DataFlightOne,setDataFlightOne]=useState()
@@ -132,7 +132,7 @@ console.log(flietNumOne);
 
         useEffect(()=>{
           if(DataCreat){
-            handelCloseADD()
+            handelCloseEdit()
 
           }
         },[DataCreat])
@@ -342,7 +342,7 @@ console.log(flietNumOne);
 
 <div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
       <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary">Add</button>
-        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseADD}  type="button" className="btn btn-secondary">Cancel</button>  
+        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseEdit}  type="button" className="btn btn-secondary">Cancel</button>  
       </div>
 
 
@@ -350,4 +350,4 @@ console.log(flietNumOne);
   )
 }
 
-export default AddRoundTrip
+export default EditRoundTrip

@@ -51,7 +51,7 @@ const CustomerManagementList = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShowadd = () => setShow(true);
 
 console.log(show);
  
@@ -133,7 +133,7 @@ useEffect(()=>{
 
     
        
-      <Header handleShow={handleShow} handleClose={handleClose} />
+      <Header  handleClose={handleClose} />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
@@ -143,6 +143,7 @@ useEffect(()=>{
           className={classes.results}
           customers={customers}
           GetsupplierData={GetsupplierData}
+          handleShowadd={handleShowadd}
         />
       )}
     </Page>

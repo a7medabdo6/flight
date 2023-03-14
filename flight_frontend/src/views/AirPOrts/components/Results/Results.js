@@ -73,7 +73,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const Results = props => {
-  const { className,GetdapartureData, customers, ...rest } = props;
+  const { className,GetdapartureData,handleShowAdd, customers, ...rest } = props;
 
   const classes = useStyles();
 
@@ -234,12 +234,16 @@ useEffect(()=>{
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+        <div className='d-flex justify-content-center align-items-center flex-column '>
+          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  AirPort ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3'>
+        <button type="button" className="btn btn-secondary  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary  m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
+        </div>
+
         
         </Modal.Body>
       </Modal>
@@ -264,7 +268,18 @@ useEffect(()=>{
         // }
           action={<GenericMoreButton />}
           title={
-            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>AirPorts</h2>
+            <div className='d-flex justify-content-between align-items-center '>
+                  <h2 style={{marginTop:"0px",marginLeft:"0px"}}>AirPorts</h2>
+
+               <Button
+          style={{backgroundColor:COLORS.orange}}
+          onClick={handleShowAdd}
+          color="primary"
+            variant="contained"
+          >
+          Add New AirPort
+          </Button>
+            </div>
           }
         />
         <Divider />

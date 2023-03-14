@@ -206,12 +206,16 @@ const [showEdite, setShowEdite] = useState(false);
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className='d-flex justify-content-center align-items-center'>
+        <div className='d-flex justify-content-center align-items-center flex-column '>
+          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  Seat ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3'>
         <button type="button" className="btn btn-secondary  px-5 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
         <button type="button" className="btn btn-secondary  px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
+        </div>
+
         
         </Modal.Body>
       </Modal>

@@ -273,8 +273,8 @@ const AddFlightCheckBox =()=>{
               <Table >
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
-                    <TableCell padding="checkbox">
-                      <Checkbox
+                    <TableCell >
+                      {/* <Checkbox
                         checked={selectedCustomers.length === customers.length}
                         style={{color:"white"}}
                         indeterminate={
@@ -282,7 +282,9 @@ const AddFlightCheckBox =()=>{
                           selectedCustomers.length < customers.length
                         }
                        
-                      />
+                      /> */}
+                                          <TableCell style={{fontSize:"15px",color:"white"}} className="text-center">Add</TableCell>
+
                     </TableCell>
                     <TableCell style={{fontSize:"15px",color:"white"}} className="text-center">Country</TableCell>
                     <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>City</TableCell>

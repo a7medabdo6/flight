@@ -87,17 +87,18 @@ return [
                 
                 children: [
                   {
-                    title: 'Two Way',
-                    href: '/TwoWay',
-
-                    
-                  },
-                  {
                     title: 'One Way',
                     href: '/seats',
                     children: arr
 
                   },
+                  {
+                    title: 'Two Way',
+                    href: '/TwoWay',
+
+                    
+                  },
+                 
 
                 ]
               },

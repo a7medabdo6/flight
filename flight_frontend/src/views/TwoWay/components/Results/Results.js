@@ -34,6 +34,7 @@ import color from '@material-ui/core/colors/amber';
 import AddRoundTrip from 'views/TwoWay/Add-RoundTrip/AddRoundTrip';
 import { GetSeatTwoWayHook } from 'Hook/SeatTwoWay/Get-TwoWay-Hook';
 import { useSelector } from 'react-redux';
+import EditRoundTrip from 'views/TwoWay/Edit-RoundTrip/EditRoundTrip';
 
 
 const useStyles = makeStyles(theme => ({
@@ -142,7 +143,9 @@ const Results = props => {
   const handelshowADD =() => setsmShowaDD(true)
   const handelCloseADD =() => setsmShowaDD(false)
 
-
+  const [smShowEdit, setsmShowEdit] = useState(false);
+  const handelshowEdit =() => setsmShowEdit(true)
+  const handelCloseEdit =() => setsmShowEdit(false)
   const {data}=GetSeatTwoWayHook()
 
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
@@ -190,6 +193,24 @@ const Results = props => {
         </Modal.Header>
         <Modal.Body style={{padding:0}}>
           <AddRoundTrip handelCloseADD={handelCloseADD}/>
+        </Modal.Body>
+      </Modal>
+
+
+      <Modal
+        size="lg"
+        show={smShowEdit}
+        onHide={handelCloseEdit}
+        aria-labelledby="example-modal-sizes-title-sm"
+      >
+        <Modal.Header style={{margin:0,padding:0}} >
+          <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
+            <h5 style={{color:"white"}} className='p-2'>Edit Round Trip</h5>
+            
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{padding:0}}>
+          <EditRoundTrip handelCloseEdit={handelCloseEdit}/>
         </Modal.Body>
       </Modal>
 
@@ -357,7 +378,7 @@ const Results = props => {
                         <i className="fa-solid fa-trash-can m-1"></i>
 
                        
-                      <i  className="fa-solid fa-pen-to-square m-1"></i>
+                      <i onClick={handelshowEdit}  className="fa-solid fa-pen-to-square m-1"></i>
                      
                         </div>
                         
