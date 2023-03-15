@@ -35,6 +35,7 @@ import AddRoundTrip from 'views/TwoWay/Add-RoundTrip/AddRoundTrip';
 import { GetSeatTwoWayHook } from 'Hook/SeatTwoWay/Get-TwoWay-Hook';
 import { useSelector } from 'react-redux';
 import EditRoundTrip from 'views/TwoWay/Edit-RoundTrip/EditRoundTrip';
+import { ToastContainer } from 'react-toastify';
 
 
 const useStyles = makeStyles(theme => ({
@@ -151,7 +152,7 @@ const Results = props => {
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
   console.log(data);
 
-
+const [customEditData,setcustomEditData]=useState()
   return (
     <div
       {...rest}
@@ -210,7 +211,7 @@ const Results = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{padding:0}}>
-          <EditRoundTrip handelCloseEdit={handelCloseEdit}/>
+          <EditRoundTrip handelCloseEdit={handelCloseEdit} customEditData={customEditData}/>
         </Modal.Body>
       </Modal>
 
@@ -378,7 +379,7 @@ const Results = props => {
                         <i className="fa-solid fa-trash-can m-1"></i>
 
                        
-                      <i onClick={handelshowEdit}  className="fa-solid fa-pen-to-square m-1"></i>
+                      <i onClick={()=>{return(setcustomEditData(customer),handelshowEdit()) }}  className="fa-solid fa-pen-to-square m-1"></i>
                      
                         </div>
                         
@@ -415,6 +416,8 @@ const Results = props => {
           >
           Add Round Trip
           </Button>
+          <ToastContainer></ToastContainer>
+
     </div>
   );
 };

@@ -22,11 +22,16 @@ import {
 import { CreateTwoWayApi } from 'Hook/SeatTwoWay/Create-TwoWay-Hook';
 import { useSelector } from 'react-redux';
 import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
-const EditRoundTrip = ({handelCloseEdit}) => {
+import { EditeTowWayApi } from 'Hook/SeatTwoWay/Edit-TowWay-Hook';
+const EditRoundTrip = ({handelCloseEdit,customEditData}) => {
+console.log(customEditData);
+  
+const {isLoading,mutate:SubmitEditeTowWay,isError,error,data:EditeTowWaydata} =  EditeTowWayApi()
+const {EditeTowWayData} = useSelector(state => state.EditeTowWayRedux)
   const [NoDayes,setNoDayes]=useState()
 const [check,setcheck]=useState(false)
-const [DataFlightOne,setDataFlightOne]=useState()
-const [DataFlightTwo,setDataFlightTwo]=useState()
+const [DataFlightOne,setDataFlightOne]=useState(customEditData?.seat)
+const [DataFlightTwo,setDataFlightTwo]=useState(customEditData?.secondseat)
 console.log(DataFlightOne);
   const handelNoDayes=(e)=>{
     setNoDayes(e.target.value)
@@ -59,8 +64,8 @@ console.log(DataFlightOne);
 const [Dayes,setDayes]=useState()
 const [flietNumOne,setflietNumOne]=useState()
 const [flietNumTwo,setflietNumTwo]=useState()
-const [priceOne,setpriceOne]=useState()
-const [priceTwo,setpriceTwo]=useState()
+const [priceOne,setpriceOne]=useState(customEditData?.seat?.seat_price_enduser)
+const [priceTwo,setpriceTwo]=useState(customEditData?.secondseat?.seat_price_enduser)
 const [TotalPrice,setTotalPrice]=useState()
 console.log(flietNumOne);
 
@@ -116,26 +121,26 @@ console.log(flietNumOne);
         }
        
     const    handelSave=()=>{
-      const data={
+      const formdata={
         
-        
+        data:{
+          "price": TotalPrice.toString(),
+
+        },
+        idapi:customEditData?.id
           
         
-          "price": TotalPrice.toString(),
-          "seatId": +flietNumOne,
-          "secondseatId": +flietNumTwo
-        
       }
-      SubmitCreateTwoWay(data)
+      SubmitEditeTowWay(formdata)
 
         }
 
         useEffect(()=>{
-          if(DataCreat){
+          if(EditeTowWaydata){
             handelCloseEdit()
 
           }
-        },[DataCreat])
+        },[EditeTowWaydata])
   return (
     <div>
         <div className='d-flex justify-content-between align-items-center '>
@@ -146,7 +151,9 @@ console.log(flietNumOne);
           <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+        <input onChange={(e)=>{return(handelflietNumOne(e))}} value={customEditData?.seat?.flight_number} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="10" aria-label="default input example"/>
+
+        {/* <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
           <option selected>Open this select menu</option>
           {
             GetSeatData?.map((item,index)=>{return(
@@ -154,7 +161,7 @@ console.log(flietNumOne);
 
             )})
           }
-        </select>
+        </select> */}
         {/* <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/> */}
          <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
         </div>
@@ -168,7 +175,9 @@ console.log(flietNumOne);
           <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+        <input onChange={(e)=>{return(handelflietNumTwo(e))}} value={customEditData?.second?.flight_number} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="10" aria-label="default input example"/>
+
+        {/* <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
           <option selected>Open this select menu</option>
           {
             GetSeatData?.map((item,index)=>{return(
@@ -176,7 +185,8 @@ console.log(flietNumOne);
 
             )})
           }
-        </select>         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
+        </select>    */}
+              <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
         </div>
 
       </div>
@@ -341,7 +351,7 @@ console.log(flietNumOne);
   
 
 <div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
-      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary">Add</button>
+      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary">Edit</button>
         <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseEdit}  type="button" className="btn btn-secondary">Cancel</button>  
       </div>
 

@@ -38,6 +38,7 @@ import GetdapartureRedux from "./Redux/daparture-airport/Get-daparture-Redux"
 import GetAirPortBasecCityRedux from "./Redux/daparture-airport/Get-Airport-Based-City-Redux"
 import AddFlightByCheckBoxtRedux from "./Redux/Flight/Use-Add-Flight-By-CheckBox-Redux"
 import GetcountryNavBarRedux from "./Redux/Country/Get-Country-NavBar-Redux"
+import EditeTowWayRedux from "./Redux/SeatTwoWay/Edit-TowWay-Redux"
 export const store = configureStore({
     reducer: {
         GetFlightRedux: GetFlightRedux,
@@ -80,5 +81,6 @@ export const store = configureStore({
         GetAirPortBasecCityRedux:GetAirPortBasecCityRedux,
         AddFlightByCheckBoxtRedux:AddFlightByCheckBoxtRedux,
         GetcountryNavBarRedux:GetcountryNavBarRedux,
+        EditeTowWayRedux:EditeTowWayRedux
     }
 })
