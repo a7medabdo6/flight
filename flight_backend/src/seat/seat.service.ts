@@ -87,6 +87,14 @@ export class SeatService {
     Object.assign(seat, updateSeatDto);
     return this.repo.save(seat);
   }
+  async updateTwo(id: number, body:{price:string}) {
+    const seat = await this.repoTwoWay.findOne({where: {id}});
+    if (!seat) {
+      throw new NotFoundException('seat not found');
+    }
+    Object.assign(seat, body);
+    return this.repoTwoWay.save(seat);
+  }
 
   async remove(id: number) {
     const seat = await this.findOne(id);
