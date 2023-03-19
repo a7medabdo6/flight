@@ -73,14 +73,14 @@ const HandelCalculate=()=>{
  let SupPrice = +priceOne + +priceTwo
  console.log(SupPrice);
  if(NoDayes === "Less"){
-  if(Dayes <= 5){
+  if(Dayes){
     setTotalPrice(SupPrice - count)
 
   }
  }
 
  if(NoDayes === "Gerater"){
-  if(Dayes > 5){
+  if(Dayes){
     setTotalPrice(SupPrice - count)
 
   }
@@ -140,10 +140,10 @@ console.log(flietNumOne);
     <div>
         <div className='d-flex justify-content-between align-items-center '>
       <div className='m-3'>
-        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"14px"}}>
-          <h5>AMM
-- IST </h5>
-          <h5>Price</h5>
+        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"20px"}}>
+          <h6>AMM
+- IST </h6>
+          <h6>Price</h6>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
         <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -156,16 +156,16 @@ console.log(flietNumOne);
           }
         </select>
         {/* <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/> */}
-         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
+         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
         </div>
 
       </div>
 
 
       <div className='m-3'>
-        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"14px"}}>
-          <h5>IST-AMM</h5>
-          <h5>Price</h5>
+        <div className='d-flex justify-content-between align-items-center ' style={{marginRight:"20px"}}>
+          <h6>IST-AMM</h6>
+          <h6>Price</h6>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
         <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -176,7 +176,7 @@ console.log(flietNumOne);
 
             )})
           }
-        </select>         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
+        </select>         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
         </div>
 
       </div>
