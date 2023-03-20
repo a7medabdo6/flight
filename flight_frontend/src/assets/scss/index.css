@@ -63,7 +63,8 @@ input[type=number] {
 
 .tableAddRoundTripFontSize{
   font-size: 13px;
-  
+  color: "black";
+font-weight: 600;  
 
 }
 
@@ -95,4 +96,19 @@ input[type=number] {
  .addseatCO-Price{
   margin-left: 100px;
  }
+}
+
+
+.shadow{
+  background: #fff;
+  
+  box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 1.45;
+  outline: none;
+  -webkit-transition: .18s ease-out;
+  -moz-transition: .18s ease-out;
+  -o-transition: .18s ease-out;
+  transition: .18s ease-out;
 }
