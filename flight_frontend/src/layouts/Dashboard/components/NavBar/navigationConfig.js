@@ -28,7 +28,12 @@ import { Label } from 'components';
 import Countries from './Countries';
 import { useEffect } from 'react';
 import { useState } from 'react';
-
+import NoteIcon from '@material-ui/icons/Note';
+import PublicIcon from '@material-ui/icons/Public';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import BusinessIcon from '@material-ui/icons/Business';
+import LocalAirportIcon from '@material-ui/icons/LocalAirport';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
  const RoutesList=()=> {
   const [arr, setarr] = useState([])
   const items=Countries()
@@ -76,7 +81,7 @@ return [
           {
             title: 'Flights',
             href: '/Flight',
-            icon: FlightOutlinedIcon,
+            icon: NoteIcon,
             children: [
               {
                 title: 'Flights',
@@ -134,27 +139,27 @@ return [
        {
         title: 'Suppliers',
         href: '/Suppliers',
-        icon: PeopleIcon
+        icon: SupervisorAccountIcon
       },
       {
         title: 'Country',
         href: '/Country',
-        icon: PeopleIcon
+        icon: PublicIcon
       },
       {
         title: 'City',
         href: '/city',
-        icon: PeopleIcon
+        icon: LocationCityIcon
       },
       {
         title: 'Company',
         href: '/Company',
-        icon: PeopleIcon
+        icon: BusinessIcon
       },
       {
         title: 'AirPorts',
         href: '/AirPOrts',
-        icon: PeopleIcon
+        icon: LocalAirportIcon
       },
       // {
       //   title: 'visa',

@@ -233,8 +233,8 @@ console.log(flietNumOne);
         </select>
      </div>
     </div>
-    <div className='w-100 d-flex  align-items-center flex-row-reverse'>
-    <button onClick={HandelCalculate} style={{backgroundColor:COLORS.purple,marginBottom:"10px",marginRight:"105px"}}  type="button" className="btn btn-secondary">Calculate</button>  
+    <div className='w-100 d-flex  align-items-center flex-row-reverse' style={{marginTop:"25px"}}>
+    <button onClick={HandelCalculate} style={{backgroundColor:COLORS.purple,marginBottom:"10px",marginRight:"105px",padding:"10px"}}  type="button" className="btn btn-secondary">Calculate</button>  
 
     </div>
 

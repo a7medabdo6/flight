@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   icon: {
-    color: theme.palette.icon,
+    color: "#EB6B1D",
     display: 'flex',
     alignItems: 'center',
     marginRight: theme.spacing(1)
@@ -59,7 +59,8 @@ const useStyles = makeStyles(theme => ({
   expandIcon: {
     marginLeft: 'auto',
     height: 16,
-    width: 16
+    width: 16,
+    color: "#EB6B1D",
   },
   label: {
     display: 'flex',
@@ -67,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto'
   },
   active: {
-    backgroundColor:"rgb(255 102 0 / 55%)",
+    backgroundColor:"#FEE3D8",
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
     '& $icon': {
@@ -103,8 +104,9 @@ const NavigationListItem = props => {
   }
 
   const style = {
-    color:"white",
+    color:"black",
     paddingLeft:"5px",
+    fontWeight:"700"
 
     
   };

@@ -68,7 +68,7 @@ const StyledTableRow = withStyles((theme) => ({
       backgroundColor: "white",
     },
     '&:nth-of-type(even)': {
-      backgroundColor: "#E3E3E3",
+      backgroundColor: "#FEE3D8",
     },
   },
 }))(TableRow);
@@ -238,7 +238,7 @@ const [customEditData,setcustomEditData]=useState()
           action={<GenericMoreButton />}
           title={
             <div className='d-flex justify-content-start  flex-column'>
-            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Seats</h2>
+            <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Seats</h2>
             <div>
             <nav aria-label="breadcrumb">
   <ol class="breadcrumb">

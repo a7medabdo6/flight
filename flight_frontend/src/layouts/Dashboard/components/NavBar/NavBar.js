@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
     overflowY: 'auto',
-    backgroundColor:COLORS.purple
+    backgroundColor:"white"
 
   },
   content: {

@@ -69,7 +69,7 @@ const StyledTableRow = withStyles((theme) => ({
       backgroundColor: "white",
     },
     '&:nth-of-type(even)': {
-      backgroundColor: "#E3E3E3",
+      backgroundColor: "#FEE3D8",
     },
   },
 }))(TableRow);
@@ -262,7 +262,7 @@ const [showEdite, setShowEdite] = useState(false);
           title={
             <div>
   <div className='d-flex justify-content-between align-items-center'>
-            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Seats</h2>
+            <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Seats</h2>
             <Button
             style={{backgroundColor:COLORS.orange}}
            onClick={handleShowADD}
