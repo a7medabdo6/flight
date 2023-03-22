@@ -112,3 +112,27 @@ font-weight: 600;
   -o-transition: .18s ease-out;
   transition: .18s ease-out;
 }
+th.MuiTableCell-head{
+  color: rgb(50, 1, 100) !important;
+}
+thead.MuiTableHead-root{
+  background-color: white !important;
+  color: rgb(50, 1, 100) !important;
+
+
+}
+.MuiToolbar-regular{
+  color: black !important;
+  background: white !important;
+}
+.makeStyles-search-12 {
+  color: black;
+  height: 36px;
+  display: flex;
+  padding: 0px 16px;
+  flex-basis: 300px;
+  align-items: center;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid black;
+}

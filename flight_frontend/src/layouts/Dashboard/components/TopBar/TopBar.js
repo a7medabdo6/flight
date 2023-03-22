@@ -195,7 +195,7 @@ const token = localStorage.getItem('token');
           <img
           style={{height:"110px",width:"170px"}}
             alt="Logo"
-            src="/images/logos/orange.png"
+            src="/images/logos/Dark.png"
           />
         </RouterLink>
         <div className='d-flex justify-content-center align-items-center' style={{marginLeft:"100px"}}>
