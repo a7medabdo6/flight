@@ -67,7 +67,7 @@ console.log(arr1);
         open={Boolean(open)}
         title={page.title}
       >
-        <div className='d-flex justify-content-around align items-center' >
+        <div className='d-flex justify-content-center align items-center' >
           
         <NavigationList
         

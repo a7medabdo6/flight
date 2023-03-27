@@ -150,6 +150,8 @@ const Results = props => {
   const {data}=GetSeatTwoWayHook()
 
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
+  let reversedArray = GetSeatTwoWayData?.map((item, index) => GetSeatTwoWayData[GetSeatTwoWayData.length - 1 - index]);
+
   console.log(data);
 
 const [customEditData,setcustomEditData]=useState()
@@ -242,9 +244,9 @@ const [customEditData,setcustomEditData]=useState()
             <div>
             <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Seat</a></li>
-    <li class="breadcrumb-item"><a href="#">two Way</a></li>
-    <li class="breadcrumb-item active" aria-current="page">data</li>
+    <li class="breadcrumb-item"style={{color:COLORS.purple}}> Seat</li>
+    <li class="breadcrumb-item" style={{color:COLORS.purple}}>two Way</li>
+    <li class="breadcrumb-item active" style={{color:COLORS.purple}} aria-current="page">data</li>
 
   </ol>
 </nav>
@@ -256,7 +258,7 @@ const [customEditData,setcustomEditData]=useState()
                       />
               <h5 style={{marginBottom:0 ,marginRight:20}}>Default price = OutBound Flight Price + Return Flight Price</h5>
               <Button
-           style={{backgroundColor:COLORS.orange}}
+           style={{backgroundColor:COLORS.purple}}
             color="primary"
             variant="contained"
             onClick={handelshow}
@@ -279,31 +281,31 @@ const [customEditData,setcustomEditData]=useState()
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
                    
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Flight Two Way</TableCell>
-                    <TableCell style={{fontSize:"13px",marginRight:"5px",color:"white"}} className='text-center'>AirLines</TableCell>
-                    <TableCell style={{fontSize:"13px",marginRight:"5px",color:"white"}} className='text-center'>Flight No.</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Flight Two Way</TableCell>
+                    <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>AirLines</TableCell>
+                    <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>Flight No.</TableCell>
 
 
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.APT</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.APT</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.Time</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.Time</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Duration</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Weight</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.APT</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.APT</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.Time</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.Time</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Duration</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Weight</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Suppliers</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>No Of Dayes</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Suppliers</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>No Of Dayes</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>S.price</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>S.price</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center' align="right">Actions</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {GetSeatTwoWayData?.map(customer => (
+                  {reversedArray?.map(customer => (
                       <StyledTableRow
-                      hover
+                      // hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
                     >
@@ -376,10 +378,10 @@ const [customEditData,setcustomEditData]=useState()
                      
                       <TableCell className='text-center' align="right">
                         <div className='d-flex '>
-                        <i className="fa-solid fa-trash-can m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} className="fa-solid fa-trash-can m-1"></i>
 
                        
-                      <i onClick={()=>{return(setcustomEditData(customer),handelshowEdit()) }}  className="fa-solid fa-pen-to-square m-1"></i>
+                      <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setcustomEditData(customer),handelshowEdit()) }}  className="fa-solid fa-pen-to-square m-1"></i>
                      
                         </div>
                         
@@ -409,7 +411,7 @@ const [customEditData,setcustomEditData]=useState()
       </Card>
       {/* <TableEditBar selected={selectedCustomers} /> */}
       <Button
-           style={{backgroundColor:COLORS.orange,marginTop:20}}
+           style={{backgroundColor:COLORS.purple,marginTop:20}}
             color="primary"
             variant="contained"
             onClick={handelshowADD}

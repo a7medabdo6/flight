@@ -34,6 +34,8 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import BusinessIcon from '@material-ui/icons/Business';
 import LocalAirportIcon from '@material-ui/icons/LocalAirport';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import FlightIcon from '@material-ui/icons/Flight';
+import AirlineSeatReclineExtraIcon from '@material-ui/icons/AirlineSeatReclineExtra';
  const RoutesList=()=> {
   const [arr, setarr] = useState([])
   const items=Countries()
@@ -81,15 +83,17 @@ return [
           {
             title: 'Flights',
             href: '/Flight',
-            icon: NoteIcon,
+            icon: FlightIcon,
             children: [
               {
                 title: 'Flights',
+                icon: FlightIcon,
+
                 href: '/Flight',
               },
               {
                 title: 'Seats',
-                
+                icon:AirlineSeatReclineExtraIcon,
                 children: [
                   {
                     title: 'One Way',

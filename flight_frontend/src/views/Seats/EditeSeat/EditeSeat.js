@@ -16,7 +16,7 @@ const EditeSeats = ({handleCloseEdite,customersData}) => {
 
 console.log(customersData);
     const {data:getFlight}=GetFlightHook()
-
+console.log(getFlight);
     const {GetFlightData} =useSelector(state => state.GetFlightRedux)
     const [FlightNum,setFlightNum]=useState()
     const handelchange=(e)=>{

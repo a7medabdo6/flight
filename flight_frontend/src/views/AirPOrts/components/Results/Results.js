@@ -74,6 +74,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const Results = props => {
   const { className,GetdapartureData,handleShowAdd, customers, ...rest } = props;
+  let reversedArray = GetdapartureData?.map((item, index) => GetdapartureData[GetdapartureData.length - 1 - index]);
 
   const classes = useStyles();
 
@@ -272,7 +273,7 @@ useEffect(()=>{
                   <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>AirPorts</h2>
 
                <Button
-          style={{backgroundColor:COLORS.orange}}
+          style={{backgroundColor:COLORS.purple}}
           onClick={handleShowAdd}
           color="primary"
             variant="contained"
@@ -290,16 +291,16 @@ useEffect(()=>{
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
                    
-                    <TableCell style={{fontSize:"15px",color:"white"}} className="text-center">Name</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Created At</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">Name</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Created At</TableCell>
                  
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center' align="right">Actions</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {GetdapartureData?.map(customer => (
+                  {reversedArray?.map(customer => (
                     <StyledTableRow
-                      hover
+                      // hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
                     >
@@ -313,10 +314,10 @@ useEffect(()=>{
                       
                       <TableCell className='text-center' align="right">
                         
-                        <i onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
 
                         
-                        <i  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
 
                         
                       </TableCell>

@@ -83,6 +83,8 @@ const Results = props => {
 
   const classes = useStyles();
 
+ 
+
   const [selectedCustomers, setSelectedCustomers] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -166,8 +168,12 @@ const [showEdite, setShowEdite] = useState(false);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () => setShowEdite(true)
 
+  let reversedArray = GetSeatData?.map((item, index) => GetSeatData[GetSeatData.length - 1 - index]);
 
- 
+  const [items, setItems] = useState(reversedArray);
+  const addItem = (newItem) => {
+    setItems([...items, newItem]);
+  }
   return (
     <div
       {...rest}
@@ -264,7 +270,7 @@ const [showEdite, setShowEdite] = useState(false);
   <div className='d-flex justify-content-between align-items-center'>
             <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Seats</h2>
             <Button
-            style={{backgroundColor:COLORS.orange}}
+            style={{backgroundColor:COLORS.purple}}
            onClick={handleShowADD}
              color="primary"
              variant="contained"
@@ -275,8 +281,8 @@ const [showEdite, setShowEdite] = useState(false);
            <div>
             <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Seat</a></li>
-    <li class="breadcrumb-item"><a href="#">One Way</a></li>
+    <li class="breadcrumb-item"> Seat</li>
+    <li class="breadcrumb-item"> One Way</li>
     <li class="breadcrumb-item active" aria-current="page">{country}</li>
     <li class="breadcrumb-item active" aria-current="page">{city}</li>
 
@@ -299,40 +305,40 @@ const [showEdite, setShowEdite] = useState(false);
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
                    
-                  <TableCell style={{fontSize:"13px",marginRight:"5px",color:"white"}} className='text-center'>AirLines</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Flight No.</TableCell>
+                  <TableCell style={{fontSize:"15px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>AirLines</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Flight No.</TableCell>
 
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.APT</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.Date</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.APT</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.Date</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Dep.APT</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Dep.Date</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Arr.APT</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Arr.Date</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.Time</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.Time</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Duration</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Weight</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>To.Seats No.</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Avail.Seats</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Suppliers</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>U.S.price</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>CO.S.price</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Dep.Time</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Arr.Time</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Duration</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Weight</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>To.Seats No.</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Avail.Seats</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>Suppliers</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>U.S.price</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center'>CO.S.price</TableCell>
 
-                    {/* <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Craeted At</TableCell> */}
+                    {/* <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Craeted At</TableCell> */}
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center' align="right">Actions</TableCell>
+                    <TableCell style={{fontSize:"15px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {GetSeatData?.map(customer => (
+                  {reversedArray?.map(customer => (
                     <StyledTableRow
-                      hover
+                      // hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
                     >
                      
                       
-                      <TableCell className='text-center' style={{padding:"6px"}}>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""} style={{padding:"6px"}}>
                         {customer?.airlines}
                       </TableCell>
                       <TableCell className='text-center' style={{padding:"6px"}}>{customer?.flight_number}</TableCell>
@@ -361,11 +367,11 @@ const [showEdite, setShowEdite] = useState(false);
 
                       <TableCell className='text-center' align="right" style={{padding:"6px"}}>
                         <div className='d-flex '>
-                        <i onClick={()=>{return(handleShow(),setid(customer?.id))}} className="fa-solid fa-trash-can m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(handleShow(),setid(customer?.id))}} className="fa-solid fa-trash-can m-1"></i>
 
                        
-                      <i onClick={()=>{return(handleShowEdite(),setcustomersData(customer))}} className="fa-solid fa-pen-to-square m-1"></i>
-                      <i  onClick={()=>{return(handelshow(),setcustomersData(customer))}} className="fa-solid fa-calendar-days m-1"></i>
+                      <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(handleShowEdite(),setcustomersData(customer))}} className="fa-solid fa-pen-to-square m-1"></i>
+                      <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(handelshow(),setcustomersData(customer))}} className="fa-solid fa-calendar-days m-1"></i>
                         </div>
                         
                         

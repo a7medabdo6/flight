@@ -163,7 +163,7 @@ console.log(flietNumOne);
           }
         </select> */}
         {/* <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/> */}
-         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
+         <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
         </div>
 
       </div>
@@ -186,7 +186,7 @@ console.log(flietNumOne);
             )})
           }
         </select>    */}
-              <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"#D6DCE5",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
+              <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
         </div>
 
       </div>

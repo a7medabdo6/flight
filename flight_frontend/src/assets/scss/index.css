@@ -69,8 +69,8 @@ font-weight: 600;
 }
 
 .textinputround{
-  width: 65px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
  }
  .MuiTableCell-root{
   padding: 4px !important;
@@ -90,7 +90,7 @@ font-weight: 600;
   
   }
  .textinputround{
-  width: 32px;
+  width: 40px;
  }
  
  .addseatCO-Price{
@@ -135,4 +135,8 @@ thead.MuiTableHead-root{
   border-radius: 4px;
   background-color: white;
   border: 1px solid black;
+}
+
+.new-item {
+  background-color: red;
 }

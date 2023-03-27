@@ -1,14 +1,54 @@
+import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook'
+import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook'
 import React from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { COLORS } from 'utils/COLORS.'
 
 const Edite = ({handelHide}) => {
+  const [priceOne,setpriceOne]=useState()
+  const [priceTwo,setpriceTwo]=useState()
+  const [flietNumOne,setflietNumOne]=useState()
+  const [flietNumTwo,setflietNumTwo]=useState()
+
+  const [DataFlightOne,setDataFlightOne]=useState()
+  const [DataFlightTwo,setDataFlightTwo]=useState()
+  const {data}=GetSeatHook()
+
+  const {GetSeatData} =useSelector(state => state.GetSeatRedux)
+  console.log(GetSeatData);
+
+  const {data:getFlight}=GetFlightHook()
+  console.log(getFlight);
   const [count,setcount]=useState(0)
   const increase = ()=>{
 setcount(count + 1)
   }
   const Descrease = ()=>{
     setcount(count - 1)
+      }
+
+      const handelflietNumOne=(e)=>{
+        const item =GetSeatData?.filter((item)=>{return(
+          item.flight_number === e.target.value
+   )})
+   
+   console.log(item);
+        // setflietNumOne(item[0].id)
+        setpriceOne(item[0]?.seat_price_enduser)
+        setDataFlightOne(item[0])
+
+      }
+      
+      const handelflietNumTwo=(e)=>{
+        const item =GetSeatData?.filter((item)=>{return(
+          item.flight_number === e.target.value
+   )})
+   
+  //  setflietNumTwo(item[0].id)
+   setpriceTwo(item[0]?.seat_price_enduser)
+   setDataFlightTwo(item[0])
+
       }
   return (
     <div>
@@ -19,8 +59,16 @@ setcount(count + 1)
           <h6>Price</h6>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/>
-         <h6 className='m-3 rounded  d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>120</h6>
+        <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          {
+            getFlight?.map((item,index)=>{return(
+              <option key={index}  value={item?.flight_number}>{item?.flight_number}</option>
+
+            )})
+          }
+        </select>                 <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>{priceOne}</h6>
+
         </div>
 
       </div>
@@ -32,8 +80,15 @@ setcount(count + 1)
           <h6>Price</h6>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <input style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="Flight No." aria-label="default input example"/>
-         <h6 className='m-3 rounded d-flex justify-content-center align-items-center' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>120</h6>
+        <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          {
+            getFlight?.map((item,index)=>{return(
+              <option key={index}   value={item?.flight_number}>{item?.flight_number}</option>
+
+            )})
+          }
+        </select>          <h6 className='m-3 rounded text-center d-flex justify-content-center align-items-center ' style={{backgroundColor:"grey",color:"white",width:'65px',height:"30px"}}>{priceTwo}</h6>
         </div>
 
       </div>

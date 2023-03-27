@@ -200,11 +200,11 @@ const token = localStorage.getItem('token');
         </RouterLink>
         <div className='d-flex justify-content-center align-items-center' style={{marginLeft:"100px"}}>
         <img 
-           style={{height:"50px",width:"50px",objectFit: "cover",borderRadius:"50%"}}
+           style={{height:"40px",width:"40px",objectFit: "cover",borderRadius:"50%"}}
           src='/images/logos/PLANE.jpg'/>
-          <div style={{marginLeft:"20px"}}>
-            <p style={{marginBottom:0,fontSize:"22px"}}>{userLogin?.username}</p>
-            <p style={{width:"150px",fontSize:"13px"}}>us-cairo,egypt</p>
+          <div style={{marginLeft:"12px"}}>
+            <p style={{marginBottom:0,fontSize:"18px"}}>{userLogin?.username}</p>
+            <p style={{width:"150px",fontSize:"11px"}}>us-cairo,egypt</p>
           </div>
           
         </div>

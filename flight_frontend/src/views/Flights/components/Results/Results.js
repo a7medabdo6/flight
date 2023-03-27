@@ -34,6 +34,7 @@ import { useSelector } from 'react-redux';
 import EditeFlight from 'views/Flights/EditeFlight/EditeFlight';
 import { useEffect } from 'react';
 import { AddFlightByCheckBoxtApi } from 'Hook/Flight/Use-Add-Flight-By-CheckBox-Hook';
+import EditFlightCopy from 'views/Flights/Editcopy/EditeCopy';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -180,6 +181,9 @@ const AddFlightCheckBox =()=>{
   SubmitAddFlightByCheckBox(formdata)
 }
 
+
+let reversedArray = GetFlightData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]);
+
   return (
     <div
       {...rest}
@@ -200,7 +204,7 @@ const AddFlightCheckBox =()=>{
         </Modal.Header>
         <Modal.Body>
           
-        <EditeFlight id={id} handleCloseEdite={handleCloseEdite} customerData={customerData}/>
+        <EditFlightCopy id={id} handleCloseEdite={handleCloseEdite} customerData={customerData}/>
         </Modal.Body>
       </Modal>
 
@@ -256,7 +260,7 @@ const AddFlightCheckBox =()=>{
               
             <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Flight</h2>
             <Button
-            style={{backgroundColor:COLORS.orange}}
+            style={{backgroundColor:COLORS.purple}}
             onClick={handleShowADD}
             color="primary"
               variant="contained"
@@ -284,26 +288,26 @@ const AddFlightCheckBox =()=>{
                         }
                        
                       /> */}
-                                          <TableCell style={{fontSize:"15px",color:"white"}} className="text-center">Add</TableCell>
+                                          <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">Add</TableCell>
 
                     </TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className="text-center">Country</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>City</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>AirLines</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Flight No.</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Dep.APT</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Arr.APT</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Dep.Time</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Arr.Time</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Duration</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Weight</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center' align="right">Actions</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"red" ,fontWeight:"700"}} className="text-center">Country</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>City</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>AirLines</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Flight No.</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.APT</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.APT</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.Time</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.Time</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Duration</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Weight</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {GetFlightData?.map(customer => (
+                  {reversedArray?.map(customer => (
                     <StyledTableRow
-                      hover
+                      // hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer?.id) !== -1}
                     >
@@ -336,10 +340,10 @@ const AddFlightCheckBox =()=>{
                       <TableCell className='text-center'>{customer?.weight}</TableCell>
                       <TableCell className='text-center' align="right">
                         
-                        <i onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
 
                         
-                        <i  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
 
                         
                       </TableCell>
@@ -367,7 +371,7 @@ const AddFlightCheckBox =()=>{
       <ToastContainer></ToastContainer>
       <div className='w-100 d-flex flex-row-reverse mt-2'>
       <Button
-          style={{backgroundColor:COLORS.orange}}
+          style={{backgroundColor:COLORS.purple}}
           onClick={AddFlightCheckBox}
           color="primary"
             variant="contained"
