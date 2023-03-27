@@ -140,3 +140,7 @@ thead.MuiTableHead-root{
 .new-item {
   background-color: #ffa5003b;
 }
+
+.makeStyles-fab-125{
+  display:none !important;
+}

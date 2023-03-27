@@ -60,21 +60,21 @@ return [
       //   href: '/overview',
       //   icon: HomeIcon
       // },
-      {
-        title: 'Dashboards',
-        href: '/dashboards',
-        icon: DashboardIcon,
-        children: [
-          {
-            title: 'Default',
-            href: '/dashboards/default'
-          },
-          {
-            title: 'Analytics',
-            href: '/dashboards/analytics'
-          }
-        ]
-      },
+      // {
+      //   title: 'Dashboards',
+      //   href: '/dashboards',
+      //   icon: DashboardIcon,
+      //   children: [
+      //     {
+      //       title: 'Default',
+      //       href: '/dashboards/default'
+      //     },
+      //     {
+      //       title: 'Analytics',
+      //       href: '/dashboards/analytics'
+      //     }
+      //   ]
+      // },
       {
         title: 'Booking',
         href: '/management',
