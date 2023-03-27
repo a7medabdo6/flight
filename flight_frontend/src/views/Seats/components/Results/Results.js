@@ -341,31 +341,31 @@ const [showEdite, setShowEdite] = useState(false);
                       <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""} style={{padding:"6px"}}>
                         {customer?.airlines}
                       </TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.flight_number}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.departure_airport}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.departure_date}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.flight_number}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.departure_airport}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.departure_date}</TableCell>
 
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.arrival_airport}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.arrival_date}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.arrival_airport}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""} style={{padding:"6px"}}>{customer?.arrival_date}</TableCell>
 
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.departure_time}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.departure_time}</TableCell>
 
-                      <TableCell className='text-center' style={{padding:"6px"}}>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>
                       {customer?.arrival_time}
                       </TableCell>
 
 
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.duration}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.weight}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.total_seat_number}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.available_seats}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.suppliers}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.seat_price_enduser}</TableCell>
-                      <TableCell className='text-center' style={{padding:"6px"}}>{customer?.seat_price_company}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.duration}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.weight}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.total_seat_number}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.available_seats}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.suppliers}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.seat_price_enduser}</TableCell>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   style={{padding:"6px"}}>{customer?.seat_price_company}</TableCell>
 
                       {/* <TableCell className='text-center' style={{padding:"6px"}}>{customer?.created_at}</TableCell> */}
 
-                      <TableCell className='text-center' align="right" style={{padding:"6px"}}>
+                      <TableCell className={customer === GetSeatData[GetSeatData?.length - 1] ? "new-item" : ""}   align="right" style={{padding:"6px"}}>
                         <div className='d-flex '>
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(handleShow(),setid(customer?.id))}} className="fa-solid fa-trash-can m-1"></i>
 
