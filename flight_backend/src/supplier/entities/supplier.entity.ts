@@ -19,6 +19,12 @@ export class Supplier {
     @Column()
   city: string;
   
+  @Column()
+  airport_name: string;
+  
+   @Column()
+  airline_name: string;
+  
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
