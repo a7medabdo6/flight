@@ -11,6 +11,11 @@ export class DapartureAirport {
   name: string;
   @OneToMany(() => Flight, (flight) => flight.departure_airport) // specify inverse side as a second parameter
   flight: Flight;
+    
+    @Column({ default: null })
+  country: string;
+    @Column({ default: null })
+  city: string;
 
   @ManyToOne(() => City, (city) => city.departure_airport) // specify inverse side as a second parameter
   @JoinColumn()
