@@ -6,8 +6,8 @@ export class CreateDapartureAirportDto {
     
     @IsString()
     country:string
-    @IsString()
-    city:string
+   
+   
     @IsNumber()
     city_id:number
 }
