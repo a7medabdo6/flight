@@ -8,4 +8,11 @@ export class CreateSupplierDto {
   country: string;
   @IsString()
   city: string;
+  @IsString()
+  airport_name: string;
+  
+   @IsString()
+  airline_name: string;
+  
 }
+
