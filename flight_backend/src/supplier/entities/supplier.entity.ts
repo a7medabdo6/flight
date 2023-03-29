@@ -13,6 +13,12 @@ export class Supplier {
 
   @Column()
   name: string;
+  
+    @Column()
+  country: string;
+    @Column()
+  city: string;
+  
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
