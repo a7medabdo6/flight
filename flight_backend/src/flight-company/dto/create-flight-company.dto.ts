@@ -6,4 +6,9 @@ export class CreateFlightCompanyDto {
   @IsString()
   @IsOptional()
   logo: string;
+  @IsString()
+  country: string;
+  
+  @IsString()
+  city: string;
 }
