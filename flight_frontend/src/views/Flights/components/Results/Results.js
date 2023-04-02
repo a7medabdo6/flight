@@ -35,7 +35,10 @@ import EditeFlight from 'views/Flights/EditeFlight/EditeFlight';
 import { useEffect } from 'react';
 import { AddFlightByCheckBoxtApi } from 'Hook/Flight/Use-Add-Flight-By-CheckBox-Hook';
 import EditFlightCopy from 'views/Flights/Editcopy/EditeCopy';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import FilterFlight from 'views/Flights/FilterFlight/FilterFlight';
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
@@ -180,9 +183,37 @@ const AddFlightCheckBox =()=>{
 
   SubmitAddFlightByCheckBox(formdata)
 }
+let [reversedArray,setreversedArray] = useState();
+const [tableData,settableData]=useState();
+
+useEffect(()=>{
+  if(reversedArray)
+  console.log(reversedArray,"6666  ");
+
+},[reversedArray])
 
 
-let reversedArray = GetFlightData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]);
+
+useEffect(()=>{
+  if(GetFlightData){
+  const copy =[...GetFlightData]
+    console.log(copy,"6666666");
+    if(copy)
+        settableData(copy)
+
+  }
+
+
+},[GetFlightData])
+
+useEffect(()=>{
+
+  if(tableData)
+  setreversedArray(tableData.reverse())
+
+  // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
+
+},[tableData])
 
   return (
     <div
@@ -211,7 +242,7 @@ let reversedArray = GetFlightData?.map((item, index) => GetFlightData[GetFlightD
 
 <Modal
         className=''
-        size="sm"
+        size="md"
         show={show}
         onHide={handleClose}
         aria-labelledby="example-modal-sizes-title-lg"
@@ -223,11 +254,11 @@ let reversedArray = GetFlightData?.map((item, index) => GetFlightData[GetFlightD
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  flight ?</h4>
-          <div className='d-flex justify-content-center align-items-center mt-3'>
-          <button type="button" className="btn btn-secondary m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  flight ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+          <button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
-<button type="button" className="btn btn-secondary m-2 " onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+<button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
           </div>
        
 
@@ -291,16 +322,38 @@ let reversedArray = GetFlightData?.map((item, index) => GetFlightData[GetFlightD
                                           <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">Add</TableCell>
 
                     </TableCell>
-                    <TableCell style={{fontSize:"19px",color:"red" ,fontWeight:"700"}} className="text-center">Country</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>City</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>AirLines</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Flight No.</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.APT</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.APT</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.Time</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.Time</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Duration</TableCell>
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Weight</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"red" ,fontWeight:"700"}} className="text-center">
+                      <FilterFlight title="Country" tableData={tableData} settableData={settableData}/>
+          
+                    </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="City" tableData={tableData} settableData={settableData}/>
+                    </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="AirLines" tableData={tableData} settableData={settableData}/>
+
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Flight No." tableData={tableData} settableData={settableData}/>
+                     </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Dep.APT" tableData={tableData} settableData={settableData}/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Arr.APT" tableData={tableData} settableData={settableData}/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Dep.Time"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Arr.Time"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Duration"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Weight"/>
+                      </TableCell>
                     <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>

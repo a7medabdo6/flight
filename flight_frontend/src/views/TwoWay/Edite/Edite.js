@@ -110,9 +110,9 @@ setcount(count + 1)
      </div>
 
      <div>
-     <div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
-      <button style={{marginRight:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Add</button>
-        <button onClick={handelHide} style={{marginLeft:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary">Cancel</button>  
+     <div className='  d-flex justify-content-center align-items-center flex-row-reverse' style={{margin:25}}>
+      <button style={{marginRight:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary CANCELBTN">Add</button>
+        <button onClick={handelHide} style={{marginLeft:40,backgroundColor:COLORS.purple}}  type="button" className="btn btn-secondary CANCELBTN">Cancel</button>  
       </div>
      </div>
     </div>

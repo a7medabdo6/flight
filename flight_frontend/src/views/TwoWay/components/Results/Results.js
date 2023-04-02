@@ -152,7 +152,7 @@ const Results = props => {
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
   let reversedArray = GetSeatTwoWayData?.map((item, index) => GetSeatTwoWayData[GetSeatTwoWayData.length - 1 - index]);
 
-  console.log(data);
+  console.log(GetSeatTwoWayData);
 
 const [customEditData,setcustomEditData]=useState()
   return (
@@ -253,7 +253,7 @@ const [customEditData,setcustomEditData]=useState()
            </div>
             <div className='d-flex justify-content-start align-items-center'>
             <Checkbox color={COLORS.purple}
-                      
+                   checked   
                        
                       />
               <h5 style={{marginBottom:0 ,marginRight:20}}>Default price = OutBound Flight Price + Return Flight Price</h5>
@@ -313,11 +313,11 @@ const [customEditData,setcustomEditData]=useState()
                      
 
                       <TableCell className='text-center'>
-                        RJ
+                      AMM-IST-AMM
                       </TableCell>
                       
 
-                      <TableCell className='text-center '>AMM-IST-AMM</TableCell>
+                      <TableCell className='text-center '>RJ</TableCell>
                       <TableCell className='text-center px-0'><div>
                         <p>{customer?.seat?.flight_number}</p> 
                         <hr/>
@@ -373,7 +373,7 @@ const [customEditData,setcustomEditData]=useState()
                         <p>{customer?.secondseat?.suppliers}</p>
                         </div>
                       </TableCell>
-                      <TableCell className='text-center'>Dayes=10</TableCell>
+                      <TableCell className='text-center'>Days=10</TableCell>
                       <TableCell className='text-center'>{customer?.price}</TableCell>
                      
                       <TableCell className='text-center' align="right">

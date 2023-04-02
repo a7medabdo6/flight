@@ -188,9 +188,10 @@ console.log(flietNumOne);
         <p className='text-nowrap'>Increase / descrease Price</p>
       </div>
       <div className='d-flex justify-content-end align-items-center mb-2 ' style={{marginRight:"32px"}}>
-      <button onClick={increase} type="button" className="btn btn-secondary">+</button>
+      <button onClick={Descrease} type="button" className="btn btn-secondary">-</button>  
+
         <p className='d-flex justify-content-center align-items-center rounded ' style={{padding:20,backgroundColor:COLORS.blue,margin:0,height:"35px"}}>{count}</p>
-        <button onClick={Descrease} type="button" className="btn btn-secondary">-</button>  
+        <button onClick={increase} type="button" className="btn btn-secondary">+</button>
       </div>
      </div>
      <div style={{marginBottom:"10px"}} className=' d-flex justify-content-center align-items-center flex-column'>
@@ -345,9 +346,9 @@ console.log(flietNumOne);
 
   
 
-<div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
-      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary">Add</button>
-        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseADD}  type="button" className="btn btn-secondary">Cancel</button>  
+<div className='  d-flex justify-content-center align-items-center flex-row-reverse' style={{margin:25}}>
+      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary CANCELBTN">Add</button>
+        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseADD}  type="button" className="btn btn-secondary CANCELBTN">Cancel</button>  
       </div>
 
 

@@ -24,6 +24,8 @@ const EditFlightCopy = ({handleCloseEdite,id,customerData}) => {
     const [country,setcountry]=useState(customerData?.country?.id)
     const [city,setcity]=useState()
     const [cityID,setcityID]=useState()
+    console.log(cityID);
+
     const [chickcity,setchickcity]=useState(false)
 const[disabledcity,setdisabledcity]=useState(true)
     const [airlines,setairlines]=useState()
@@ -72,7 +74,7 @@ console.log(EditeFlightData)
         const FormData ={
             data:{
              "country_id": +country,
-            "city_id": +city,
+            "city_id": +cityID,
             "company_id": +airlines,
             "flight_number": flight_number,
             "departure_airport": +departure_airport,
@@ -311,10 +313,10 @@ const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
         </div>
        
 
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edit</button>
+        <div className='d-flex justify-content-center align-items-center flex-row-reverse'>
+        <button type="button" className="btn btn-secondary m-5 CANCELBTN px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edit</button>
 
-        <button type="button" className="btn btn-secondary m-5 px-5" onClick={handleCloseEdite} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary m-5 CANCELBTN px-5" onClick={handleCloseEdite} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
         <ToastContainer></ToastContainer>

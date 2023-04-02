@@ -38,6 +38,10 @@ import notify from 'utils/useNotifaction';
 import { GetcountryHook } from 'Hook/Country/Get-Country-Hook';
 import { DeletflightCompanyApi } from 'Hook/Company/Delet-Company-Hook';
 import { EditeflightCompanyApi } from 'Hook/Company/Edite-Company-Hook';
+import { GetdapartureHook } from 'Hook/daparture-airport/Get-daparture-Hook';
+import { GetCityHook } from 'Hook/City/Get-City-Hook';
+import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook';
+import CompanyFilter from 'views/Company/CompanyFilter/CompanyFilter';
 
 
 const useStyles = makeStyles(theme => ({
@@ -76,7 +80,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const Results = props => {
   const { className,GetflightCompanyData,handleShowadd, customers, ...rest } = props;
-  let reversedArray = GetflightCompanyData?.map((item, index) => GetflightCompanyData[GetflightCompanyData.length - 1 - index]);
+  // let reversedArray = GetflightCompanyData?.map((item, index) => GetflightCompanyData[GetflightCompanyData.length - 1 - index]);
 
   const classes = useStyles();
 
@@ -148,11 +152,43 @@ console.log(showEdite);
 
 
   /**------------------------------------------------ */
-
+  const [called,setcalled]=useState(false)
+  const [country,setCountry]=useState()
+  const [countryname,setcountryname]=useState()
+  
+  const[disabledcity,setdisabledcity]=useState(true)
+  
+  const {data:ffff,refetch}=GetOnecountryHook(country,called)
+  
+  useEffect(()=>{
+      if(country){
+          refetch()
+          setdisabledcity(false)
+      }
+  },[country])
+  
+  
+  const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
+  console.log(GetOnecountryData,"777");
 
   const [name,setname]=useState()
+  const [city,setcity]=useState("city")
+console.log(city);
   const Hanadelname =(e)=>{     setname(e.target.value.toUpperCase()) }
+  const handelChangeCountryId =(e)=>{
+
+    let val=e.target.value.split('-')
+    setCountry(val[0])
   
+    //  setcity(val[1].toUpperCase())
+    setcountryname(val[1])
+    // setcountry(e.target.value)
+    // setcountry(e.target.value.toUpperCase())
+  
+  }
+
+  const HanadelCity =(e)=>{  setcity(e.target.value.toUpperCase())  }
+
   const {mutate:SubmitEditeflightCompany,data:DATAEDITE} =  EditeflightCompanyApi()
   const {EditeflightCompanyData,error:ERROR} = useSelector(state => state.EditeflightCompanyRedux)
   console.log(EditeflightCompanyData);
@@ -176,6 +212,10 @@ const HandelSave =()=>{
   const formdata = new FormData();
   formdata.append("logo",logo)
   formdata.append("name",name)
+  formdata.append("country",country)
+
+  formdata.append("city",city)
+
   const ID =id
 
 const FORMDATA = {
@@ -207,6 +247,55 @@ useEffect(()=>{
 
 
 
+const {data:GetDataairport}=GetdapartureHook()
+
+  const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
+  console.log(GetdapartureData);
+
+  const {data:GetDataa}=GetCityHook()
+
+  const {GetCityData} =useSelector(state => state.GetCityRedux)
+const [airportId,setairportId]=useState()
+console.log(name);
+
+
+
+const handelChangeairportId =(e)=>{
+  setairportId(e.target.value)
+}
+
+
+let [reversedArray,setreversedArray] = useState();
+const [tableData,settableData]=useState();
+
+useEffect(()=>{
+  if(reversedArray)
+  console.log(reversedArray,"6666  ");
+
+},[reversedArray])
+
+
+
+useEffect(()=>{
+  if(GetflightCompanyData){
+  const copy =[...GetflightCompanyData]
+    console.log(copy,"6666666");
+    if(copy)
+        settableData(copy)
+
+  }
+
+
+},[GetflightCompanyData])
+
+useEffect(()=>{
+
+  if(tableData)
+  setreversedArray(tableData.reverse())
+
+  // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
+
+},[tableData])
   return (
     <div
       {...rest}
@@ -222,18 +311,57 @@ useEffect(()=>{
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite Company</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite AirLines</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column'>
+
+        <select  onChange={handelChangeCountryId} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+
+<option selected disabled>Country</option>
+{
+  GetcountryData?.map((item,index)=>{return(
+    <option value={`${item?.id}-${item.name}`}>{item?.name}</option>
+
+  )})
+}
+
+
+</select>
+
+<select disabled={disabledcity} onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"20px",marginTop:"5px" }} className="form-select border" aria-label="Default select example">
+        <option selected disabled>City</option>
+
+            {
+                GetOnecountryData?.city?.map((item,index)=>{return(
+                 <option value={item?.name}>{item?.name}</option>
+
+                )})
+            }
+
+
+</select>
+
+<select onChange={handelChangeairportId} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"5px" }} className="form-select border" aria-label="Default select example">
+
+<option selected disabled>AirPort</option>
+{
+  GetdapartureData?.map((item,index)=>{return(
+    <option value={item?.id}>{item?.name}</option>
+
+  )})
+}
+
+
+</select>
         <input onChange={handelChangeLogo} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"15px"}} className="form-control" type="file" placeholder="Name" aria-label="default input example"/>
 
         <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"15px"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
-        <div className='d-flex justify-content-center align-items-center mt-3 '>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edite</button>
+        <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edite</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleCloseEdite}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN px-5" onClick={handleCloseEdite}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
         </div>
        
 
@@ -244,23 +372,23 @@ useEffect(()=>{
 
 <Modal
         className=''
-        size="sm"
+        size="md"
         show={show}
         onHide={handleClose}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Alert</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Delet AirLines</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  Company ?</h4>
-          <div className='d-flex justify-content-center align-items-center mt-3'>
-        <button type="button" className="btn btn-secondary  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  AirLines ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
-        <button type="button" className="btn btn-secondary  m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN  m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
         </div>
@@ -290,7 +418,7 @@ useEffect(()=>{
           action={<GenericMoreButton />}
           title={
             <div className='d-flex justify-content-between align-items-center' >
-                          <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Flight Company</h2>
+                          <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Flight AirLines</h2>
 
                 <Button
           style={{backgroundColor:COLORS.purple}}
@@ -298,7 +426,7 @@ useEffect(()=>{
           color="primary"
             variant="contained"
           >
-          Add New Company
+          Add New AirLines
           </Button>
             </div>
           }
@@ -311,8 +439,22 @@ useEffect(()=>{
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
                   <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">lOGO</TableCell>
+                  <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">
+                    <CompanyFilter title="Country" tableData={tableData} settableData={settableData} />
+                  </TableCell>
+                  <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">
+                  <CompanyFilter title="City" tableData={tableData} settableData={settableData} />
 
-                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">Name</TableCell>
+                  </TableCell>
+                  <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">
+                  <CompanyFilter title="Airport Name" tableData={tableData} settableData={settableData} />
+
+                  </TableCell>
+
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">
+                    <CompanyFilter title="AirLines" tableData={tableData} settableData={settableData} />
+
+                    </TableCell>
                     <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Created At</TableCell>
                  
                     <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
@@ -329,6 +471,15 @@ useEffect(()=>{
                         <div>
                           <img style={{width:"50px",height:"50px"}} src="/images/logos/Dark.png" alt="logo"/>
                         </div>
+                      </TableCell>
+                      <TableCell className='text-center'>
+                      {customer?.country}
+                      </TableCell>
+                      <TableCell className='text-center'>
+                      {customer?.city}
+                      </TableCell>
+                      <TableCell className='text-center'>
+                      AirPort
                       </TableCell>
                       <TableCell className='text-center'>
                       {customer?.name}

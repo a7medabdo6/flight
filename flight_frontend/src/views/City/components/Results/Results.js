@@ -37,6 +37,7 @@ import notify from 'utils/useNotifaction';
 import { DeletCityApi } from 'Hook/City/Delet-City-Hook';
 import { EditeCityApi } from 'Hook/City/Edite-City-Hook';
 import { GetcountryHook } from 'Hook/Country/Get-Country-Hook';
+import CityFilter from 'views/City/CityFilter/CityFilter';
 
 
 const useStyles = makeStyles(theme => ({
@@ -82,10 +83,9 @@ const Results = props => {
   const { className,GetCityData,handleShowadd, customers, ...rest } = props;
 
   
-  let reversedArray = GetCityData?.map((item, index) => GetCityData[GetCityData.length - 1 - index]);
+  // let reversedArray = GetCityData?.map((item, index) => GetCityData[GetCityData.length - 1 - index]);
   
 
-  console.log(reversedArray);
   const classes = useStyles();
 
   const [selectedCustomers, setSelectedCustomers] = useState([]);
@@ -210,6 +210,37 @@ useEffect(()=>{
 
 
 
+let [reversedArray,setreversedArray] = useState();
+const [tableData,settableData]=useState();
+
+useEffect(()=>{
+  if(reversedArray)
+  console.log(reversedArray,"6666  ");
+
+},[reversedArray])
+
+
+
+useEffect(()=>{
+  if(GetCityData){
+  const copy =[...GetCityData]
+    console.log(copy,"6666666");
+    if(copy)
+        settableData(copy)
+
+  }
+
+
+},[GetCityData])
+
+useEffect(()=>{
+
+  if(tableData)
+  setreversedArray(tableData.reverse())
+
+  // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
+
+},[tableData])
   return (
     <div
       {...rest}
@@ -225,14 +256,14 @@ useEffect(()=>{
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite supplier</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite City</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column'>
         <select onChange={handelChangeCountryId} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
 
-        <option selected disabled>Open this select menu</option>
+        <option selected disabled>Country</option>
         {
           GetcountryData?.map((item,index)=>{return(
             <option value={item?.id}>{item?.name}</option>
@@ -243,10 +274,10 @@ useEffect(()=>{
 
 </select>
         <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"15px"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
-        <div className='d-flex justify-content-center align-items-center mt-3 '>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edite</button>
+        <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Edite</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleCloseEdite}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN  px-5" onClick={handleCloseEdite}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
         </div>
        
 
@@ -257,23 +288,23 @@ useEffect(()=>{
 
 <Modal
         className=''
-        size="sm"
+        size="md"
         show={show}
         onHide={handleClose}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Alert</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Delet City</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  City ?</h4>
-          <div className='d-flex justify-content-center align-items-center mt-3'>
-        <button type="button" className="btn btn-secondary  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  City ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
-        <button type="button" className="btn btn-secondary  m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
         </div>
@@ -323,7 +354,10 @@ useEffect(()=>{
               <Table >
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
-                   
+                  <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">
+                    <CityFilter title="Country" tableData={tableData} settableData={settableData}/>
+                  </TableCell>
+
                     <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">Name</TableCell>
                     <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Created At</TableCell>
                  
@@ -337,7 +371,9 @@ useEffect(()=>{
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
                     >
-                      
+                      <TableCell className='text-center'>
+                      Country
+                      </TableCell>
                       <TableCell className='text-center'>
                       {customer?.name}
                       </TableCell>

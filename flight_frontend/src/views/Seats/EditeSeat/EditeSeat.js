@@ -295,10 +295,10 @@ const HandelSave=()=>{
         </div>
        
 
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}}>Edite</button>
+        <div className='d-flex justify-content-center align-items-center flex-row-reverse'>
+        <button type="button" className="btn btn-secondary m-5 CANCELBTN px-5  " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}}>Edite</button>
 
-        <button type="button" className="btn btn-secondary m-5 px-5" onClick={handleCloseEdite} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN m-5 px-5" onClick={handleCloseEdite} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
     </div>

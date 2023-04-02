@@ -23,6 +23,7 @@ import { CreateTwoWayApi } from 'Hook/SeatTwoWay/Create-TwoWay-Hook';
 import { useSelector } from 'react-redux';
 import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
 import { EditeTowWayApi } from 'Hook/SeatTwoWay/Edit-TowWay-Hook';
+import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook';
 const EditRoundTrip = ({handelCloseEdit,customEditData}) => {
 console.log(customEditData);
   
@@ -53,6 +54,8 @@ console.log(DataFlightOne);
     const Descrease = ()=>{
       setcount(count - 1)
         }
+        const {data:getFlight}=GetFlightHook()
+
         const {data}=GetSeatHook()
 
         const {GetSeatData} =useSelector(state => state.GetSeatRedux)
@@ -103,8 +106,8 @@ console.log(flietNumOne);
             item.flight_number === e.target.value
      )})
      
-          setflietNumOne(item[0].id)
-          setpriceOne(item[0].seat_price_enduser)
+          setflietNumOne(item[0]?.id)
+          setpriceOne(item[0]?.seat_price_enduser)
           setDataFlightOne(item[0])
 
         }
@@ -151,7 +154,16 @@ console.log(flietNumOne);
           <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <input onChange={(e)=>{return(handelflietNumOne(e))}} value={customEditData?.seat?.flight_number} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="10" aria-label="default input example"/>
+        <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+          <option disabled>Flight No.</option>
+          {
+            getFlight?.map((item,index)=>{return(
+              <option key={index} selected={customEditData?.secondseat?.flight_number === item?.flight_number ? true : false }  value={item?.flight_number}>{item?.flight_number}</option>
+
+            )})
+          }
+        </select>   
+        {/* <input onChange={(e)=>{return(handelflietNumOne(e))}} value={customEditData?.seat?.flight_number} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="10" aria-label="default input example"/> */}
 
         {/* <select onChange={(e)=>{return(handelflietNumOne(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
           <option selected>Open this select menu</option>
@@ -175,7 +187,17 @@ console.log(flietNumOne);
           <h5>Price</h5>
         </div>
         <div className='d-flex justify-content-between align-items-center' >
-        <input onChange={(e)=>{return(handelflietNumTwo(e))}} value={customEditData?.second?.flight_number} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="10" aria-label="default input example"/>
+
+        <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
+          <option disabled >Flight No.</option>
+          {
+            getFlight?.map((item,index)=>{return(
+              <option key={index} selected={customEditData?.seat?.flight_number === item?.flight_number ? true : false }  value={item?.flight_number}>{item?.flight_number}</option>
+
+            )})
+          }
+        </select> 
+        {/* <input onChange={(e)=>{return(handelflietNumTwo(e))}} value={customEditData?.second?.flight_number} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="10" aria-label="default input example"/> */}
 
         {/* <select onChange={(e)=>{return(handelflietNumTwo(e))}} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
           <option selected>Open this select menu</option>
@@ -350,9 +372,9 @@ console.log(flietNumOne);
 
   
 
-<div className='  d-flex justify-content-center align-items-center' style={{margin:25}}>
-      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary">Edit</button>
-        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseEdit}  type="button" className="btn btn-secondary">Cancel</button>  
+<div className='  d-flex justify-content-center align-items-center flex-row-reverse ' style={{margin:25}}>
+      <button style={{marginRight:40,backgroundColor:COLORS.purple}} onClick={handelSave} type="button" className="btn btn-secondary CANCELBTN">Edit</button>
+        <button style={{marginLeft:40,backgroundColor:COLORS.purple}} onClick={handelCloseEdit}  type="button" className="btn btn-secondary CANCELBTN">Cancel</button>  
       </div>
 
 

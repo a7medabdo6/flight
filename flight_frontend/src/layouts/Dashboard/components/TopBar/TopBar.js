@@ -203,7 +203,7 @@ const token = localStorage.getItem('token');
            style={{height:"40px",width:"40px",objectFit: "cover",borderRadius:"50%"}}
           src='/images/logos/PLANE.jpg'/>
           <div style={{marginLeft:"12px"}}>
-            <p style={{marginBottom:0,fontSize:"18px"}}>{userLogin?.username}</p>
+            <p style={{marginBottom:0,fontSize:"15px"}}>{userLogin?.username}</p>
             <p style={{width:"150px",fontSize:"11px"}}>us-cairo,egypt</p>
           </div>
           
