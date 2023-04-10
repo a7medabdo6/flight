@@ -106,8 +106,7 @@ const NavigationListItem = props => {
   const style = {
     color:"black",
     paddingLeft:"5px",
-    fontWeight:"700"
-
+    fontWeight:"700",
     
   };
 
@@ -138,7 +137,7 @@ const NavigationListItem = props => {
             />
           )}
         </Button>
-        <Collapse in={open}>{children}</Collapse>
+        <Collapse  in={open}>{children}</Collapse>
       </ListItem>
     );
   } else {

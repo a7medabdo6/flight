@@ -36,6 +36,7 @@ import { GetSeatTwoWayHook } from 'Hook/SeatTwoWay/Get-TwoWay-Hook';
 import { useSelector } from 'react-redux';
 import EditRoundTrip from 'views/TwoWay/Edit-RoundTrip/EditRoundTrip';
 import { ToastContainer } from 'react-toastify';
+import FiltertwoWay from 'views/TwoWay/FiltertwoWay/FiltertwoWay';
 
 
 const useStyles = makeStyles(theme => ({
@@ -150,11 +151,46 @@ const Results = props => {
   const {data}=GetSeatTwoWayHook()
 
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
-  let reversedArray = GetSeatTwoWayData?.map((item, index) => GetSeatTwoWayData[GetSeatTwoWayData.length - 1 - index]);
+  // let reversedArray = GetSeatTwoWayData?.map((item, index) => GetSeatTwoWayData[GetSeatTwoWayData.length - 1 - index]);
 
   console.log(GetSeatTwoWayData);
 
 const [customEditData,setcustomEditData]=useState()
+
+
+
+
+let [reversedArray,setreversedArray] = useState();
+const [tableData,settableData]=useState();
+
+useEffect(()=>{
+  if(reversedArray)
+  console.log(reversedArray,"6666  ");
+
+},[reversedArray])
+
+
+
+useEffect(()=>{
+  if(GetSeatTwoWayData){
+  const copy =[...GetSeatTwoWayData]
+    console.log(copy,"6666666");
+    if(copy)
+        settableData(copy)
+
+  }
+
+
+},[GetSeatTwoWayData])
+
+useEffect(()=>{
+
+  if(tableData)
+  setreversedArray(tableData.reverse())
+
+  // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
+
+},[tableData])
   return (
     <div
       {...rest}
@@ -282,7 +318,10 @@ const [customEditData,setcustomEditData]=useState()
                   <TableRow className='shadowBox'>
                    
                     <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Flight Two Way</TableCell>
-                    <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>AirLines</TableCell>
+                    <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FiltertwoWay title="AirLines" tableData={tableData} settableData={settableData}/>
+
+                    </TableCell>
                     <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>Flight No.</TableCell>
 
 

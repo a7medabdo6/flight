@@ -88,6 +88,7 @@ const NavBar = props => {
             key={list.title}
             pages={list.pages}
             title={list.title}
+            label={list?.label}
           />
         ))}
       </nav>

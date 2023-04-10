@@ -386,7 +386,7 @@ const {GetcountryData} =useSelector(state => state.GetcountryRedux)
                        {customer?.country}
                       </TableCell>
                       <TableCell className='text-center'>
-                      City
+                      {customer?.city?.name}
                       </TableCell>
                       <TableCell className='text-center'>
                       {customer?.name}

@@ -41,8 +41,7 @@ import AirlineSeatReclineExtraIcon from '@material-ui/icons/AirlineSeatReclineEx
   const items=Countries()
   console.log(arr,"ddddd");
   useEffect(() => {
-console.log(items,"items") 
-// setarr(items) 
+console.log(items,"itemssss") 
 if(items?.length>0){
   setarr(items)
 }

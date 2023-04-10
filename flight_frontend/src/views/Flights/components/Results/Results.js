@@ -223,7 +223,7 @@ useEffect(()=>{
 
 <Modal
         className=''
-        size="md"
+        size="lg"
         show={showEdite}
         onHide={handleCloseEdite}
         aria-labelledby="example-modal-sizes-title-lg"

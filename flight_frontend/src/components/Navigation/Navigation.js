@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NavigationList = props => {
-  const { pages, ...rest } = props;
+  const { pages, label,...rest } = props;
 
   return (
-    <List  >
+    <List className={label} >
       {pages.reduce(
         (items, page) => reduceChildRoutes({ items, page, ...rest }),
         []
@@ -36,7 +36,7 @@ NavigationList.propTypes = {
 };
 
 const reduceChildRoutes = props => {
-  const { router, items, page, depth } = props;
+  const { router, items, page, depth,label } = props;
 
   if (page.children) {
     const open = matchPath(router.location.pathname, {
@@ -68,17 +68,20 @@ console.log(arr1);
         title={page.title}
       >
         <div className='d-flex justify-content-center align items-center' >
-          
+          {console.log(arr1,"arr1arr1")}
         <NavigationList
         
           depth={depth + 1}
           pages={arr1}
           router={router}
+          label={label}
         />
         <NavigationList
           depth={depth + 1}
           pages={arr2}
           router={router}
+          label={label}
+
         />
         </div>
         
@@ -122,7 +125,7 @@ console.log(arr1);
 };
 
 const Navigation = props => {
-  const { title, pages, className, component: Component, ...rest } = props;
+  const { title, pages, className, component: Component,label, ...rest } = props;
 
   const classes = useStyles();
   const router = useRouter();
@@ -138,6 +141,8 @@ const Navigation = props => {
         depth={0}
         pages={pages}
         router={router}
+        label={label}
+        
       />
     </Component>
   );

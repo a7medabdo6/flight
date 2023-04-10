@@ -27,26 +27,42 @@ useEffect(()=>{
    const [Countries, setCountries] = useState([])
    var arr=[]
    useEffect(() => {
-    console.log(GetcountryNavBarData,"GetCountriesData")
+    console.log(countryNavBar,"countryNavBar")
         if(countryNavBar?.length>0){
         for (let index = 0; index < countryNavBar?.length; index++) {
             if(countryNavBar[index]){
-            for(let i = 0; i < countryNavBar[i]?.city?.length; i++){
-              let country =countryNavBar[index]?.name
-
-              let city = countryNavBar[index]?.city[i]?.name
+              let cityarr=[]
+              for(let i = 0; i < countryNavBar[index].city?.length; i++){
+                cityarr.push(
+                  { title: countryNavBar[index].city[i]?.name,
+                  href: `/seats/one-way/${countryNavBar[index].name}/${countryNavBar[index].city[i]?.name}`,
+                 
+                }
+                )
+              }
               arr.push({
-                  title: country,
-                  href: `/seats/one-way/${country}`,
-                  children: [
-                      { title: city,
-                     href: `/seats/one-way/${country}/${city}`,
+                      title: countryNavBar[index].name,
+                      href: `/seats/one-way/${countryNavBar[index].name}`,
+                      children:cityarr,
+                      label:"city"
+                      
+                    })
+            // for(let i = 0; i < countryNavBar[i]?.city?.length; i++){
+            //   let country =countryNavBar[index]?.name
+
+            //   let city = countryNavBar[index]?.city[i]?.name
+            //   arr.push({
+            //       title: country,
+            //       href: `/seats/one-way/${country}`,
+            //       children: [
+            //           { title: city,
+            //          href: `/seats/one-way/${country}/${city}`,
                     
-                   }
-                     ]
+            //        }
+            //          ]
                   
-                })
-            }
+            //     })
+            // }
            
             }
            
