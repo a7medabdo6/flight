@@ -30,7 +30,9 @@ export class DapartureAirportService {
     return departureAirport;
   }
   async findAll() {
-    const departureAirport = await this.repo.find({  });
+    const departureAirport = await this.repo.find({ relations: {
+        city: true,
+      }, });
     return departureAirport;
   }
 
