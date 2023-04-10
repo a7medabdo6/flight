@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/dashboards/default" />
+    component: () => <Redirect to="/Flight" />
   },
   {
     path: '/auth',
@@ -119,7 +119,7 @@ const routes = [
 
 
       {
-        path: '/Seats',
+        path: '/seats/one-way/:country/:city',
         exact: true,
         component: lazy(() => import('views/Seats'))
       },

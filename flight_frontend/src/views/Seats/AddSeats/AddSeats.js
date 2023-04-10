@@ -279,7 +279,7 @@ console.log(item)
 
       </>),
        InputSeatsPriceCompany:( <>
-        <input onChange={HandelSeatPricecompany } style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",width:"50%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
+        <input onChange={HandelSeatPricecompany } style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="number" placeholder="130" aria-label="default input example"/>
 
     </>),
          InputAvailableSeatsNumber:( <>
@@ -350,16 +350,16 @@ console.log(item)
         </div>
 
         </div>
-        <div style={{marginLeft:"245px"}}>
+        <div className='w-100 d-flex justify-content-center align-items-center' >
         <AddSeatsCard  title="Seat Price (Company)" Chosing={Inputs.InputSeatsPriceCompany}/>
 
         </div>
 
 
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}}>Add</button>
+        <div className='d-flex justify-content-center align-items-center flex-row-reverse'>
+        <button type="button" className="btn btn-secondary m-5 CANCELBTN px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}}>Add</button>
 
-        <button type="button" className="btn btn-secondary m-5 px-5" onClick={ handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary m-5 CANCELBTN px-5" onClick={ handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
     </div>

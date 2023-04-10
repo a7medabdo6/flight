@@ -12,6 +12,7 @@ import { jsPDF } from "jspdf";
 import { GetFlightHook } from 'Hook/Flight/Get-Countries-Hook';
 import { useSelector } from 'react-redux';
 import EditeSeats from './EditeSeat/EditeSeat';
+import { useParams } from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,9 +24,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Seats = () => {
+const Seats = ({match}) => {
 
 
+    let city =match?.params?.city
+console.log(city);
+let country =match?.params?.country
+console.log(country);
   const classes = useStyles();
 
   const [customers, setCustomers] = useState([]);
@@ -64,7 +69,7 @@ const Seats = () => {
 
 <Modal
         className=''
-        size="lg"
+        size="md"
         show={show}
         onHide={handleClose}
         aria-labelledby="example-modal-sizes-title-lg"
@@ -84,15 +89,18 @@ const Seats = () => {
 
       
 
-      <Header handleShow={handleShow} />
+      <Header  />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
       /> */}
       {customers && (
         <Results
+        handleShowADD={handleShow}
           className={classes.results}
           customers={customers}
+          city={city}
+          country={country}
         />
       )}
     </Page>

@@ -1,19 +1,80 @@
-name: cpanel
-on: 
-push:
+name: DMS Dashboard React (Staging)
+
+on:
+  push:
     branches:
-      - main
+      - master
 jobs:
-build:
+  # To build the project
+  build-staging:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Checking out code
+        uses: actions/checkout@v3
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 12.x
-      - name: Install dependencies
-        run: npm install    
-      - name: Generate build
-        run: npm run build
+          node-version: "16"
+      - name: Installing dependencies
+
+        run: cd flight_frontend && npm install --force --ignore-engines
+        env:
+          CI: false
+      - name: Installing dependencies
+
+        run: cd flight_backend && npm install --force --ignore-engines
+        env:
+          CI: false
+      - name: Building project frontend
+        run: cd flight_frontend && npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=32768
+          CI: false
+          
+      - name: Building project backend
+        run: cd flight_backend && npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=32768
+          CI: false
+      - name: Upload ftp
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+           server: ftp.engaz-soft.com
+           username: cicd@engaz-soft.com
+           password: Kalli.linx2
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

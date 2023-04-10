@@ -22,12 +22,13 @@ const useStyles = makeStyles(theme => ({
   item: {
     display: 'block',
     paddingTop: 0,
+
     paddingBottom: 0
   },
   itemLeaf: {
     display: 'flex',
     paddingTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   button: {
     color: colors.blueGrey[800],
@@ -50,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   icon: {
-    color: theme.palette.icon,
+    color: "#EB6B1D",
     display: 'flex',
     alignItems: 'center',
     marginRight: theme.spacing(1)
@@ -58,7 +59,8 @@ const useStyles = makeStyles(theme => ({
   expandIcon: {
     marginLeft: 'auto',
     height: 16,
-    width: 16
+    width: 16,
+    color: "#EB6B1D",
   },
   label: {
     display: 'flex',
@@ -66,6 +68,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto'
   },
   active: {
+    backgroundColor:"#FEE3D8",
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
     '& $icon': {
@@ -101,8 +104,10 @@ const NavigationListItem = props => {
   }
 
   const style = {
-    color:"white",
-    paddingLeft
+    color:"black",
+    paddingLeft:"5px",
+    fontWeight:"700",
+    
   };
 
   if (children) {
@@ -132,7 +137,7 @@ const NavigationListItem = props => {
             />
           )}
         </Button>
-        <Collapse in={open}>{children}</Collapse>
+        <Collapse  in={open}>{children}</Collapse>
       </ListItem>
     );
   } else {

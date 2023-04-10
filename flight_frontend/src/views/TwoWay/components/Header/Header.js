@@ -27,9 +27,9 @@ const Header = props => {
         spacing={3}
       >
       <Grid item style={{width:"100%"}}>
-          <img 
+          {/* <img 
            style={{height:"150px",width:"100%",objectFit: "cover"}}
-          src='/images/logos/PLANE.jpg'/>
+          src='/images/logos/PLANE.jpg'/> */}
           {/* <Typography
             component="h2"
             gutterBottom

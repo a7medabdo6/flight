@@ -28,14 +28,21 @@ import { Label } from 'components';
 import Countries from './Countries';
 import { useEffect } from 'react';
 import { useState } from 'react';
-
+import NoteIcon from '@material-ui/icons/Note';
+import PublicIcon from '@material-ui/icons/Public';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import BusinessIcon from '@material-ui/icons/Business';
+import LocalAirportIcon from '@material-ui/icons/LocalAirport';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import FlightIcon from '@material-ui/icons/Flight';
+import AirlineSeatReclineExtraIcon from '@material-ui/icons/AirlineSeatReclineExtra';
  const RoutesList=()=> {
   const [arr, setarr] = useState([])
   const items=Countries()
+  console.log(arr,"ddddd");
   useEffect(() => {
-console.log(items,"items") 
-// setarr(items) 
-if(items.length>0){
+console.log(items,"itemssss") 
+if(items?.length>0){
   setarr(items)
 }
     return () => {
@@ -52,21 +59,21 @@ return [
       //   href: '/overview',
       //   icon: HomeIcon
       // },
-      {
-        title: 'Dashboards',
-        href: '/dashboards',
-        icon: DashboardIcon,
-        children: [
-          {
-            title: 'Default',
-            href: '/dashboards/default'
-          },
-          {
-            title: 'Analytics',
-            href: '/dashboards/analytics'
-          }
-        ]
-      },
+      // {
+      //   title: 'Dashboards',
+      //   href: '/dashboards',
+      //   icon: DashboardIcon,
+      //   children: [
+      //     {
+      //       title: 'Default',
+      //       href: '/dashboards/default'
+      //     },
+      //     {
+      //       title: 'Analytics',
+      //       href: '/dashboards/analytics'
+      //     }
+      //   ]
+      // },
       {
         title: 'Booking',
         href: '/management',
@@ -75,30 +82,31 @@ return [
           {
             title: 'Flights',
             href: '/Flight',
-            icon: FlightOutlinedIcon,
+            icon: FlightIcon,
             children: [
               {
                 title: 'Flights',
+                icon: FlightIcon,
+
                 href: '/Flight',
-                icon:FlightOutlinedIcon
               },
               {
                 title: 'Seats',
-                href: '/Seats',
-                icon:AirlineSeatReclineExtraOutlinedIcon,
+                icon:AirlineSeatReclineExtraIcon,
                 children: [
                   {
                     title: 'One Way',
-                    href: '/Seats',
-                    icon:ArrowRightAltOutlinedIcon,
+                    href: '/seats',
                     children: arr
+
                   },
                   {
                     title: 'Two Way',
                     href: '/TwoWay',
-                    icon:SwapVertOutlinedIcon
 
+                    
                   },
+                 
 
                 ]
               },
@@ -131,31 +139,40 @@ return [
           // }
         ]
       },
-       {
-        title: 'Suppliers',
-        href: '/Suppliers',
-        icon: PeopleIcon
-      },
       {
-        title: 'Country',
-        href: '/Country',
-        icon: PeopleIcon
+        title: 'Entry',
+        icon: SupervisorAccountIcon,
+        children:[
+          {
+            title: 'Suppliers',
+            href: '/Suppliers',
+            icon: SupervisorAccountIcon
+          },
+          {
+            title: 'Country',
+            href: '/Country',
+            icon: PublicIcon
+          },
+          {
+            title: 'City',
+            href: '/city',
+            icon: LocationCityIcon
+          },
+          {
+            title: 'AirLines',
+            href: '/Company',
+            icon: BusinessIcon
+          },
+          {
+            title: 'AirPorts',
+            href: '/AirPOrts',
+            icon: LocalAirportIcon
+          },
+
+        ]
+
       },
-      {
-        title: 'City',
-        href: '/city',
-        icon: PeopleIcon
-      },
-      {
-        title: 'Company',
-        href: '/Company',
-        icon: PeopleIcon
-      },
-      {
-        title: 'AirPorts',
-        href: '/AirPOrts',
-        icon: PeopleIcon
-      },
+       
       // {
       //   title: 'visa',
       //   href: '/social-feed',

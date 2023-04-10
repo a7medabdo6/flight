@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Avatar,
   Card,
@@ -33,7 +33,12 @@ import { DeletFlightApi } from 'Hook/Flight/Delet-Flight-Hook';
 import { useSelector } from 'react-redux';
 import EditeFlight from 'views/Flights/EditeFlight/EditeFlight';
 import { useEffect } from 'react';
-
+import { AddFlightByCheckBoxtApi } from 'Hook/Flight/Use-Add-Flight-By-CheckBox-Hook';
+import EditFlightCopy from 'views/Flights/Editcopy/EditeCopy';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import FilterFlight from 'views/Flights/FilterFlight/FilterFlight';
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
@@ -58,9 +63,19 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   }
 }));
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: "white",
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: "#FEE3D8",
+    },
+  },
+}))(TableRow);
 
 const Results = props => {
-  const { className,GetFlightData, customers, ...rest } = props;
+  const { className,GetFlightData,handleShowADD,handleCloseADD, customers, ...rest } = props;
 
   const classes = useStyles();
 
@@ -131,8 +146,75 @@ console.log(showEdite);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
 const [itemData,setitemData]=useState()
+const user =JSON.parse(localStorage.getItem('user')) ;
 
-console.log(itemData);
+const [ids,setides]=useState([])
+const navdata =JSON.parse(localStorage.getItem("navbarcountry"))
+const array =navdata?.map((item)=>{return(item?.id)})
+console.log(array);
+const handelchangecheckbox=(e)=>{
+  let value =e.target.value
+console.log(value);
+if(array?.length === 0){
+  setides((oldarry)=>[...oldarry,value])
+
+}else if(array?.length > 0){
+  setides((oldarry)=>[...oldarry,value,array])
+}
+
+console.log(ids);
+}
+const {data:AddFlightByCheckData,mutate:SubmitAddFlightByCheckBox} =  AddFlightByCheckBoxtApi()
+const {AddFlightByCheckBoxtData} = useSelector(state => state.AddFlightByCheckBoxtRedux)
+console.log(AddFlightByCheckBoxtData);
+
+const AddFlightCheckBox =()=>{
+
+  const formdata={
+    data:{
+      "ids":ids
+
+    },
+    id:user?.id
+  }
+
+// const  id=user?.id
+
+
+  SubmitAddFlightByCheckBox(formdata)
+}
+let [reversedArray,setreversedArray] = useState();
+const [tableData,settableData]=useState();
+
+useEffect(()=>{
+  if(reversedArray)
+  console.log(reversedArray,"6666  ");
+
+},[reversedArray])
+
+
+
+useEffect(()=>{
+  if(GetFlightData){
+  const copy =[...GetFlightData]
+    console.log(copy,"6666666");
+    if(copy)
+        settableData(copy)
+
+  }
+
+
+},[GetFlightData])
+
+useEffect(()=>{
+
+  if(tableData)
+  setreversedArray(tableData.reverse())
+
+  // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
+
+},[tableData])
+
   return (
     <div
       {...rest}
@@ -148,33 +230,37 @@ console.log(itemData);
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Edite Flight</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Edit Flight</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           
-        <EditeFlight id={id} handleCloseEdite={handleCloseEdite} customerData={customerData}/>
+        <EditFlightCopy id={id} handleCloseEdite={handleCloseEdite} customerData={customerData}/>
         </Modal.Body>
       </Modal>
 
 
 <Modal
         className=''
-        size="sm"
+        size="md"
         show={show}
         onHide={handleClose}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header style={{padding:"0px"}} >
           <Modal.Title id="example-modal-sizes-title-lg" className='rounded-top ' style={{backgroundColor:COLORS.purple,width:"100%"}}>
-         <h4 className='ps-5 py-2' style={{color:"white"}}>Alert</h4>
+         <h4 className='ps-5 py-2' style={{color:"white"}}>Delet Flight</h4>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+        <div className='d-flex justify-content-center align-items-center flex-column '>
+          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  flight ?</h4>
+          <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+          <button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+<button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+          </div>
+       
 
         </div>
         
@@ -201,18 +287,30 @@ console.log(itemData);
         // }
           action={<GenericMoreButton />}
           title={
-            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Flight</h2>
+            <div className='d-flex justify-content-between align-items-center'>
+              
+            <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Flight</h2>
+            <Button
+            style={{backgroundColor:COLORS.purple}}
+            onClick={handleShowADD}
+            color="primary"
+              variant="contained"
+            >
+            Add New Flight
+            </Button>
+            </div>
           }
         />
         <Divider />
         <CardContent className={classes.content}>
           <PerfectScrollbar style={{overflow:"auto"}}>
             <div className={classes.inner}  >
+           
               <Table >
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
-                    <TableCell padding="checkbox">
-                      <Checkbox
+                    <TableCell >
+                      {/* <Checkbox
                         checked={selectedCustomers.length === customers.length}
                         style={{color:"white"}}
                         indeterminate={
@@ -220,25 +318,49 @@ console.log(itemData);
                           selectedCustomers.length < customers.length
                         }
                        
-                      />
+                      /> */}
+                                          <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className="text-center">Add</TableCell>
+
                     </TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className="text-center">Country</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>City</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>AirLines</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Flight No.</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Dep.APT</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Arr.APT</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Dep.Time</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Arr.Time</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Duration</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center'>Weight</TableCell>
-                    <TableCell style={{fontSize:"15px",color:"white"}} className='text-center' align="right">Actions</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"red" ,fontWeight:"700"}} className="text-center">
+                      <FilterFlight title="Country" tableData={tableData} settableData={settableData}/>
+          
+                    </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="City" tableData={tableData} settableData={settableData}/>
+                    </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="AirLines" tableData={tableData} settableData={settableData}/>
+
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Flight No." tableData={tableData} settableData={settableData}/>
+                     </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Dep.APT" tableData={tableData} settableData={settableData}/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Arr.APT" tableData={tableData} settableData={settableData}/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Dep.Time"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Arr.Time"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Duration"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FilterFlight title="Weight"/>
+                      </TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {GetFlightData?.map(customer => (
-                    <TableRow
-                      hover
+                  {reversedArray?.map(customer => (
+                    <StyledTableRow
+                      // hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer?.id) !== -1}
                     >
@@ -247,8 +369,8 @@ console.log(itemData);
                         <Checkbox
                         
                           color="primary"
-                          onChange={(e) => {return(setitemData(customer?.id))}  }
-                          value={itemData}
+                          onChange={(e) => {return(handelchangecheckbox(e),setitemData(customer?.id))}  }
+                          value={customer?.country?.id}
                         />
                       </TableCell>
                       <TableCell className='text-center'>
@@ -271,14 +393,14 @@ console.log(itemData);
                       <TableCell className='text-center'>{customer?.weight}</TableCell>
                       <TableCell className='text-center' align="right">
                         
-                        <i onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
 
                         
-                        <i  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
 
                         
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>
@@ -300,14 +422,17 @@ console.log(itemData);
       </Card>
       <TableEditBar selected={selectedCustomers} />
       <ToastContainer></ToastContainer>
+      <div className='w-100 d-flex flex-row-reverse mt-2'>
       <Button
-          style={{backgroundColor:COLORS.orange,position:"relative",width:"100%"}}
-          onClick={handleShow}
+          style={{backgroundColor:COLORS.purple}}
+          onClick={AddFlightCheckBox}
           color="primary"
             variant="contained"
           >
-          Save
+          Add Selected Flights
           </Button>
+      </div>
+     
     </div>
   );
 };

@@ -1,30 +1,69 @@
 import { AssignmentReturnedRounded } from '@material-ui/icons'
+import { GetcountryNavBarHook } from 'Hook/Country/Get-Country-NavBar-Hook'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 function Countries() {
-   const {GetCountriesData}= useSelector(state=>state.GetCountriesRedux)
+  const id =JSON.parse(localStorage.getItem('user'))?.id ;
+  console.log(id);
+  const {data}= GetcountryNavBarHook(id)
+console.log(data,"55555");
+   const {GetcountryNavBarData}= useSelector(state=>state.GetcountryNavBarRedux)
+   
+   const navCountry = GetcountryNavBarData?.country
+   const [countryNavBar,setcountryNavBar]=useState()
+useEffect(()=>{
+  if(GetcountryNavBarData){
+    localStorage.setItem("navbarcountry",JSON.stringify(navCountry))
+    const navdata =JSON.parse(localStorage.getItem("navbarcountry"))
+    setcountryNavBar(navdata)
+       console.log(countryNavBar);
+  }
+},[GetcountryNavBarData])
+
+
    const [Countries, setCountries] = useState([])
    var arr=[]
    useEffect(() => {
-    console.log(GetCountriesData,"GetCountriesData")
-        if(GetCountriesData.length>0){
-        for (let index = 0; index < GetCountriesData.length; index++) {
-            if(GetCountriesData[index]?.country?.name){
-            
-                arr.push({
-                    title: GetCountriesData[index]?.country?.name,
-                    href: '/Seats',
-                    children: [
-                        { title: GetCountriesData[index]?.city?.name,
-                       href: '/Seats',
+    console.log(countryNavBar,"countryNavBar")
+        if(countryNavBar?.length>0){
+        for (let index = 0; index < countryNavBar?.length; index++) {
+            if(countryNavBar[index]){
+              let cityarr=[]
+              for(let i = 0; i < countryNavBar[index].city?.length; i++){
+                cityarr.push(
+                  { title: countryNavBar[index].city[i]?.name,
+                  href: `/seats/one-way/${countryNavBar[index].name}/${countryNavBar[index].city[i]?.name}`,
+                 
+                }
+                )
+              }
+              arr.push({
+                      title: countryNavBar[index].name,
+                      href: `/seats/one-way/${countryNavBar[index].name}`,
+                      children:cityarr,
+                      label:"city"
                       
-                     }
-                       ]
+                    })
+            // for(let i = 0; i < countryNavBar[i]?.city?.length; i++){
+            //   let country =countryNavBar[index]?.name
+
+            //   let city = countryNavBar[index]?.city[i]?.name
+            //   arr.push({
+            //       title: country,
+            //       href: `/seats/one-way/${country}`,
+            //       children: [
+            //           { title: city,
+            //          href: `/seats/one-way/${country}/${city}`,
                     
-                  })
+            //        }
+            //          ]
+                  
+            //     })
+            // }
+           
             }
            
            
@@ -39,7 +78,7 @@ function Countries() {
      return () => {
        
      }
-   }, [GetCountriesData])
+   }, [countryNavBar])
    
   return (
     

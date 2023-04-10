@@ -51,6 +51,11 @@ export class SeatController {
   update(@Param('id') id: string, @Body() updateSeatDto: UpdateSeatDto) {
     return this.seatService.update(+id, updateSeatDto);
   }
+  @Patch(':id/twoway')
+  updateTwo(@Param('id') id: string, @Body() updateSeatDto: {price:string}) {
+    return this.seatService.updateTwo(+id, updateSeatDto);
+  }
+  
 
   @Delete(':id')
   remove(@Param('id') id: string) {

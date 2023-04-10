@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Avatar,
   Card,
@@ -34,6 +34,9 @@ import color from '@material-ui/core/colors/amber';
 import AddRoundTrip from 'views/TwoWay/Add-RoundTrip/AddRoundTrip';
 import { GetSeatTwoWayHook } from 'Hook/SeatTwoWay/Get-TwoWay-Hook';
 import { useSelector } from 'react-redux';
+import EditRoundTrip from 'views/TwoWay/Edit-RoundTrip/EditRoundTrip';
+import { ToastContainer } from 'react-toastify';
+import FiltertwoWay from 'views/TwoWay/FiltertwoWay/FiltertwoWay';
 
 
 const useStyles = makeStyles(theme => ({
@@ -60,7 +63,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   }
 }));
-
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: "white",
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: "#FEE3D8",
+    },
+  },
+}))(TableRow);
 const Results = props => {
 
 
@@ -126,18 +138,59 @@ const Results = props => {
   const [smShow, setSmShow] = useState(false);
   
   const handelshow =() => setSmShow(true)
+  const handelHide =() => setSmShow(false)
+
 
   const [smShowaDD, setsmShowaDD] = useState(false);
   const handelshowADD =() => setsmShowaDD(true)
   const handelCloseADD =() => setsmShowaDD(false)
 
-
+  const [smShowEdit, setsmShowEdit] = useState(false);
+  const handelshowEdit =() => setsmShowEdit(true)
+  const handelCloseEdit =() => setsmShowEdit(false)
   const {data}=GetSeatTwoWayHook()
 
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
-  console.log(data);
+  // let reversedArray = GetSeatTwoWayData?.map((item, index) => GetSeatTwoWayData[GetSeatTwoWayData.length - 1 - index]);
+
+  console.log(GetSeatTwoWayData);
+
+const [customEditData,setcustomEditData]=useState()
 
 
+
+
+let [reversedArray,setreversedArray] = useState();
+const [tableData,settableData]=useState();
+
+useEffect(()=>{
+  if(reversedArray)
+  console.log(reversedArray,"6666  ");
+
+},[reversedArray])
+
+
+
+useEffect(()=>{
+  if(GetSeatTwoWayData){
+  const copy =[...GetSeatTwoWayData]
+    console.log(copy,"6666666");
+    if(copy)
+        settableData(copy)
+
+  }
+
+
+},[GetSeatTwoWayData])
+
+useEffect(()=>{
+
+  if(tableData)
+  setreversedArray(tableData.reverse())
+
+  // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
+
+},[tableData])
   return (
     <div
       {...rest}
@@ -146,19 +199,19 @@ const Results = props => {
    
     
 <Modal
-        size="lg"
+        size="md"
         show={smShow}
         onHide={() => setSmShow(false)}
         aria-labelledby="example-modal-sizes-title-sm"
       >
         <Modal.Header style={{margin:0,padding:0}} >
           <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
-            <h5 style={{color:"white"}} className='p-2'>Edite</h5>
+            <h5 style={{color:"white"}} className='p-2'>EDIT</h5>
             
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{padding:0}}>
-          <Edite />
+          <Edite handelHide={handelHide} />
         </Modal.Body>
       </Modal>
 
@@ -173,12 +226,30 @@ const Results = props => {
       >
         <Modal.Header style={{margin:0,padding:0}} >
           <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
-            <h5 style={{color:"white"}} className='p-2'>Add Round</h5>
+            <h5 style={{color:"white"}} className='p-2'>Add Round Trip</h5>
             
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{padding:0}}>
           <AddRoundTrip handelCloseADD={handelCloseADD}/>
+        </Modal.Body>
+      </Modal>
+
+
+      <Modal
+        size="lg"
+        show={smShowEdit}
+        onHide={handelCloseEdit}
+        aria-labelledby="example-modal-sizes-title-sm"
+      >
+        <Modal.Header style={{margin:0,padding:0}} >
+          <Modal.Title id="example-modal-sizes-title-sm" className='w-100 rounded' style={{margin:"0",backgroundColor:COLORS.purple}}>
+            <h5 style={{color:"white"}} className='p-2'>Edit Round Trip</h5>
+            
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{padding:0}}>
+          <EditRoundTrip handelCloseEdit={handelCloseEdit} customEditData={customEditData}/>
         </Modal.Body>
       </Modal>
 
@@ -205,20 +276,30 @@ const Results = props => {
           action={<GenericMoreButton />}
           title={
             <div className='d-flex justify-content-start  flex-column'>
-            <h2 style={{marginTop:"0px",marginLeft:"0px"}}>Seats</h2>
+            <h2 style={{marginTop:"0px",marginLeft:"0px",color:COLORS.purple}}>Seats</h2>
+            <div>
+            <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"style={{color:COLORS.purple}}> Seat</li>
+    <li class="breadcrumb-item" style={{color:COLORS.purple}}>two Way</li>
+    <li class="breadcrumb-item active" style={{color:COLORS.purple}} aria-current="page">data</li>
+
+  </ol>
+</nav>
+           </div>
             <div className='d-flex justify-content-start align-items-center'>
             <Checkbox color={COLORS.purple}
-                      
+                   checked   
                        
                       />
               <h5 style={{marginBottom:0 ,marginRight:20}}>Default price = OutBound Flight Price + Return Flight Price</h5>
               <Button
-           style={{backgroundColor:COLORS.orange}}
+           style={{backgroundColor:COLORS.purple}}
             color="primary"
             variant="contained"
             onClick={handelshow}
           >
-          Edite
+          Edit
           </Button>
             </div>
             </div>
@@ -236,40 +317,46 @@ const Results = props => {
                 <TableHead style={{backgroundColor:COLORS.purple}}>
                   <TableRow className='shadowBox'>
                    
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Flight Two Way</TableCell>
-                    <TableCell style={{fontSize:"13px",marginRight:"5px",color:"white"}} className='text-center'>AirLines</TableCell>
-                    <TableCell style={{fontSize:"13px",marginRight:"5px",color:"white"}} className='text-center'>Flight No.</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Flight Two Way</TableCell>
+                    <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>
+                    <FiltertwoWay title="AirLines" tableData={tableData} settableData={settableData}/>
+
+                    </TableCell>
+                    <TableCell style={{fontSize:"19px",marginRight:"5px",color:"white",fontWeight:"700"}} className='text-center'>Flight No.</TableCell>
 
 
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.APT</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.APT</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Dep.Time</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Arr.Time</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Duration</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Weight</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.APT</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.APT</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Dep.Time</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Arr.Time</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Duration</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Weight</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>Suppliers</TableCell>
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>No Of Dayes</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>Suppliers</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>No Of Dayes</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center'>S.price</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center'>S.price</TableCell>
 
-                    <TableCell style={{fontSize:"13px",color:"white"}} className='text-center' align="right">Actions</TableCell>
+                    <TableCell style={{fontSize:"19px",color:"white",fontWeight:"700"}} className='text-center' align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {GetSeatTwoWayData?.map(customer => (
-                    <TableRow
-                      hover
+                  {reversedArray?.map(customer => (
+                      <StyledTableRow
+                      // hover
                       key={customer.id}
                       selected={selectedCustomers.indexOf(customer.id) !== -1}
                     >
                      
-                      
+                     
+
                       <TableCell className='text-center'>
-                        RJ
+                      AMM-IST-AMM
                       </TableCell>
-                      <TableCell className='text-center '>AMM-IST-AMM</TableCell>
+                      
+
+                      <TableCell className='text-center '>RJ</TableCell>
                       <TableCell className='text-center px-0'><div>
                         <p>{customer?.seat?.flight_number}</p> 
                         <hr/>
@@ -325,21 +412,24 @@ const Results = props => {
                         <p>{customer?.secondseat?.suppliers}</p>
                         </div>
                       </TableCell>
-                      <TableCell className='text-center'>Dayes=10</TableCell>
+                      <TableCell className='text-center'>Days=10</TableCell>
                       <TableCell className='text-center'>{customer?.price}</TableCell>
                      
                       <TableCell className='text-center' align="right">
                         <div className='d-flex '>
-                        <i className="fa-solid fa-trash-can m-1"></i>
+                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} className="fa-solid fa-trash-can m-1"></i>
 
                        
-                      <i  className="fa-solid fa-pen-to-square m-1"></i>
+                      <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setcustomEditData(customer),handelshowEdit()) }}  className="fa-solid fa-pen-to-square m-1"></i>
                      
                         </div>
                         
                         
                       </TableCell>
-                    </TableRow>
+                    </StyledTableRow>
+
+                    
+                    
                   ))}
                 </TableBody>
               </Table>
@@ -360,13 +450,15 @@ const Results = props => {
       </Card>
       {/* <TableEditBar selected={selectedCustomers} /> */}
       <Button
-           style={{backgroundColor:COLORS.orange,marginTop:20}}
+           style={{backgroundColor:COLORS.purple,marginTop:20}}
             color="primary"
             variant="contained"
             onClick={handelshowADD}
           >
           Add Round Trip
           </Button>
+          <ToastContainer></ToastContainer>
+
     </div>
   );
 };

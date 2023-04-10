@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import DatePicker from "react-multi-date-picker";
 import { useSelector } from 'react-redux';
+import { COLORS } from 'utils/COLORS.';
 
 const Calender = ({customersData,handelhidesm}) => {
 
@@ -79,10 +80,10 @@ setFlightId(rusult[0]?.id)
           "flight_number": FlightNumber,
           "departure_airport":departure_airport,
           "arrival_airport": arrival_airport,
-          "departure_time": DepTime,
+          "departure_time": departure_time,
           "arrival_time": arrival_time,
-          "departure_date": departureDate,
-          "arrival_date": ArrivalDate,
+          "departure_date": DepTime,
+          "arrival_date": DepTime,
           "duration": duration,
           "weight": weight,
           "total_seat_number": Total,
@@ -125,10 +126,10 @@ setFlightId(rusult[0]?.id)
       
     </DatePicker>
 
-    <div className='d-flex justify-content-center align-items-center'>
-        <button onClick={handelSupmit}  type="button" className="btn btn-secondary me-2" style={{marginTop:"300px"}} >Add</button>
+    <div className='d-flex justify-content-center align-items-center flex-row-reverse'>
+        <button onClick={handelSupmit}  type="button" className="btn btn-secondary CANCELBTN me-2" style={{marginTop:"300px",backgroundColor:COLORS.purple,color:"white"}} >Add</button>
 
-        <button type="button" onClick={handelhidesm} className="btn btn-secondary  " style={{marginTop:"300px"}}>Cancel</button>
+        <button type="button" onClick={handelhidesm} className="btn btn-secondary CANCELBTN  " style={{marginTop:"300px",backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
    </div>

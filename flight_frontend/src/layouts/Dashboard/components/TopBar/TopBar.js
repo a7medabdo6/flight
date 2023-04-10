@@ -42,7 +42,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   search: {
-    backgroundColor:COLORS.orange,
+    backgroundColor:"white",
+    color:"black",
     borderRadius: 4,
     flexBasis: 300,
     height: 36,
@@ -131,6 +132,8 @@ const token = localStorage.getItem('token');
    
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      localStorage.removeItem('navbarcountry');
+
       
       window.location.replace('/');
 
@@ -179,6 +182,8 @@ const token = localStorage.getItem('token');
     'Pages'
   ];
 
+  const userLogin =JSON.parse(localStorage.getItem('user')) ;
+
   return (
     <AppBar
       {...rest}
@@ -188,11 +193,28 @@ const token = localStorage.getItem('token');
       <Toolbar style={{backgroundColor:COLORS.purple}}>
         <RouterLink to="/">
           <img
-          style={{height:"80px"}}
+          style={{height:"110px",width:"170px"}}
             alt="Logo"
-            src="/images/logos/orange.png"
+            src="/images/logos/Dark.png"
           />
         </RouterLink>
+        <div className='d-flex justify-content-center align-items-center' style={{marginLeft:"100px"}}>
+        <img 
+           style={{height:"40px",width:"40px",objectFit: "cover",borderRadius:"50%"}}
+          src='/images/logos/PLANE.jpg'/>
+          <div style={{marginLeft:"12px"}}>
+            <p style={{marginBottom:0,fontSize:"15px"}}>{userLogin?.username}</p>
+            <p style={{width:"150px",fontSize:"11px"}}>us-cairo,egypt</p>
+          </div>
+          
+        </div>
+        {/* <Button
+          style={{backgroundColor:"white",marginLeft:"100px",widows:"100px"}}
+          color="black"
+            variant="contained"
+          >
+          {userLogin?.username}
+          </Button> */}
         <div className={classes.flexGrow} />
         <Hidden smDown>
           <div

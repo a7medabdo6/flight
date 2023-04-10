@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
     overflowY: 'auto',
-    backgroundColor:COLORS.purple
+    backgroundColor:"white"
 
   },
   content: {
@@ -88,6 +88,7 @@ const NavBar = props => {
             key={list.title}
             pages={list.pages}
             title={list.title}
+            label={list?.label}
           />
         ))}
       </nav>

@@ -12,6 +12,11 @@ import { useSelector } from 'react-redux';
 import { GetsupplierHook } from 'Hook/Suppliers/Get-Supplier-Hook';
 import notify from 'utils/useNotifaction';
 import { CreatesupplierApi } from 'Hook/Suppliers/Create-Supplier-Hook';
+import { GetdapartureHook } from 'Hook/daparture-airport/Get-daparture-Hook';
+import { GetCityHook } from 'Hook/City/Get-City-Hook';
+import { GetcountryHook } from 'Hook/Country/Get-Country-Hook';
+import { GetflightCompanyHook } from 'Hook/Company/Get-Company-Hook';
+import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3)
@@ -51,10 +56,32 @@ const CustomerManagementList = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShowadd = () => setShow(true);
 
 console.log(show);
  
+const [city,setcity]=useState()
+
+const [called,setcalled]=useState(false)
+const [country,setCountry]=useState()
+const [countryname,setcountryname]=useState()
+const [CountryId,setCountryId]=useState()
+const [airport,setairport]=useState()
+const [airLines,setairLines]=useState()
+const[disabledcity,setdisabledcity]=useState(true)
+
+const {data:ffff,refetch}=GetOnecountryHook(country,called)
+
+useEffect(()=>{
+    if(country){
+        refetch()
+        setdisabledcity(false)
+    }
+},[country])
+
+
+const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
+console.log(GetOnecountryData,"777");
   const {data:GetData}=GetsupplierHook()
 
   const {GetsupplierData} =useSelector(state => state.GetsupplierRedux)
@@ -73,7 +100,10 @@ console.log(show);
       
       const data ={
           "name": name,
-          
+          "country": countryname,
+          "city": city,
+          "airport_name": airport,
+          "airline_name": airLines
         }
         SubmitCreateSupplier(data)
 
@@ -95,9 +125,43 @@ useEffect(()=>{
       handleClose() 
   }
 },[data])
+const {data:GetDataaa}=GetflightCompanyHook()
 
- 
- 
+const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
+console.log(GetflightCompanyData);
+const {data:GetDataCountry}=GetcountryHook()
+
+const {GetcountryData} =useSelector(state => state.GetcountryRedux)
+console.log(GetcountryData);
+
+const {data:GetDataairport}=GetdapartureHook()
+
+  const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
+  console.log(GetdapartureData);
+
+  const {data:GetDataa}=GetCityHook()
+
+const HanadelCity =(e)=>{  setcity(e.target.value.toUpperCase())  }
+
+const {GetCityData} =useSelector(state => state.GetCityRedux)
+
+
+const handelChangeCountryId =(e)=>{
+  let val=e.target.value.split('-')
+  setCountry(val[0])
+
+  //  setcity(val[1].toUpperCase())
+  setcountryname(val[1])
+  // setcountry(e.target.value)
+}
+
+const handelChangeairportId =(e)=>{
+  setairport(e.target.value)
+}
+
+const handelChangeAirlines =(e)=>{
+  setairLines(e.target.value)
+  }
   return (
     <Page
       className={classes.root}
@@ -118,11 +182,62 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column'>
-        <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
-        <div className='d-flex justify-content-center align-items-center mt-3 '>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+        <select onChange={handelChangeCountryId} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+<option selected disabled>Country</option>
+{
+  GetcountryData?.map((item,index)=>{return(
+    <option value={`${item?.id}-${item.name}`}>{item?.name}</option>
+
+  )})
+}
+
+
+</select>
+
+<select  disabled={disabledcity} onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"20px",marginTop:"5px" }} className="form-select border" aria-label="Default select example">
+        <option selected disabled>City</option>
+
+            {
+                GetOnecountryData?.city?.map((item,index)=>{return(
+                 <option value={item?.name}>{item?.name}</option>
+
+                )})
+            }
+
+
+</select>
+
+<select onChange={handelChangeairportId} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"5px" }} className="form-select border" aria-label="Default select example">
+
+<option selected disabled>AirPort</option>
+{
+  GetdapartureData?.map((item,index)=>{return(
+    <option value={item?.name}>{item?.name}</option>
+
+  )})
+}
+
+
+</select>
+
+<select onChange={handelChangeAirlines} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"5px" }} className="form-select border" aria-label="Default select example">
+
+<option selected disabled>AirLines</option>
+{
+  GetflightCompanyData?.map((item,index)=>{return(
+    <option value={item?.name}>{item?.name}</option>
+
+  )})
+}
+
+
+</select>
+        <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"5px"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
+        <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse '>
+        <button type="button" className="btn btn-secondary CANCELBTN  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+
+        <button type="button" className="btn btn-secondary CANCELBTN px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
         </div>
        
 
@@ -133,7 +248,7 @@ useEffect(()=>{
 
     
        
-      <Header handleShow={handleShow} handleClose={handleClose} />
+      <Header  handleClose={handleClose} />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
@@ -143,6 +258,7 @@ useEffect(()=>{
           className={classes.results}
           customers={customers}
           GetsupplierData={GetsupplierData}
+          handleShowadd={handleShowadd}
         />
       )}
     </Page>

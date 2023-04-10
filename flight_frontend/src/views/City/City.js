@@ -52,7 +52,7 @@ const CustomerManagementList = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShowadd = () => setShow(true);
 
 console.log(show);
  
@@ -132,7 +132,7 @@ useEffect(()=>{
         <div className='d-flex justify-content-center align-items-center flex-column'>
         <select onChange={handelChangeCountryId} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
 
-<option selected disabled>Open this select menu</option>
+<option selected disabled>Country</option>
 {
   GetcountryData?.map((item,index)=>{return(
     <option value={item?.id}>{item?.name}</option>
@@ -144,10 +144,10 @@ useEffect(()=>{
 </select>
 <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"15px"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
 
-        <div className='d-flex justify-content-center align-items-center mt-3 '>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+        <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse '>
+        <button type="button" className="btn btn-secondary CANCELBTN px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN  px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
         </div>
        
 
@@ -158,7 +158,7 @@ useEffect(()=>{
 
     
        
-      <Header handleShow={handleShow} handleClose={handleClose} />
+      <Header  handleClose={handleClose} />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
@@ -168,6 +168,7 @@ useEffect(()=>{
           className={classes.results}
           customers={customers}
           GetCityData={GetCityData}
+          handleShowadd={handleShowadd}
         />
       )}
     </Page>

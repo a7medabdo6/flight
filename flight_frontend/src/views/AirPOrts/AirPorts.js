@@ -13,6 +13,8 @@ import notify from 'utils/useNotifaction';
 import { GetdapartureHook } from 'Hook/daparture-airport/Get-daparture-Hook';
 import { CreatedapartureApi } from 'Hook/daparture-airport/Create-daparture-Hook';
 import { GetCityHook } from 'Hook/City/Get-City-Hook';
+import { GetcountryHook } from 'Hook/Country/Get-Country-Hook';
+import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3)
@@ -52,10 +54,27 @@ const CustomerManagementList = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShowAdd = () => setShow(true);
 
 console.log(show);
- 
+const [called,setcalled]=useState(false)
+const [country,setCountry]=useState()
+const [countryname,setcountryname]=useState()
+
+const[disabledcity,setdisabledcity]=useState(true)
+
+const {data:ffff,refetch}=GetOnecountryHook(country,called)
+
+useEffect(()=>{
+    if(country){
+        refetch()
+        setdisabledcity(false)
+    }
+},[country])
+
+
+const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
+console.log(GetOnecountryData,"777");
   const {data:GetData}=GetdapartureHook()
 
   const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
@@ -75,6 +94,7 @@ console.log(city);
       
       const data ={
           "name": name,
+          "country": countryname,
           "city_id":+city
 
         }
@@ -100,13 +120,35 @@ useEffect(()=>{
 },[data])
 
 const HanadelCity =(e)=>{  setcity(e.target.value.toUpperCase())  }
+// const HanadelCity =(e)=>{ 
+//   let val=e.target.value.split('-')
+//   setcityID(val[0])
 
+//    setcity(val[1].toUpperCase())  }
 
 const {data:GetDataa}=GetCityHook()
 
 const {GetCityData} =useSelector(state => state.GetCityRedux)
 console.log(GetCityData);
- 
+const [airportId,setairportId]=useState()
+
+const handelChangeairportId =(e)=>{
+  setairportId(e.target.value)
+}
+
+const handelChangeCountry =(e)=>{
+  let val=e.target.value.split('-')
+  setCountry(val[0])
+
+  //  setcity(val[1].toUpperCase())
+  setcountryname(val[1])
+}
+console.log(country);
+console.log(countryname);
+
+const {data:GetDataCountry}=GetcountryHook()
+
+const {GetcountryData} =useSelector(state => state.GetcountryRedux)
   return (
     <Page
       className={classes.root}
@@ -127,14 +169,26 @@ console.log(GetCityData);
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column'>
+        <select onChange={handelChangeCountry} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
 
-        <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
+<option selected disabled>Country</option>
+{
+  GetcountryData?.map((item,index)=>{return(
+    <option value={`${item?.id}-${item.name}`}>{item?.name}</option>
 
-        <select onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"20px" }} className="form-select border" aria-label="Default select example">
-        <option selected disabled>Open this select menu</option>
+  )})
+}
+
+
+</select>
+        <select disabled={disabledcity} onChange={HanadelCity} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"5px" }} className="form-select border" aria-label="Default select example">
+
+
+
+        <option selected disabled>City</option>
 
             {
-                GetCityData?.map((item,index)=>{return(
+                GetOnecountryData?.city?.map((item,index)=>{return(
                  <option value={item?.id}>{item?.name}</option>
 
                 )})
@@ -142,10 +196,13 @@ console.log(GetCityData);
 
 
 </select>
-        <div className='d-flex justify-content-center align-items-center mt-3 '>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%",marginTop:"5px"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
+
+        <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+
+        <button type="button" className="btn btn-secondary CANCELBTN px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
         </div>
        
 
@@ -156,7 +213,7 @@ console.log(GetCityData);
 
     
        
-      <Header handleShow={handleShow} handleClose={handleClose} />
+      <Header  handleClose={handleClose} />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
@@ -166,6 +223,7 @@ console.log(GetCityData);
           className={classes.results}
           customers={customers}
           GetdapartureData={GetdapartureData}
+          handleShowAdd={handleShowAdd}
         />
       )}
     </Page>

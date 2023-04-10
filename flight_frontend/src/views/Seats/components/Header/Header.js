@@ -27,9 +27,9 @@ const Header = props => {
         spacing={3}
       >
       <Grid item style={{width:"100%"}}>
-          <img 
+          {/* <img 
            style={{height:"150px",width:"100%",objectFit: "cover"}}
-          src='/images/logos/PLANE.jpg'/>
+          src='/images/logos/PLANE.jpg'/> */}
           {/* <Typography
             component="h2"
             gutterBottom
@@ -45,14 +45,7 @@ const Header = props => {
           </Typography> */}
         </Grid>
         <Grid item style={{position:"absolute",right:"5px",marginBottom:"5px"}}>
-          <Button
-           style={{backgroundColor:COLORS.orange}}
-          onClick={handleShow}
-            color="primary"
-            variant="contained"
-          >
-          Add New Seat
-          </Button>
+          
         </Grid>
       </Grid>
     </div>

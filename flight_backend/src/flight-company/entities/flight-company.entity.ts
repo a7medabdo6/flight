@@ -18,6 +18,11 @@ export class FlightCompany {
   name: string;
   @Column({ default: null })
   logo: string;
+    @Column({ default: null })
+  country: string;
+    @Column({ default: null })
+  city: string;
+  
   @OneToMany(() => Flight, (flight) => flight.company) // specify inverse side as a second parameter
   flight: Flight;
   @CreateDateColumn({

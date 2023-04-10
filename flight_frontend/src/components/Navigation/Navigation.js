@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NavigationList = props => {
-  const { pages, ...rest } = props;
+  const { pages, label,...rest } = props;
 
   return (
-    <List>
+    <List className={label} >
       {pages.reduce(
         (items, page) => reduceChildRoutes({ items, page, ...rest }),
         []
@@ -36,7 +36,7 @@ NavigationList.propTypes = {
 };
 
 const reduceChildRoutes = props => {
-  const { router, items, page, depth } = props;
+  const { router, items, page, depth,label } = props;
 
   if (page.children) {
     const open = matchPath(router.location.pathname, {
@@ -44,7 +44,51 @@ const reduceChildRoutes = props => {
       exact: false
     });
 
-    items.push(
+    if (page.children.length === 2 &&(page.children[0].title=="Two Way"||page.children[0].title=="One Way")) {
+      const arr1 =[]
+     const arr2 =[]
+
+
+      arr1.push(
+     page.children[0]
+      )
+
+       arr2.push(
+     page.children[1]
+      )
+console.log(arr1);
+ items.push(
+      <NavigationListItem
+      
+        depth={depth}
+        icon={page.icon}
+        key={page.title}
+        label={page.label}
+        open={Boolean(open)}
+        title={page.title}
+      >
+        <div className='d-flex justify-content-center align items-center' >
+          {console.log(arr1,"arr1arr1")}
+        <NavigationList
+        
+          depth={depth + 1}
+          pages={arr1}
+          router={router}
+          label={label}
+        />
+        <NavigationList
+          depth={depth + 1}
+          pages={arr2}
+          router={router}
+          label={label}
+
+        />
+        </div>
+        
+      </NavigationListItem>
+    );
+    }else{
+ items.push(
       <NavigationListItem
       
         depth={depth}
@@ -61,6 +105,9 @@ const reduceChildRoutes = props => {
         />
       </NavigationListItem>
     );
+    }
+
+   
   } else {
     items.push(
       <NavigationListItem
@@ -78,7 +125,7 @@ const reduceChildRoutes = props => {
 };
 
 const Navigation = props => {
-  const { title, pages, className, component: Component, ...rest } = props;
+  const { title, pages, className, component: Component,label, ...rest } = props;
 
   const classes = useStyles();
   const router = useRouter();
@@ -94,6 +141,8 @@ const Navigation = props => {
         depth={0}
         pages={pages}
         router={router}
+        label={label}
+        
       />
     </Component>
   );

@@ -93,7 +93,7 @@ const[disabledcity,setdisabledcity]=useState(true)
     
         }
     },[error])
-
+console.log(cityID);
     const {data:GetDataAirPort,refetch:refetchAirPort,isLoading}=GetAirPortBasecCityHook(cityID,chickcity)
 
     const {GetAirPortBasecCityData} =useSelector(state => state.GetAirPortBasecCityRedux)
@@ -175,7 +175,7 @@ useEffect(()=>{
 
 
 const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-
+console.log(GetOnecountryData,"777");
     const items = {
         itemsCountry:( <>
             <select style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -308,10 +308,10 @@ const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
         </div>
        
 
-        <div className='d-flex justify-content-center align-items-center'>
-        <button type="button" className="btn btn-secondary m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+        <div className='d-flex justify-content-center align-items-center flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
 
-        <button type="button" className="btn btn-secondary m-5 px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN m-5 px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
         </div>
         <ToastContainer></ToastContainer>

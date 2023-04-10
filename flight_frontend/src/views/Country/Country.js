@@ -50,7 +50,7 @@ const CustomerManagementList = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShowadd = () => setShow(true);
 
 console.log(show);
  
@@ -118,10 +118,10 @@ useEffect(()=>{
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column'>
         <input onChange={Hanadelname} style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%"}} className="form-control" type="text" placeholder="Name" aria-label="default input example"/>
-        <div className='d-flex justify-content-center align-items-center mt-3 '>
-        <button type="button" className="btn btn-secondary  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+        <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
+        <button type="button" className="btn btn-secondary CANCELBTN  px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
 
-        <button type="button" className="btn btn-secondary  px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
+        <button type="button" className="btn btn-secondary CANCELBTN  px-5" onClick={handleClose}  style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
         </div>
        
 
@@ -132,7 +132,7 @@ useEffect(()=>{
 
     
        
-      <Header handleShow={handleShow} handleClose={handleClose} />
+      <Header  handleClose={handleClose} />
       {/* <SearchBar
         onFilter={handleFilter}
         onSearch={handleSearch}
@@ -142,6 +142,7 @@ useEffect(()=>{
           className={classes.results}
           customers={customers}
           GetcountryData={GetcountryData}
+          handleShowadd={handleShowadd}
         />
       )}
     </Page>
