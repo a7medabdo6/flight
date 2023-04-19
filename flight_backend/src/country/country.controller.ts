@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { CountryCityDto } from './dto/getcountryandcity.dto';
 
 @Controller('country')
 export class CountryController {
@@ -13,6 +23,7 @@ export class CountryController {
   }
 
   @Get()
+  @Serialize(CountryCityDto)
   findAll() {
     return this.countryService.findAll();
   }
