@@ -117,6 +117,7 @@ const NavigationListItem = props => {
         {...rest}
         className={clsx(classes.item, className)}
         disableGutters
+
       >
         <Button
           className={classes.button}

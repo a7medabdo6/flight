@@ -38,12 +38,15 @@ import FlightIcon from '@material-ui/icons/Flight';
 import AirlineSeatReclineExtraIcon from '@material-ui/icons/AirlineSeatReclineExtra';
  const RoutesList=()=> {
   const [arr, setarr] = useState([])
+  const [arrtwoway, setarrtwoway] = useState([])
+
   const items=Countries()
   console.log(arr,"ddddd");
   useEffect(() => {
 console.log(items,"itemssss") 
-if(items?.length>0){
-  setarr(items)
+if(items?.arr?.length>0){
+  setarr(items?.arr)
+  setarrtwoway(items?.arrtwoway)
 }
     return () => {
       
@@ -103,7 +106,7 @@ return [
                   {
                     title: 'Two Way',
                     href: '/TwoWay',
-
+                    children: arrtwoway
                     
                   },
                  

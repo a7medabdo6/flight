@@ -42,12 +42,58 @@ console.log(DataFlightOne);
   },[NoDayes])
   const [ShowTable,setShowTable]=useState(false)
     const [count,setcount]=useState(0)
+
+    const handelchangecount =(e)=>{
+      setcount(e.target.value)
+    }
     const increase = ()=>{
-  setcount(count + 1)
+      let SupPrice = +priceOne + +priceTwo
+      console.log(SupPrice);
+      if(NoDayes === "Less"){
+       if(Dayes){
+         setTotalPrice(+SupPrice + +count)
+     
+       }
+      }  
+      if(NoDayes === "Gerater"){
+        if(Dayes){
+          setTotalPrice(+SupPrice + +count)
+      
+        }
+       } 
+
+
+       if(NoDayes === "FromTo"){
+        if(Dayes){
+          setTotalPrice(+SupPrice + +count)
+      
+        }
+       } 
+    
     }
     const Descrease = ()=>{
-      setcount(count - 1)
+      let SupPrice = +priceOne + +priceTwo
+      console.log(SupPrice);
+      if(NoDayes === "Less"){
+       if(Dayes){
+         setTotalPrice(+SupPrice - +count)
+     
+       }
+      }  
+      if(NoDayes === "Gerater"){
+        if(Dayes){
+          setTotalPrice(+SupPrice - +count)
+      
         }
+       } 
+
+
+       if(NoDayes === "FromTo"){
+        if(Dayes){
+          setTotalPrice(+SupPrice - +count)
+      
+        }
+       }         }
         const {data}=GetSeatHook()
 
         const {GetSeatData} =useSelector(state => state.GetSeatRedux)
@@ -70,28 +116,31 @@ const HnadelChangeDayes =(e)=>{
   setDayes(e.target.value)
 }
 const HandelCalculate=()=>{
- let SupPrice = +priceOne + +priceTwo
- console.log(SupPrice);
- if(NoDayes === "Less"){
-  if(Dayes){
-    setTotalPrice(SupPrice - count)
-
-  }
- }
-
- if(NoDayes === "Gerater"){
-  if(Dayes){
-    setTotalPrice(SupPrice - count)
-
-  }
- }
-}
-    
-useEffect(()=>{
   if(TotalPrice){
     setShowTable(true)
   }
-},[TotalPrice])
+//  let SupPrice = +priceOne + +priceTwo
+//  console.log(SupPrice);
+//  if(NoDayes === "Less"){
+//   if(Dayes){
+//     setTotalPrice(SupPrice - count)
+
+//   }
+//  }
+
+//  if(NoDayes === "Gerater"){
+//   if(Dayes){
+//     setTotalPrice(SupPrice - count)
+
+//   }
+//  }
+}
+    
+// useEffect(()=>{
+//   if(TotalPrice){
+//     setShowTable(true)
+//   }
+// },[TotalPrice])
 console.log(flietNumOne);
         const handelflietNumOne=(e)=>{
           const item =GetSeatData?.filter((item)=>{return(
@@ -121,9 +170,10 @@ console.log(flietNumOne);
         
           
         
-          "price": TotalPrice.toString(),
+          "price": TotalPrice?.toString(),
           "seatId": +flietNumOne,
-          "secondseatId": +flietNumTwo
+          "secondseatId": +flietNumTwo,
+          "days":Dayes
         
       }
       SubmitCreateTwoWay(data)
@@ -189,8 +239,9 @@ console.log(flietNumOne);
       </div>
       <div className='d-flex justify-content-end align-items-center mb-2 ' style={{marginRight:"32px"}}>
       <button onClick={Descrease} type="button" className="btn btn-secondary">-</button>  
+      <input className='text-center rounded textinputround' onChange={handelchangecount} style={{backgroundColor:"#D6DCE5"}} type="number" />
 
-        <p className='d-flex justify-content-center align-items-center rounded ' style={{padding:20,backgroundColor:COLORS.blue,margin:0,height:"35px"}}>{count}</p>
+        {/* <input type='text' className='d-flex justify-content-center align-items-center rounded ' onChange={handelchangecount} style={{padding:20,backgroundColor:COLORS.blue,margin:0,height:"30px",width:"55px"}} /> */}
         <button onClick={increase} type="button" className="btn btn-secondary">+</button>
       </div>
      </div>

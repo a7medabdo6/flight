@@ -412,7 +412,7 @@ useEffect(()=>{
                         <p>{customer?.secondseat?.suppliers}</p>
                         </div>
                       </TableCell>
-                      <TableCell className='text-center'>Days=10</TableCell>
+                      <TableCell className='text-center'>Days={customer?.days}</TableCell>
                       <TableCell className='text-center'>{customer?.price}</TableCell>
                      
                       <TableCell className='text-center' align="right">

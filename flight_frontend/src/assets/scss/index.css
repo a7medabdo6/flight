@@ -182,7 +182,7 @@ thead.MuiTableHead-root {
 }
 
 .MuiCollapse-container .d-flex.justify-content-center.align.items-center .MuiCollapse-container.MuiCollapse-entered {
-  width: 200% !important;
+  /* width: 200% !important; */
 
 }
 .makeStyles-fab-125 {

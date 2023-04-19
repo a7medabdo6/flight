@@ -19,20 +19,20 @@ const AddFlight = ({handleClose,isSuccses,setisSuccses}) => {
 
    
 
-
-    const [country,setcountry]=useState()
+const [check,setcheck]=useState(true)
+    const [country,setcountry]=useState("")
     const [city,setcity]=useState()
-    const [cityID,setcityID]=useState()
+    const [cityID,setcityID]=useState("")
     const [chickcity,setchickcity]=useState(false)
 const[disabledcity,setdisabledcity]=useState(true)
-    const [airlines,setairlines]=useState()
-    const [flight_number,setflight_number]=useState()
-    const [departure_airport,setdeparture_airport]=useState()
-    const [arrival_airport,setarrival_airport]=useState()
-    const [departure_time,setdeparture_time]=useState()
-    const [arrival_time,setarrival_time]=useState()
-    const [duration,setduration]=useState()
-    const [weight,setweight]=useState()
+    const [airlines,setairlines]=useState("")
+    const [flight_number,setflight_number]=useState("")
+    const [departure_airport,setdeparture_airport]=useState("")
+    const [arrival_airport,setarrival_airport]=useState("")
+    const [departure_time,setdeparture_time]=useState("")
+    const [arrival_time,setarrival_time]=useState("")
+    const [duration,setduration]=useState("")
+    const [weight,setweight]=useState("")
     const [selected, setSelected] = useState(null);
     const [selectedArival, setselectedArival] = useState(null);
 
@@ -67,20 +67,25 @@ const[disabledcity,setdisabledcity]=useState(true)
 
     const HandelSave =()=>{
 
+        if(country == "" || cityID == "" || airlines == "" || flight_number == "" || departure_airport == "" || arrival_airport == "" || arrival_time ==  "",departure_time == '' || weight == "" || duration == ""){
+            setcheck(false)
+            console.log("eeeeeeeee");
+         }else{
+            const data ={
+                "country_id": +country,
+                "city_id": +cityID,
+                "company_id": +airlines,
+                "flight_number": flight_number,
+                "departure_airport": +departure_airport,
+                "arrival_airport": arrival_airport,
+                "departure_time": departure_time,
+                "arrival_time": arrival_time,
+                "duration": duration,
+                "weight": weight
+              }
+              SubmitCreateFlight(data)
+         }
         
-        const data ={
-            "country_id": +country,
-            "city_id": +cityID,
-            "company_id": +airlines,
-            "flight_number": flight_number,
-            "departure_airport": +departure_airport,
-            "arrival_airport": arrival_airport,
-            "departure_time": departure_time,
-            "arrival_time": arrival_time,
-            "duration": duration,
-            "weight": weight
-          }
-          SubmitCreateFlight(data)
 
     }
 
@@ -176,6 +181,12 @@ useEffect(()=>{
 
 const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
 console.log(GetOnecountryData,"777");
+
+// useEffect(()=>{
+//     if(country === "" || cityID === "" || airlines === "" || flight_number === "" || departure_airport === "" || arrival_airport === "" || arrival_time ===  "",departure_time === '' || weight === "" || duration === ""){
+//        setcheck(false)
+//     }
+// },[check])
     const items = {
         itemsCountry:( <>
             <select style={{borderRadius:"10px", backgroundColor:COLORS.blue,width:"100%" }} className="form-select border" aria-label="Default select example">
@@ -306,10 +317,20 @@ console.log(GetOnecountryData,"777");
            <AddFlightCard title="Wight" Chosing={Inputs.InputWight}/>
         </div>
         </div>
+
+        {
+            check === false ? (
+                <div className='d-flex justify-content-center align-items-center mt-5 '>
+            <h6 style={{color:"red"}}> Please fill in the fields</h6>
+
+        </div >
+            ):null
+        }
+        
        
 
         <div className='d-flex justify-content-center align-items-center flex-row-reverse'>
-        <button type="button" className="btn btn-secondary CANCELBTN m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}} >Add</button>
+        <button type="button" className="btn btn-secondary CANCELBTN m-5 px-5 " onClick={HandelSave} style={{backgroundColor:COLORS.purple,color:"white"}}  >Add</button>
 
         <button type="button" className="btn btn-secondary CANCELBTN m-5 px-5" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 

@@ -21,7 +21,7 @@ const NavigationList = props => {
   const { pages, label,...rest } = props;
 
   return (
-    <List className={label} >
+    <List className={label} style={{width:props?.twoway?"50%":"100%"}} >
       {pages.reduce(
         (items, page) => reduceChildRoutes({ items, page, ...rest }),
         []
@@ -67,7 +67,8 @@ console.log(arr1);
         open={Boolean(open)}
         title={page.title}
       >
-        <div className='d-flex justify-content-center align items-center' >
+        {/* className='d-flex justify-content-center align items-center'  */}
+        <div  className='d-flex justify-content-center align items-center' >
           {console.log(arr1,"arr1arr1")}
         <NavigationList
         
@@ -75,12 +76,15 @@ console.log(arr1);
           pages={arr1}
           router={router}
           label={label}
+          twoway={true}
+
         />
         <NavigationList
           depth={depth + 1}
           pages={arr2}
           router={router}
           label={label}
+          twoway={true}
 
         />
         </div>

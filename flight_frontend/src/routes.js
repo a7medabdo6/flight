@@ -124,6 +124,11 @@ const routes = [
         component: lazy(() => import('views/Seats'))
       },
       {
+        path: '/twoWay/:country/:city',
+        exact: true,
+        component: lazy(() => import('views/TwoWay'))
+      },
+      {
         path: '/suppliers',
         exact: true,
         component: lazy(() => import('views/Suppliers'))
@@ -151,11 +156,7 @@ const routes = [
         component: lazy(() => import('views/Company'))
       },
       
-      {
-        path: '/twoWay',
-        exact: true,
-        component: lazy(() => import('views/TwoWay'))
-      },
+      
       {
         path: '/management/customers',
         exact: true,
