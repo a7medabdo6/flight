@@ -114,7 +114,7 @@ export class UsersService {
   async getAllCountries(id: number) {
     const user = await this.repo.findOne({
       where: { id },
-      relations: ['country', 'country.city'],
+      relations: ['country', 'country.city.flight.departure_airport'],
     });
     if (!user) {
       throw new NotFoundException('user not found');

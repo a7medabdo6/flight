@@ -28,7 +28,9 @@ export class CountryService {
     return country;
   }
   async findAll() {
-    const country = await this.repo.find({ relations: { city: true } });
+    const country = await this.repo.find({
+      relations: ['city', 'city.flight.departure_airport'],
+    });
     return country;
   }
 

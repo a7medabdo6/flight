@@ -10,9 +10,9 @@ import { City } from './entities/city.entity';
 export class CityService {
   constructor(@InjectRepository(City) private repo: Repository<City>) {}
 
-  async create(createCityDto: CreateCityDto,country:Country) {
+  async create(createCityDto: CreateCityDto, country: Country) {
     const City = await this.repo.create(createCityDto);
-    City.country=country
+    City.country = country;
 
     return this.repo.save(City);
   }
@@ -23,6 +23,7 @@ export class CityService {
     }
     const City = await this.repo.find({
       where: { id: In(ids) },
+      relations: { flight: true },
     });
     if (!City) {
       throw new NotFoundException('City not found');
@@ -30,7 +31,7 @@ export class CityService {
     return City;
   }
   async findAll() {
-    const City = await this.repo.find({});
+    const City = await this.repo.find({ relations: { flight: true } });
     return City;
   }
 
@@ -39,7 +40,10 @@ export class CityService {
     if (!id) {
       throw new NotFoundException('City not found');
     }
-    const City = await this.repo.findOne({ where: { id },relations:{departure_airport:true} });
+    const City = await this.repo.findOne({
+      where: { id },
+      relations: { departure_airport: true },
+    });
     if (!City) {
       throw new NotFoundException('City not found');
     }
