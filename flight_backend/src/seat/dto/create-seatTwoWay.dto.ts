@@ -7,4 +7,6 @@ export class CreateSeatTwoDto {
   seatId: number;
   @IsNumber()
   secondseatId: number;
+  @IsString()
+  days: string;
 }

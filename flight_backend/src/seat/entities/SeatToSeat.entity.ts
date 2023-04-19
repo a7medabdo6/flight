@@ -21,7 +21,8 @@ export class SeatToSeat {
 
   @Column()
   public price: string;
-
+  @Column()
+  public days: string;
   @ManyToOne(() => Seat, (seat) => seat.seatToSeat)
   public seat: Seat;
   @ManyToOne(() => Seat, (seat) => seat.seatToSeat)

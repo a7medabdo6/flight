@@ -50,6 +50,7 @@ export class Seat {
   seat_price_enduser: string;
   @Column()
   seat_price_company: string;
+
   @ManyToOne(() => Flight, (flight) => flight.seats) // specify inverse side as a second parameter
   flight: Flight;
 
