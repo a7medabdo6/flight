@@ -1,0 +1,15 @@
+.MuiTableCell-head {
+    color: #546e7a;
+    font-size: 0.75rem !important;
+    font-weight: 500;
+    line-height: 1.3125rem;
+}
+
+.MuiTableCell-root {
+    color: #263238;
+    display: table-cell;
+    padding: 14px 40px 14px 16px;
+    font-size: .75rem  !important;
+    text-align: left;
+
+}
