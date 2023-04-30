@@ -46,10 +46,10 @@ import { DapartureAirport } from './daparture-airport/entities/daparture-airport
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db-mysql-fra1-33445-do-user-13515466-0.b.db.ondigitalocean.com',
+      host: 'dbaas-db-8874763-do-user-13931175-0.b.db.ondigitalocean.com',
       port: 25060,
       username: 'doadmin',
-      password: 'AVNS_TeymvQizsmkra1JDz7m',
+      password: 'AVNS_Z23AI-0BdDjUv_QDATf',
       database: 'defaultdb',
 
       // username: 'root',
