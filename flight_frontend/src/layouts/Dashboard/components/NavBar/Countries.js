@@ -34,9 +34,10 @@ useEffect(()=>{
         for (let index = 0; index < countryNavBar?.length; index++) {
             if(countryNavBar[index]){
               let cityarr=[]
-              let arrival_airport=[]
 
               for(let i = 0; i < countryNavBar[index].city?.length; i++){
+                let arrival_airport=[]
+
                 cityarr.push(
                   { title: countryNavBar[index].city[i]?.name,
                     children:arrival_airport,
@@ -48,11 +49,11 @@ useEffect(()=>{
 
 
 
-                for(let i = 0; i < countryNavBar[index].city[i]?.flight?.length; i++){
+                for(let id = 0; id < countryNavBar[index].city[i]?.flight?.length; id++){
 
                   arrival_airport.push(
-                    { title: `${countryNavBar[index].city[i]?.flight[i]?.arrival_airport} - ${countryNavBar[index].city[i]?.flight[i]?.departure_airport?.name}`,
-                    href: `/seats/one-way/${countryNavBar[index].name}/${countryNavBar[index].city[i]?.flight[i]?.arrival_airport}`,
+                    { title: ` ${countryNavBar[index].city[i]?.flight[id]?.departure_airport?.name} - ${countryNavBar[index].city[i]?.flight[id]?.arrival_airport}`,
+                    href: `/seats/one-way/${countryNavBar[index].name}/${countryNavBar[index].city[i]?.flight[id]?.arrival_airport}`,
                    
                   }
                   )
@@ -99,15 +100,17 @@ useEffect(()=>{
        
      }
    }, [countryNavBar])
+   
    useEffect(() => {
     console.log(countryNavBar,"countryNavBar")
         if(countryNavBar?.length>0){
         for (let index = 0; index < countryNavBar?.length; index++) {
             if(countryNavBar[index]){
               let cityarr=[]
-              let arrival_airport=[]
 
               for(let i = 0; i < countryNavBar[index].city?.length; i++){
+                let arrival_airport=[]
+
                 cityarr.push(
                   { title: countryNavBar[index].city[i]?.name,
                     children:arrival_airport,
@@ -119,16 +122,15 @@ useEffect(()=>{
 
 
 
-                for(let i = 0; i < countryNavBar[index].city[i]?.flight?.length; i++){
+                for(let id = 0; id < countryNavBar[index].city[i]?.flight?.length; id++){
 
                   arrival_airport.push(
-                    { title: `${countryNavBar[index].city[i]?.flight[i]?.arrival_airport} - ${countryNavBar[index].city[i]?.flight[i]?.departure_airport?.name}`,
-                    href: `/TwoWay/${countryNavBar[index].name}/${countryNavBar[index].city[i]?.flight[i]?.arrival_airport}`,
+                    { title: `${countryNavBar[index].city[i]?.flight[id]?.arrival_airport} - ${countryNavBar[index].city[i]?.flight[id]?.departure_airport?.name}`,
+                    href: `/TwoWay/${countryNavBar[index].name}/${countryNavBar[index].city[i]?.flight[id]?.arrival_airport}`,
                    
                   }
                   )
                 }
-
 
               }
               arrtwoway.push({
