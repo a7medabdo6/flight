@@ -7,9 +7,7 @@ import { useSelector } from 'react-redux'
 
 function Countries() {
   const id =JSON.parse(localStorage.getItem('user'))?.id ;
-  console.log(id);
   const {data}= GetcountryNavBarHook(id)
-console.log(data,"55555");
    const {GetcountryNavBarData}= useSelector(state=>state.GetcountryNavBarRedux)
    
    const navCountry = GetcountryNavBarData?.country
@@ -19,7 +17,6 @@ useEffect(()=>{
     localStorage.setItem("navbarcountry",JSON.stringify(navCountry))
     const navdata =JSON.parse(localStorage.getItem("navbarcountry"))
     setcountryNavBar(navdata)
-       console.log(countryNavBar);
   }
 },[GetcountryNavBarData])
 
@@ -29,7 +26,6 @@ useEffect(()=>{
    var arrtwoway=[]
 
    useEffect(() => {
-    console.log(countryNavBar,"countryNavBar")
         if(countryNavBar?.length>0){
         for (let index = 0; index < countryNavBar?.length; index++) {
             if(countryNavBar[index]){
@@ -91,7 +87,6 @@ useEffect(()=>{
 
             
         }
-        console.log(arr,"countriessssssssss")
         return arr
        
     }
@@ -102,7 +97,6 @@ useEffect(()=>{
    }, [countryNavBar])
    
    useEffect(() => {
-    console.log(countryNavBar,"countryNavBar")
         if(countryNavBar?.length>0){
         for (let index = 0; index < countryNavBar?.length; index++) {
             if(countryNavBar[index]){

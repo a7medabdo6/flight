@@ -10,7 +10,6 @@ import EditeFlightCard from './EditeFlightCard'
 import { EditeFlightApi } from 'Hook/Flight/Edite-Flight-Hook'
 
 const EditeFlight = ({id,handleCloseEdite,customerData}) => {
-    console.log(customerData);
     
     const [country,setcountry]=useState(customerData?.country?.name)
     const [city,setcity]=useState(customerData?.city?.name)
@@ -39,7 +38,6 @@ const EditeFlight = ({id,handleCloseEdite,customerData}) => {
 
     const {isLoading,mutate:SubmiteEditeFlight,isError,error,data} =  EditeFlightApi()
     const {EditeFlightData} = useSelector(state => state.EditeFlightRedux)
-console.log(EditeFlightData)
 
     const HandelSave =()=>{
 

@@ -153,7 +153,6 @@ const Results = props => {
   const {GetSeatTwoWayData} =useSelector(state => state.GetSeatTwoWayRedux)
   // let reversedArray = GetSeatTwoWayData?.map((item, index) => GetSeatTwoWayData[GetSeatTwoWayData.length - 1 - index]);
 
-  console.log(GetSeatTwoWayData);
 
 const [customEditData,setcustomEditData]=useState()
 
@@ -163,18 +162,13 @@ const [customEditData,setcustomEditData]=useState()
 let [reversedArray,setreversedArray] = useState();
 const [tableData,settableData]=useState();
 
-useEffect(()=>{
-  if(reversedArray)
-  console.log(reversedArray,"6666  ");
 
-},[reversedArray])
 
 
 
 useEffect(()=>{
   if(GetSeatTwoWayData){
   const copy =[...GetSeatTwoWayData]
-    console.log(copy,"6666666");
     if(copy)
         settableData(copy)
 
@@ -191,6 +185,8 @@ useEffect(()=>{
   // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
 
 },[tableData])
+const user =JSON.parse(localStorage.getItem('user')) ;
+
   return (
     <div
       {...rest}
@@ -417,7 +413,12 @@ useEffect(()=>{
                      
                       <TableCell className='text-center' align="right">
                         <div className='d-flex '>
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} className="fa-solid fa-trash-can m-1"></i>
+                        {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
 
                        
                       <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setcustomEditData(customer),handelshowEdit()) }}  className="fa-solid fa-pen-to-square m-1"></i>

@@ -60,7 +60,6 @@ const SuppliresFilter = ({title,tableData,settableData}) => {
 
 
 
-console.log(tableData,"55555");
 
     const {data:GetData}=GetcountryHook()
 
@@ -88,7 +87,6 @@ console.log(tableData,"55555");
   });
 const [value,setvalue]=useState()
 const [checkedItems, setCheckedItems] = useState([]);
-console.log(checkedItems,444);
   const handleChange = (event) => {
     const value1 = event.target.value;
 
@@ -126,7 +124,6 @@ console.log(checkedItems,444);
 const {data:GetDataairport}=GetdapartureHook()
 
 const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
-console.log(GetdapartureData);
 useEffect(()=>{
   if(title === "AirLines" ){
       setdata(GetflightCompanyData)
@@ -215,7 +212,6 @@ const handelFilter = ()=>{
       const newarray = [];
 
       for (let i = 0; i < checkedItems.length ; i++ ){
-        console.log(checkedItems[i],"4444");
         const update = tableData?.filter((item)=>{return(
           item?.country === checkedItems[i]
     
@@ -225,7 +221,6 @@ const handelFilter = ()=>{
         itemList.push(update)
         const combinedArray = newarray.concat(...itemList);
 
-        console.log(update,"4444");
 
         settableData(combinedArray)
         setcheckData(combinedArray)
@@ -261,17 +256,14 @@ const handelFilter = ()=>{
       const newarray = [];
 
       for (let i = 0; i < checkedItems.length ; i++ ){
-        console.log(checkedItems[i],"4444");
         const updatecity = tableData?.filter((item)=>{return(
           item?.city === checkedItems[i]
     
         )})
-console.log(updatecity,"4444");
 
         itemList.push(updatecity)
         const combinedArray = newarray.concat(...itemList);
 
-        console.log(combinedArray,"4444");
 
         settableData(combinedArray)
         setcheckData(combinedArray)
@@ -309,17 +301,14 @@ console.log(updatecity,"4444");
       const newarray = [];
 
       for (let i = 0; i < checkedItems.length ; i++ ){
-        console.log(checkedItems[i],"4444");
         const updatecity = tableData?.filter((item)=>{return(
           item?.airline_name === checkedItems[i]
     
         )})
-console.log(updatecity,"4444");
 
         itemList.push(updatecity)
         const combinedArray = newarray.concat(...itemList);
 
-        console.log(combinedArray,"4444");
 
         settableData(combinedArray)
         setcheckData(combinedArray)
@@ -357,17 +346,14 @@ console.log(updatecity,"4444");
       const newarray = [];
 
       for (let i = 0; i < checkedItems.length ; i++ ){
-        console.log(checkedItems[i],"4444");
         const updatecity = tableData?.filter((item)=>{return(
           item?.flight_number === checkedItems[i]
     
         )})
-console.log(updatecity,"4444");
 
         itemList.push(updatecity)
         const combinedArray = newarray.concat(...itemList);
 
-        console.log(combinedArray,"4444");
 
         settableData(combinedArray)
         setcheckData(combinedArray)
@@ -383,7 +369,6 @@ console.log(updatecity,"4444");
       const newarray = [];
 
       for (let i = 0; i < checkedItems.length ; i++ ){
-        console.log(checkedItems[i],"4444");
         const update = tableData?.filter((item)=>{return(
           item?.airport_name === checkedItems[i]
     
@@ -393,7 +378,6 @@ console.log(updatecity,"4444");
         itemList.push(update)
         const combinedArray = newarray.concat(...itemList);
 
-        console.log(update,"4444");
 
         settableData(combinedArray)
         setcheckData(combinedArray)

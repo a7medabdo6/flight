@@ -45,7 +45,6 @@ const LoginForm = props => {
 
   const {isLoading,mutate:SubmitSignIn,isError,error,data} =  SignInApi()
   const {SignInData} = useSelector(state => state.SignInRedux)
-console.log(SignInData);
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();

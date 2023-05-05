@@ -18,19 +18,16 @@ const AddSeats = ({handleClose}) => {
   const {data:GetDataComapny}=GetflightCompanyHook()
 
   const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
-  console.log(airlinesName);
 
     const {data:getFlight}=GetFlightHook()
 
     const {GetFlightData} =useSelector(state => state.GetFlightRedux)
-    console.log(GetFlightData);
     const [FlightNum,setFlightNum]=useState()
     const {data:FlightNumBasedCompany,refetch:refetchFlightNumBasedCompany}=GetFlightBasedCompanyHook(IDAirLines)
 
     const {GetFlightBasedCompanyData} =useSelector(state => state.GetFlightBasedCompanyHook)
     const handelchange=(e)=>{
     //  const name = e.target.getAttribute("data-name");
-    //  console.log(name,"nameeeee")
     let val=e.target.value.split('-')
       setIDAirLines(val[0])
       setairlinesName(val[1])
@@ -39,19 +36,16 @@ const AddSeats = ({handleClose}) => {
 )}))
     }
 const [id,setid]=useState()
-console.log(IDAirLines);
     const handelChange=(e)=>{
       const item =GetFlightData?.filter((item)=>{return(
         item.flight_number === e.target.value
  )})
- console.log(item);
         setid(e.target.value);
     }
 
     const {data,refetch}=GetOneFlightHook(id)
 
     const {GetOneFlightData} =useSelector(state => state.GetOneFlightRedux)
-   console.log(GetOneFlightData);
    /**
     * ---------------------------------------------------------
     */
@@ -63,9 +57,7 @@ useEffect(()=>{
     setFlightBasedCompany(GetFlightBasedCompanyData?.map((item)=>{return(item?.flight)}))
   }
 },[GetFlightBasedCompanyData])
-console.log(GetFlightBasedCompanyData);
 
-console.log(FlightBasedCompany);
     const [SeatPrice,setSeatPrice]=useState()
     const [SeatPricecompany,setSeatPricecompany]=useState()
 
@@ -85,7 +77,6 @@ console.log(FlightBasedCompany);
     const [FlightItem,setFlightItem]=useState()
     
 
-    console.log(FlightItem);
 
     useEffect(()=>{
       if(FlightNumber){
@@ -95,7 +86,6 @@ console.log(FlightBasedCompany);
 
     },[FlightNumber])
     
-    console.log(id);
     const HandelSeatPrice=(e)=>{
       setSeatPrice(e.target.value)
 
@@ -160,7 +150,6 @@ const {GetsupplierData} =useSelector(state => state.GetsupplierRedux)
 
 const {isLoading,mutate:SubmitCreateseat,isError,error,data:CreateSeatdata} =  CreateSeatApi()
 const {CreateSeatData} = useSelector(state => state.CreateSeatRedux)
-console.log(departureDate);
 const HandelSave=()=>{
   const data =[
     // {
@@ -211,7 +200,6 @@ useEffect(()=>{
 },[CreateSeatdata])
 
 const [item,setitem]=useState()
-console.log(item)
 
     const items = {
         itemsAirLiens:( <>

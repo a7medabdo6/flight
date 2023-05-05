@@ -10,7 +10,6 @@ import { COLORS } from 'utils/COLORS.';
 
 const Calender = ({customersData,handelhidesm}) => {
 
-console.log(customersData);
 const [airlinesName,setairlinesName] =useState(customersData?.airlines)
 const [SeatPricecompany,setSeatPricecompany]=useState(customersData?.seat_price_company)
 
@@ -29,7 +28,6 @@ const [SeatPricecompany,setSeatPricecompany]=useState(customersData?.seat_price_
   const [airlines,setairlines]=useState(customersData?.airlines)
   const [FlightNumber,setFlightNumber]=useState(customersData?.flight?.flight_number)
   const [id,setid]=useState(customersData?.flight?.id)
-console.log(FlightNumber);
   const [FlightItem,setFlightItem]=useState()
     const today = new Date()
     const tomorrow = new Date()
@@ -38,7 +36,6 @@ console.log(FlightNumber);
   
     const [values, setValues] = useState([today])
     let cal =values?.map((item)=>{return(`${item?.day}-${item?.month?.number}-${item?.year}`)})
-    console.log(cal);
     const datePickerRef = useRef()
     const shwCalnder= () => datePickerRef.current.openCalendar()
     useEffect(()=>{
@@ -58,14 +55,12 @@ useEffect(()=>{
 
   }
 },[GetFlightData])
-console.log(rusult);
       useEffect(()=>{
         if(rusult){
 setFlightId(rusult[0]?.id)
         }
 
       },[rusult])
-      console.log(flighId);
 
       const handelSupmit=()=>{
        let DepTime= cal?.map((item)=>{return(  HandelSave(item))})

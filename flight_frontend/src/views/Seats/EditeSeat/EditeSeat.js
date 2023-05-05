@@ -14,9 +14,7 @@ import EditSeatsCard from './EditeSeatsCard'
 
 const EditeSeats = ({handleCloseEdite,customersData}) => {
 
-console.log(customersData);
     const {data:getFlight}=GetFlightHook()
-console.log(getFlight);
     const {GetFlightData} =useSelector(state => state.GetFlightRedux)
     const [FlightNum,setFlightNum]=useState()
     const handelchange=(e)=>{
@@ -31,8 +29,6 @@ const [id,setid]=useState(customersData?.id)
         setid(e.target.value);
     }
 
-  console.log(id);
-  console.log(FlightNum);
 
     // useEffect(()=>{
     //   if(FlightNumber){
@@ -60,7 +56,6 @@ const [id,setid]=useState(customersData?.id)
   const [FlightNumber,setFlightNumber]=useState(customersData?.flight?.flight_number)
   const [ID,setID]=useState(customersData?.flight?.id)
 
-    console.log(AVAseates);
     const HandelSeatPrice=(e)=>{
       setSeatPrice(e.target.value)
 
@@ -136,14 +131,12 @@ useEffect(()=>{
 
   }
 },[GetFlightData])
-console.log(rusult);
       useEffect(()=>{
         if(rusult){
 setFlightId(rusult[0]?.id)
         }
 
       },[rusult])
-      console.log(flighId);
 
 const HandelSave=()=>{
   const formdata ={

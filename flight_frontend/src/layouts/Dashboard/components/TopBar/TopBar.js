@@ -217,11 +217,12 @@ const token = localStorage.getItem('token');
           </Button> */}
         <div className={classes.flexGrow} />
         <Hidden smDown>
+        <SearchIcon className={classes.searchIcon} />
           <div
             className={classes.search}
             ref={searchRef}
           >
-            <SearchIcon className={classes.searchIcon} />
+            
             <Input
               className={classes.searchInput}
               disableUnderline
@@ -279,7 +280,7 @@ const token = localStorage.getItem('token');
               classes={{ badge: classes.notificationsBadge }}
               variant="dot"
             >
-              <NotificationsIcon />
+              {/* <NotificationsIcon /> */}
             </Badge>
           </IconButton>
           <Button

@@ -40,6 +40,8 @@ import { GetdapartureHook } from 'Hook/daparture-airport/Get-daparture-Hook';
 import { GetCityHook } from 'Hook/City/Get-City-Hook';
 import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook';
 import SuppliresFilter from 'views/Suppliers/SuppliresFilter/SuppliresFilter';
+import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
+import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -80,7 +82,7 @@ const Results = props => {
   // let reversedArray = GetsupplierData?.map((item, index) => GetsupplierData[GetsupplierData.length - 1 - index]);
 
   const classes = useStyles();
-
+  
   const [selectedCustomers, setSelectedCustomers] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -126,15 +128,33 @@ const Results = props => {
   };
 
   const [show, setShow] = useState(false);
+  const {data:getdata}=GetSeatHook()
+  const [id,setid]=useState()
 
+  const {GetSeatData} =useSelector(state => state.GetSeatRedux)
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-const [id,setid]=useState()
-console.log(id);
+  const handleShow = (customer) => {
+    if(GetsupplierData && GetSeatData){
+      for (let i = 0; i < GetSeatData?.length; i++) {
+        const checkdelet = GetsupplierData.filter((item)=>{
+          return customer?.name === GetSeatData[i]?.suppliers;
+        });
+        setcheklist(checkdelet);
+      }
+    }
+    setShow(true);
+  };
+  
   const {isLoading,mutate:SubmitDeletsupplier,isError,error,data} =  DeletsupplierApi()
   const {DeletsupplierData} = useSelector(state => state.DeletsupplierRedux)
-const HandelDelet=(id)=>{
-  SubmitDeletsupplier(id)
+const HandelDelet=(customer)=>{
+
+  const checkdelet = GetSeatData.filter((item)=>{return(
+    item?.seat === customer?.name
+
+  )})
+
+  SubmitDeletsupplier(customer?.id)
 }
 useEffect(()=>{
   if(data){
@@ -143,7 +163,6 @@ useEffect(()=>{
 },[data])
 const[customerData,setCustomerData] =useState()
 const [showEdite, setShowEdite] = useState(false);
-console.log(showEdite);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
@@ -170,13 +189,11 @@ console.log(showEdite);
   
   
   const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-  console.log(GetOnecountryData,"777");
   const [name,setname]=useState()
   const Hanadelname =(e)=>{     setname(e.target.value.toUpperCase()) }
   
   const {mutate:SubmitCreateSupplier,data:DATAEDITE} =  EditesupplierApi()
   const {EditesupplierData,error:ERROR} = useSelector(state => state.EditesupplierRedux)
-  console.log(EditesupplierData);
 
   const HandelSave =()=>{
 const FormData={
@@ -195,7 +212,6 @@ const FormData={
 
   }
 
-console.log(data);
   useEffect(()=>{
       if(ERROR){
           if(ERROR !== [] )
@@ -214,16 +230,13 @@ useEffect(()=>{
 const {data:GetDataaa}=GetflightCompanyHook()
 
 const {GetflightCompanyData} =useSelector(state => state.GetflightCompanyRedux)
-console.log(GetflightCompanyData);
 const {data:GetDataCountry}=GetcountryHook()
 
 const {GetcountryData} =useSelector(state => state.GetcountryRedux)
-console.log(GetcountryData);
 
 const {data:GetDataairport}=GetdapartureHook()
 
   const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
-  console.log(GetdapartureData);
 
   const {data:GetDataa}=GetCityHook()
 
@@ -252,18 +265,13 @@ const handelChangeAirlines =(e)=>{
   let [reversedArray,setreversedArray] = useState();
 const [tableData,settableData]=useState();
 
-useEffect(()=>{
-  if(reversedArray)
-  console.log(reversedArray,"6666  ");
 
-},[reversedArray])
 
 
 
 useEffect(()=>{
   if(GetsupplierData){
   const copy =[...GetsupplierData]
-    console.log(copy,"6666666");
     if(copy)
         settableData(copy)
 
@@ -281,6 +289,33 @@ useEffect(()=>{
 
 },[tableData])
 
+
+const user =JSON.parse(localStorage.getItem('user')) ;
+
+const {data:flightdata}=GetFlightHook()
+
+  const {GetFlightData} =useSelector(state => state.GetFlightRedux)
+const [cheklist,setcheklist]=useState([])
+console.log(cheklist);
+
+// useEffect(()=>{
+//   if(GetsupplierData && GetSeatData){
+
+//     for (let i = 0; i < GetSeatData?.length; i++) {
+//       const checkdelet = GetsupplierData.filter((item)=>{
+
+//         return(
+//           item?.name === GetSeatData[i]?.suppliers
+      
+//         )
+//       })
+//       setcheklist(checkdelet)
+
+//     }
+   
+
+//   }
+// },[GetFlightData,GetsupplierData])
   return (
     <div
       {...rest}
@@ -379,9 +414,17 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  Supplier ?</h4>
+        {
+            cheklist?.length > 0 ?(
+              <h6 className='d-flex justify-content-center align-items-center text-center'>You shall delete all loaded seats on such flights and cancel all reserved or purchased seats</h6>
+
+            ):(
+              <h6 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  Supplier ?</h6>
+
+            )
+}
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
-        <button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+        <button type="button" className="btn btn-secondary CANCELBTN m-2 " disabled={cheklist?.length > 0 ? true:false} onClick={()=>HandelDelet(id)} style={{backgroundColor:cheklist?.length > 0 ? "grey":COLORS.purple,color:"white"}} >Delete</button>
 
         <button type="button" className="btn btn-secondary CANCELBTN  m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white" }}>Cancel</button>
 
@@ -483,8 +526,13 @@ useEffect(()=>{
                       </TableCell>
                       
                       <TableCell className='text-center' align="right">
+                        {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer),handleShow(customer))}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
                         
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
 
                         
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>

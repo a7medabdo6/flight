@@ -46,7 +46,6 @@ const[disabledcity,setdisabledcity]=useState(true)
     const Hanadelflight_number =(e)=>{     setflight_number(e.target.value.toUpperCase())  }
     const Hanadeldeparture_airport =(selectedOption)=>{ 
         setSelected(selectedOption)
-    console.log(`Option selected:`, selectedOption)
         setdeparture_airport(selectedOption?.value)
      }
     const Hanadelarrival_airport =(selectedOption)=>{ 
@@ -69,7 +68,6 @@ const[disabledcity,setdisabledcity]=useState(true)
 
         if(country == "" || cityID == "" || airlines == "" || flight_number == "" || departure_airport == "" || arrival_airport == "" || arrival_time ==  "",departure_time == '' || weight == "" || duration == ""){
             setcheck(false)
-            console.log("eeeeeeeee");
          }else{
             const data ={
                 "country_id": +country,
@@ -98,12 +96,9 @@ const[disabledcity,setdisabledcity]=useState(true)
     
         }
     },[error])
-console.log(cityID);
     const {data:GetDataAirPort,refetch:refetchAirPort,isLoading}=GetAirPortBasecCityHook(cityID,chickcity)
 
     const {GetAirPortBasecCityData} =useSelector(state => state.GetAirPortBasecCityRedux)
-    console.log(GetAirPortBasecCityData?.departure_airport);
-console.log(isLoading);
 useEffect(()=>{
     if(data){
         handleClose() 
@@ -120,29 +115,21 @@ setchickcity(true)
 
 const [options,setoptions]=useState([]) 
 const [optionsArrival,setoptionsArrival]=useState([]) 
-console.log(optionsArrival);
 const {data:GetDataArrivalAirport}=GetdapartureHook()
 
 const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
-console.log(GetdapartureData);
 const [ArrivalAirPOrt,setArrivalAirPOrt]=useState("gfh")
 
 useEffect(()=>{
     if(departure_airport){
         setArrivalAirPOrt(GetdapartureData?.filter((item)=>{return(item?.id != departure_airport)}))
-        // console.log(ArrivalAirPOrt,departure_airport,ArrivalAirPOrt,"fffffffffffff");
 
     }
-    // console.log(GetdapartureData,"fffffffffffff GetdapartureData");
 
 },[departure_airport,GetdapartureData])
 
 
-useEffect(()=>{
-  
-     console.log(ArrivalAirPOrt,"fffffffffffff ArrivalAirPOrt");
 
-},[ArrivalAirPOrt])
 
 
 
@@ -180,7 +167,6 @@ useEffect(()=>{
 
 
 const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-console.log(GetOnecountryData,"777");
 
 // useEffect(()=>{
 //     if(country === "" || cityID === "" || airlines === "" || flight_number === "" || departure_airport === "" || arrival_airport === "" || arrival_time ===  "",departure_time === '' || weight === "" || duration === ""){

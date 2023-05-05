@@ -27,7 +27,6 @@ const AddRoundTrip = ({handelCloseADD}) => {
 const [check,setcheck]=useState(false)
 const [DataFlightOne,setDataFlightOne]=useState()
 const [DataFlightTwo,setDataFlightTwo]=useState()
-console.log(DataFlightOne);
   const handelNoDayes=(e)=>{
     setNoDayes(e.target.value)
   }
@@ -48,7 +47,6 @@ console.log(DataFlightOne);
     }
     const increase = ()=>{
       let SupPrice = +priceOne + +priceTwo
-      console.log(SupPrice);
       if(NoDayes === "Less"){
        if(Dayes){
          setTotalPrice(+SupPrice + +count)
@@ -73,7 +71,6 @@ console.log(DataFlightOne);
     }
     const Descrease = ()=>{
       let SupPrice = +priceOne + +priceTwo
-      console.log(SupPrice);
       if(NoDayes === "Less"){
        if(Dayes){
          setTotalPrice(+SupPrice - +count)
@@ -97,7 +94,6 @@ console.log(DataFlightOne);
         const {data}=GetSeatHook()
 
         const {GetSeatData} =useSelector(state => state.GetSeatRedux)
-        console.log(GetSeatData);
 
 
         const {mutate:SubmitCreateTwoWay,data:DataCreat} =  CreateTwoWayApi()
@@ -108,9 +104,7 @@ const [flietNumTwo,setflietNumTwo]=useState()
 const [priceOne,setpriceOne]=useState()
 const [priceTwo,setpriceTwo]=useState()
 const [TotalPrice,setTotalPrice]=useState()
-console.log(flietNumOne);
 
-console.log(TotalPrice);
 
 const HnadelChangeDayes =(e)=>{
   setDayes(e.target.value)
@@ -119,21 +113,7 @@ const HandelCalculate=()=>{
   if(TotalPrice){
     setShowTable(true)
   }
-//  let SupPrice = +priceOne + +priceTwo
-//  console.log(SupPrice);
-//  if(NoDayes === "Less"){
-//   if(Dayes){
-//     setTotalPrice(SupPrice - count)
-
-//   }
-//  }
-
-//  if(NoDayes === "Gerater"){
-//   if(Dayes){
-//     setTotalPrice(SupPrice - count)
-
-//   }
-//  }
+ 
 }
     
 // useEffect(()=>{
@@ -141,7 +121,6 @@ const HandelCalculate=()=>{
 //     setShowTable(true)
 //   }
 // },[TotalPrice])
-console.log(flietNumOne);
         const handelflietNumOne=(e)=>{
           const item =GetSeatData?.filter((item)=>{return(
             item.flight_number === e.target.value
@@ -239,7 +218,7 @@ console.log(flietNumOne);
       </div>
       <div className='d-flex justify-content-end align-items-center mb-2 ' style={{marginRight:"32px"}}>
       <button onClick={Descrease} type="button" className="btn btn-secondary">-</button>  
-      <input className='text-center rounded textinputround' onChange={handelchangecount} style={{backgroundColor:"#D6DCE5"}} type="number" />
+      <input className='text-center rounded textinputround' onChange={handelchangecount} style={{width:"90px",backgroundColor:"#D6DCE5"}} type="number" />
 
         {/* <input type='text' className='d-flex justify-content-center align-items-center rounded ' onChange={handelchangecount} style={{padding:20,backgroundColor:COLORS.blue,margin:0,height:"30px",width:"55px"}} /> */}
         <button onClick={increase} type="button" className="btn btn-secondary">+</button>
@@ -248,12 +227,12 @@ console.log(flietNumOne);
      <div style={{marginBottom:"10px"}} className=' d-flex justify-content-center align-items-center flex-column'>
         <p className='text-nowrap'>Enter Dayes:</p>
         <div className=' d-flex justify-content-center align-items-center '>
-        <input className='text-center rounded textinputround' onChange={HnadelChangeDayes} style={{backgroundColor:"#D6DCE5"}} type="number" />
+        <input className='text-center rounded textinputround' onChange={HnadelChangeDayes} style={{width:"90px",backgroundColor:"#D6DCE5"}} type="number" />
         {
           check === true ? (
             <div className=' d-flex justify-content-center align-items-center '>
             <p style={{margin:15}}>To</p>
-            <input className='text-center rounded textinputround' style={{backgroundColor:"#D6DCE5"}} type="number" />
+            <input className='text-center rounded textinputround' style={{width:"90px",backgroundColor:"D6DCE5"}} type="number" />
             </div>
           ):null
         }
@@ -389,7 +368,7 @@ console.log(flietNumOne);
   ShowTable === true ? (
     <div className='d-flex justify-content-center align-items-center'>
   <h4>Total Price :</h4>
-  <input disabled value={TotalPrice} className='text-center rounded ms-3' style={{width:"60px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
+  <input disabled value={TotalPrice} className='text-center rounded ms-3' style={{width:"90px",height:"30px",backgroundColor:COLORS.blue}} type="number" />
 
 </div>
   ):null

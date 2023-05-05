@@ -137,7 +137,6 @@ const Results = props => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 const [id,setid]=useState()
-console.log(id);
   const {isLoading,mutate:SubmitDeletCity,isError,error,data} =  DeletCityApi()
   const {DeletCityData} = useSelector(state => state.DeletCityRedux)
 const HandelDelet=(id)=>{
@@ -150,7 +149,6 @@ useEffect(()=>{
 },[data])
 const[customerData,setCustomerData] =useState()
 const [showEdite, setShowEdite] = useState(false);
-console.log(showEdite);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
@@ -163,15 +161,12 @@ console.log(showEdite);
   
   const {mutate:SubmitEditeCity,data:DATAEDITE} =  EditeCityApi()
   const {EditeCityData,error:ERROR} = useSelector(state => state.EditeCityRedux)
-  console.log(EditeCityData);
 
   const {data:GetData}=GetcountryHook()
 
   const {GetcountryData} =useSelector(state => state.GetcountryRedux)
-  console.log(GetcountryData);
   
   const [CountryId,setCountryId]=useState()
-  console.log(CountryId);
   const handelChangeCountryId =(e)=>{
     setCountryId(e.target.value)
   }
@@ -191,7 +186,6 @@ SubmitEditeCity(FormData)
 
   }
 
-console.log(data);
   useEffect(()=>{
       if(ERROR){
           if(ERROR !== [] )
@@ -213,18 +207,13 @@ useEffect(()=>{
 let [reversedArray,setreversedArray] = useState();
 const [tableData,settableData]=useState();
 
-useEffect(()=>{
-  if(reversedArray)
-  console.log(reversedArray,"6666  ");
 
-},[reversedArray])
 
 
 
 useEffect(()=>{
   if(GetCityData){
   const copy =[...GetCityData]
-    console.log(copy,"6666666");
     if(copy)
         settableData(copy)
 
@@ -241,6 +230,9 @@ useEffect(()=>{
   // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
 
 },[tableData])
+
+const user =JSON.parse(localStorage.getItem('user')) ;
+
   return (
     <div
       {...rest}
@@ -300,7 +292,7 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  City ?</h4>
+          <h6 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  City ?</h6>
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
         <button type="button" className="btn btn-secondary CANCELBTN  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
@@ -382,8 +374,12 @@ useEffect(()=>{
                       </TableCell>
                       
                       <TableCell className='text-center' align="right">
-                        
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+                      {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
 
                         
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>

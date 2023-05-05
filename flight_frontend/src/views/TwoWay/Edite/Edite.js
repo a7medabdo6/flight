@@ -16,10 +16,8 @@ const Edite = ({handelHide}) => {
   const {data}=GetSeatHook()
 
   const {GetSeatData} =useSelector(state => state.GetSeatRedux)
-  console.log(GetSeatData);
 
   const {data:getFlight}=GetFlightHook()
-  console.log(getFlight);
   const [count,setcount]=useState(0)
   const increase = ()=>{
 setcount(count + 1)
@@ -33,7 +31,6 @@ setcount(count + 1)
           item.flight_number === e.target.value
    )})
    
-   console.log(item);
         // setflietNumOne(item[0].id)
         setpriceOne(item[0]?.seat_price_enduser)
         setDataFlightOne(item[0])

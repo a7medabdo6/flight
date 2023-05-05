@@ -133,7 +133,6 @@ const Results = props => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 const [id,setid]=useState()
-console.log(id);
   const {isLoading,mutate:SubmitDeletflightCompany,isError,error,data} =  DeletflightCompanyApi()
   const {DeletflightCompanyData} = useSelector(state => state.DeletflightCompanyRedux)
 const HandelDelet=(id)=>{
@@ -146,7 +145,6 @@ useEffect(()=>{
 },[data])
 const[customerData,setCustomerData] =useState()
 const [showEdite, setShowEdite] = useState(false);
-console.log(showEdite);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
@@ -169,11 +167,9 @@ console.log(showEdite);
   
   
   const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-  console.log(GetOnecountryData,"777");
 
   const [name,setname]=useState()
   const [city,setcity]=useState("city")
-console.log(city);
   const Hanadelname =(e)=>{     setname(e.target.value.toUpperCase()) }
   const handelChangeCountryId =(e)=>{
 
@@ -191,12 +187,10 @@ console.log(city);
 
   const {mutate:SubmitEditeflightCompany,data:DATAEDITE} =  EditeflightCompanyApi()
   const {EditeflightCompanyData,error:ERROR} = useSelector(state => state.EditeflightCompanyRedux)
-  console.log(EditeflightCompanyData);
 
   const {data:GetData}=GetcountryHook()
 
   const {GetcountryData} =useSelector(state => state.GetcountryRedux)
-  console.log(GetcountryData);
   
   const [logo,setlogo]=useState()
   const handelChangeLogo =(e)=>{
@@ -228,7 +222,6 @@ SubmitEditeflightCompany(FORMDATA)
 
 }
 
-console.log(data);
   useEffect(()=>{
       if(ERROR){
           if(ERROR !== [] )
@@ -250,13 +243,11 @@ useEffect(()=>{
 const {data:GetDataairport}=GetdapartureHook()
 
   const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
-  console.log(GetdapartureData);
 
   const {data:GetDataa}=GetCityHook()
 
   const {GetCityData} =useSelector(state => state.GetCityRedux)
 const [airportId,setairportId]=useState()
-console.log(name);
 
 
 
@@ -268,18 +259,12 @@ const handelChangeairportId =(e)=>{
 let [reversedArray,setreversedArray] = useState();
 const [tableData,settableData]=useState();
 
-useEffect(()=>{
-  if(reversedArray)
-  console.log(reversedArray,"6666  ");
-
-},[reversedArray])
 
 
 
 useEffect(()=>{
   if(GetflightCompanyData){
   const copy =[...GetflightCompanyData]
-    console.log(copy,"6666666");
     if(copy)
         settableData(copy)
 
@@ -296,6 +281,10 @@ useEffect(()=>{
   // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
 
 },[tableData])
+
+
+const user =JSON.parse(localStorage.getItem('user')) ;
+
   return (
     <div
       {...rest}
@@ -384,7 +373,7 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  AirLines ?</h4>
+          <h6 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  AirLines ?</h6>
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
         <button type="button" className="btn btn-secondary CANCELBTN  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
@@ -490,8 +479,13 @@ useEffect(()=>{
                       </TableCell>
                       
                       <TableCell className='text-center' align="right">
+                      {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
                         
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
 
                         
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>

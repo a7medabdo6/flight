@@ -28,9 +28,7 @@ const Seats = ({match}) => {
 
 
     let city =match?.params?.city
-console.log(city);
 let country =match?.params?.country
-console.log(country);
   const classes = useStyles();
 
   const [customers, setCustomers] = useState([]);
@@ -58,7 +56,7 @@ console.log(country);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => {return(console.log("555555"),setShow(true))}
+  const handleShow = () => {return(setShow(true))}
 
 
   return (

@@ -128,7 +128,6 @@ const Results = props => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 const [id,setid]=useState()
-console.log(id);
   const {isLoading,mutate:SubmitDeletCountry,isError,error,data} =  DeletcountryApi()
   const {DeletcountryData} = useSelector(state => state.DeletcountryRedux)
 const HandelDelet=(id)=>{
@@ -141,7 +140,6 @@ useEffect(()=>{
 },[data])
 const[customerData,setCustomerData] =useState()
 const [showEdite, setShowEdite] = useState(false);
-console.log(showEdite);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
@@ -153,7 +151,6 @@ console.log(showEdite);
   
   const {mutate:SubmitCreateCountry,data:DATAEDITE} =  EditeCountryApi()
   const {EditecountryData,error:ERROR} = useSelector(state => state.EditecountryRedux)
-  console.log(EditecountryData);
 
   const HandelSave =()=>{
 const FormData={
@@ -169,7 +166,6 @@ SubmitCreateCountry(FormData)
 
   }
 
-console.log(data);
   useEffect(()=>{
       if(ERROR){
           if(ERROR !== [] )
@@ -185,6 +181,7 @@ useEffect(()=>{
     handleCloseEdite() 
   }
 },[DATAEDITE])
+const user =JSON.parse(localStorage.getItem('user')) ;
 
   return (
     <div
@@ -233,7 +230,7 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  Country ?</h4>
+          <h6 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  Country ?</h6>
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
         <button type="button" className="btn btn-secondary CANCELBTN  m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
@@ -310,8 +307,14 @@ useEffect(()=>{
                       </TableCell>
                       
                       <TableCell className='text-center' align="right">
+                      {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
+
                         
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
 
                         
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>

@@ -53,12 +53,10 @@ const CustomerManagementList = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-console.log(show);
  
   const {data}=GetFlightHook()
 
   const {GetFlightData} =useSelector(state => state.GetFlightRedux)
-  console.log(GetFlightData);
 
   return (
     <Page

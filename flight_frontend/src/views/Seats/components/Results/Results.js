@@ -143,7 +143,6 @@ const handelhidesm=()=> setSmShow(false)
   const {data}=GetSeatHook()
 
   const {GetSeatData} =useSelector(state => state.GetSeatRedux)
-  console.log(GetSeatData);
 
 
   const [show, setShow] = useState(false);
@@ -151,7 +150,6 @@ const handelhidesm=()=> setSmShow(false)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [id,setid]=useState()
-console.log(id);
   const {isLoading,mutate:SubmitDeletseat,isError,error,data:DataDeletSeat} =  DeletSeatApi()
   const {DeletSeatData} = useSelector(state => state.DeletSeatRedux)
 const HandelDelet=(id)=>{
@@ -179,18 +177,13 @@ const [showEdite, setShowEdite] = useState(false);
   let [reversedArray,setreversedArray] = useState();
 const [tableData,settableData]=useState();
 
-useEffect(()=>{
-  if(reversedArray)
-  console.log(reversedArray,"6666  ");
 
-},[reversedArray])
 
 
 
 useEffect(()=>{
   if(GetSeatData){
   const copy =[...GetSeatData]
-    console.log(copy,"6666666");
     if(copy)
         settableData(copy)
 
@@ -207,6 +200,9 @@ useEffect(()=>{
   // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
 
 },[tableData])
+
+const user =JSON.parse(localStorage.getItem('user')) ;
+
   return (
     <div
       {...rest}
@@ -246,7 +242,7 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  Seat ?</h4>
+          <h6 className='d-flex justify-content-center align-items-center'>Are you sure you want to delete the  Seat ?</h6>
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
         <button type="button" className="btn btn-secondary  CANCELBTN px-5 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
 
@@ -412,7 +408,13 @@ useEffect(()=>{
 
                       <TableCell className='text-center' align="right" style={{padding:"6px"}}>
                         <div className='d-flex '>
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(handleShow(),setid(customer?.id))}} className="fa-solid fa-trash-can m-1"></i>
+                        {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(handleShow(),setid(customer?.id))}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
+                        
 
                        
                       <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(handleShowEdite(),setcustomersData(customer))}} className="fa-solid fa-pen-to-square m-1"></i>

@@ -52,19 +52,16 @@ const CustomerManagementList = () => {
   const handleClose = () => setShow(false);
   const handleShowadd = () => setShow(true);
 
-console.log(show);
  
   const {data:GetData}=GetcountryHook()
 
   const {GetcountryData} =useSelector(state => state.GetcountryRedux)
-  console.log(GetcountryData);
 
   const [name,setname]=useState()
   const Hanadelname =(e)=>{     setname(e.target.value.toUpperCase()) }
   
   const {isLoading,mutate:SubmitCreateCountry,isError,error:handelerror,data} =  CreatecountryApi()
   const {CreatecountryData,error} = useSelector(state => state.CreatecountryRedux)
-  console.log(CreatecountryData);
 
 
   const HandelSave =()=>{
@@ -78,7 +75,6 @@ console.log(show);
 
   }
 
-console.log(data);
   useEffect(()=>{
       if(error){
           if(error !== [] )

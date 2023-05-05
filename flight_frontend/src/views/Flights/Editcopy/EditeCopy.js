@@ -18,13 +18,11 @@ import { EditeFlightApi } from 'Hook/Flight/Edite-Flight-Hook'
 const EditFlightCopy = ({handleCloseEdite,id,customerData}) => {
 
 
-   console.log(customerData);
 
 
     const [country,setcountry]=useState(customerData?.country?.id)
     const [city,setcity]=useState()
     const [cityID,setcityID]=useState()
-    console.log(cityID);
 
     const [chickcity,setchickcity]=useState(false)
 const[disabledcity,setdisabledcity]=useState(true)
@@ -49,7 +47,6 @@ const[disabledcity,setdisabledcity]=useState(true)
     const Hanadelflight_number =(e)=>{     setflight_number(e.target.value.toUpperCase())  }
     const Hanadeldeparture_airport =(selectedOption)=>{ 
         setSelected(selectedOption)
-    console.log(`Option selected:`, selectedOption)
         setdeparture_airport(selectedOption?.value)
      }
     const Hanadelarrival_airport =(selectedOption)=>{ 
@@ -66,7 +63,6 @@ const[disabledcity,setdisabledcity]=useState(true)
 
     const {mutate:SubmiteEditeFlight,isError,error,data} =  EditeFlightApi()
     const {EditeFlightData} = useSelector(state => state.EditeFlightRedux)
-console.log(EditeFlightData)
 
     const HandelSave =()=>{
 
@@ -98,12 +94,9 @@ console.log(EditeFlightData)
     
         }
     },[error])
-console.log(cityID);
     const {data:GetDataAirPort,refetch:refetchAirPort,isLoading}=GetAirPortBasecCityHook(cityID,chickcity)
 
     const {GetAirPortBasecCityData} =useSelector(state => state.GetAirPortBasecCityRedux)
-    console.log(GetAirPortBasecCityData);
-console.log(isLoading);
 useEffect(()=>{
     if(data){
         handleCloseEdite() 
@@ -120,27 +113,22 @@ setchickcity(true)
 
 const [options,setoptions]=useState([]) 
 const [optionsArrival,setoptionsArrival]=useState([]) 
-console.log(optionsArrival);
 const {data:GetDataArrivalAirport}=GetdapartureHook()
 
 const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
-console.log(GetdapartureData);
 const [ArrivalAirPOrt,setArrivalAirPOrt]=useState("gfh")
 
 useEffect(()=>{
     if(departure_airport){
         setArrivalAirPOrt(GetdapartureData?.filter((item)=>{return(item?.id != departure_airport)}))
-        // console.log(ArrivalAirPOrt,departure_airport,ArrivalAirPOrt,"fffffffffffff");
 
     }
-    // console.log(GetdapartureData,"fffffffffffff GetdapartureData");
 
 },[departure_airport,GetdapartureData])
 
 
 useEffect(()=>{
   
-     console.log(ArrivalAirPOrt,"fffffffffffff ArrivalAirPOrt");
 
 },[ArrivalAirPOrt])
 

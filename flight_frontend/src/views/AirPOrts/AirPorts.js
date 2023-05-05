@@ -56,7 +56,6 @@ const CustomerManagementList = () => {
   const handleClose = () => setShow(false);
   const handleShowAdd = () => setShow(true);
 
-console.log(show);
 const [called,setcalled]=useState(false)
 const [country,setCountry]=useState()
 const [countryname,setcountryname]=useState()
@@ -74,20 +73,16 @@ useEffect(()=>{
 
 
 const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-console.log(GetOnecountryData,"777");
   const {data:GetData}=GetdapartureHook()
 
   const {GetdapartureData} =useSelector(state => state.GetdapartureRedux)
-  console.log(GetdapartureData);
 
   const [name,setname]=useState()
   const Hanadelname =(e)=>{     setname(e.target.value.toUpperCase()) }
   
   const {isLoading,mutate:SubmitCreatedaparture,isError,error:handelerror,data} =  CreatedapartureApi()
   const {CreatedapartureData,error} = useSelector(state => state.CreatedapartureRedux)
-  console.log(CreatedapartureData);
   const [city,setcity]=useState()
-console.log(city);
 
   const HandelSave =()=>{
 
@@ -102,7 +97,6 @@ console.log(city);
 
   }
 
-console.log(data);
   useEffect(()=>{
       if(error){
           if(error !== [] )
@@ -129,7 +123,6 @@ const HanadelCity =(e)=>{  setcity(e.target.value.toUpperCase())  }
 const {data:GetDataa}=GetCityHook()
 
 const {GetCityData} =useSelector(state => state.GetCityRedux)
-console.log(GetCityData);
 const [airportId,setairportId]=useState()
 
 const handelChangeairportId =(e)=>{
@@ -143,8 +136,7 @@ const handelChangeCountry =(e)=>{
   //  setcity(val[1].toUpperCase())
   setcountryname(val[1])
 }
-console.log(country);
-console.log(countryname);
+
 
 const {data:GetDataCountry}=GetcountryHook()
 

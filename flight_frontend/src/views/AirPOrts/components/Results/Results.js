@@ -38,6 +38,7 @@ import { EditedapartureApi } from 'Hook/daparture-airport/Edite-daparture-Hook';
 import { GetCityHook } from 'Hook/City/Get-City-Hook';
 import { GetcountryHook } from 'Hook/Country/Get-Country-Hook';
 import { GetOnecountryHook } from 'Hook/Country/Get-One-Country-Hook';
+import { GetFlightHook } from 'Hook/Flight/Get-Flight-Hook';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -124,15 +125,46 @@ const Results = props => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(event.target.value);
   };
+  const {data:flightdata}=GetFlightHook()
+
+  const {GetFlightData} =useSelector(state => state.GetFlightRedux)
+  
+  const [cheklist,setcheklist]=useState([])
+  const [cheklisttwo,setcheklisttwo]=useState([])
+  console.log(GetFlightData);
+
+  console.log(cheklist);
+  console.log(cheklisttwo);
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (customer) => {
+
+    if( GetFlightData){
+      for (let i = 0; i < GetFlightData?.length; i++) {
+        const checkdelet = GetFlightData.filter((item)=>{
+          console.log(GetFlightData[i]);
+
+          return customer?.name === item?.departure_airport?.name;
+        });
+        console.log(checkdelet);
+
+        setcheklist(checkdelet);
+      }
+
+      for (let t = 0; t < GetFlightData?.length; t++) {
+        const checkdelettwo = GetFlightData.filter((item)=>{
+          return customer?.name === item?.arrival_airport;
+        });
+        setcheklisttwo(checkdelettwo);
+      }
+    }
+    setShow(true);
+  };
   const [countryname,setcountryname]=useState()
 
 const [id,setid]=useState()
-console.log(id);
   const {isLoading,mutate:SubmitDeletdaparture,isError,error,data} =  DeletdapartureApi()
   const {DeletdapartureData} = useSelector(state => state.DeletdapartureRedux)
 const HandelDelet=(id)=>{
@@ -145,7 +177,6 @@ useEffect(()=>{
 },[data])
 const[customerData,setCustomerData] =useState()
 const [showEdite, setShowEdite] = useState(false);
-console.log(showEdite);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
@@ -157,7 +188,6 @@ console.log(showEdite);
   
   const {mutate:SubmitCreatedaparture,data:DATAEDITE} =  EditedapartureApi()
   const {EditedapartureData,error:ERROR} = useSelector(state => state.EditedapartureRedux)
-  console.log(EditedapartureData);
 useEffect(()=>{
   if(DATAEDITE){
     handleCloseEdite()
@@ -178,7 +208,6 @@ const FormData={
 
   }
 
-console.log(data);
   useEffect(()=>{
       if(ERROR){
           if(ERROR !== [] )
@@ -212,14 +241,12 @@ useEffect(()=>{
 
 
 const {GetOnecountryData} =useSelector(state => state.GetOnecountryRedux)
-console.log(GetOnecountryData,"777");
 const HanadelCity =(e)=>{  setcity(e.target.value.toUpperCase())  }
 
 
 const {data:GetDataa}=GetCityHook()
 
 const {GetCityData} =useSelector(state => state.GetCityRedux)
-console.log(GetCityData);
 const [airportId,setairportId]=useState()
 
 const handelChangeairportId =(e)=>{
@@ -238,6 +265,8 @@ const handelChangeCountryId =(e)=>{
 const {data:GetDataCountry}=GetcountryHook()
 
 const {GetcountryData} =useSelector(state => state.GetcountryRedux)
+const user =JSON.parse(localStorage.getItem('user')) ;
+
   return (
     <div
       {...rest}
@@ -312,9 +341,19 @@ const {GetcountryData} =useSelector(state => state.GetcountryRedux)
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  AirPort ?</h4>
+        {
+            cheklist?.length > 0 || cheklisttwo?.length > 0  ?(
+              <h6 className='d-flex justify-content-center align-items-center text-center'>You shall delete all loaded seats on such flights and cancel all reserved or purchased seats</h6>
+
+            ):(
+              <h6 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  AirPort ?</h6>
+
+            )
+
+
+          }
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
-        <button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+        <button type="button" className="btn btn-secondary CANCELBTN m-2 " disabled={cheklist?.length > 0 || cheklisttwo?.length > 0 ? true:false} onClick={()=>HandelDelet(id)} style={{backgroundColor:cheklist?.length > 0 || cheklisttwo?.length > 0 ? "grey":COLORS.purple,color:"white"}} >Delete</button>
 
         <button type="button" className="btn btn-secondary CANCELBTN m-2" onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
 
@@ -396,8 +435,12 @@ const {GetcountryData} =useSelector(state => state.GetcountryRedux)
                       </TableCell>
                       
                       <TableCell className='text-center' align="right">
-                        
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+                      {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow(customer))}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
 
                         
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>

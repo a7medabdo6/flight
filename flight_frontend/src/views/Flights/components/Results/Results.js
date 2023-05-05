@@ -39,6 +39,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import FilterFlight from 'views/Flights/FilterFlight/FilterFlight';
+import { GetSeatHook } from 'Hook/Seat/Get-Seat-Hook';
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
@@ -126,13 +127,26 @@ const Results = props => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (customer) => {
+    if(GetSeatData && GetFlightData){
+      for (let i = 0; i < GetSeatData?.length; i++) {
+        const checkdelet = GetFlightData.filter((item)=>{
+          return customer?.id === GetSeatData[i]?.flight?.id;
+        });
+        setcheklist(checkdelet);
+      }
+    }
+    setShow(true);
+  };
+  
 const [id,setid]=useState()
-console.log(id);
   const {isLoading,mutate:SubmitDeletFlight,isError,error,data} =  DeletFlightApi()
   const {DeletFlightData} = useSelector(state => state.DeletFlightRedux)
 const HandelDelet=(id)=>{
-  SubmitDeletFlight(id)
+  
+    SubmitDeletFlight(id)
+
+  
 }
 useEffect(()=>{
   if(data){
@@ -141,7 +155,6 @@ useEffect(()=>{
 },[data])
 const[customerData,setCustomerData] =useState()
 const [showEdite, setShowEdite] = useState(false);
-console.log(showEdite);
   const handleCloseEdite = () => setShowEdite(false);
   const handleShowEdite = () =>{ return (setShowEdite(true))}
 
@@ -151,10 +164,8 @@ const user =JSON.parse(localStorage.getItem('user')) ;
 const [ids,setides]=useState([])
 const navdata =JSON.parse(localStorage.getItem("navbarcountry"))
 const array =navdata?.map((item)=>{return(item?.id)})
-console.log(array);
 const handelchangecheckbox=(e)=>{
   let value =e.target.value
-console.log(value);
 if(array?.length === 0){
   setides((oldarry)=>[...oldarry,value])
 
@@ -162,11 +173,9 @@ if(array?.length === 0){
   setides((oldarry)=>[...oldarry,value,array])
 }
 
-console.log(ids);
 }
 const {data:AddFlightByCheckData,mutate:SubmitAddFlightByCheckBox} =  AddFlightByCheckBoxtApi()
 const {AddFlightByCheckBoxtData} = useSelector(state => state.AddFlightByCheckBoxtRedux)
-console.log(AddFlightByCheckBoxtData);
 
 const AddFlightCheckBox =()=>{
 
@@ -186,18 +195,13 @@ const AddFlightCheckBox =()=>{
 let [reversedArray,setreversedArray] = useState();
 const [tableData,settableData]=useState();
 
-useEffect(()=>{
-  if(reversedArray)
-  console.log(reversedArray,"6666  ");
 
-},[reversedArray])
 
 
 
 useEffect(()=>{
   if(GetFlightData){
   const copy =[...GetFlightData]
-    console.log(copy,"6666666");
     if(copy)
         settableData(copy)
 
@@ -214,6 +218,38 @@ useEffect(()=>{
   // setreversedArray(tableData?.map((item, index) => GetFlightData[GetFlightData.length - 1 - index]))
 
 },[tableData])
+
+
+const {data:seatdata}=GetSeatHook()
+
+const {GetSeatData} =useSelector(state => state.GetSeatRedux)
+
+const [cheklist,setcheklist]=useState([])
+console.log(cheklist);
+
+// useEffect(()=>{
+//   if(GetSeatData && GetFlightData){
+
+//     for (let i = 0; i < GetSeatData?.length; i++) {
+//       const checkdelet = GetFlightData.filter((item)=>{
+
+//         return(
+//           item?.id === GetSeatData[i]?.flight?.id
+      
+//         )
+//       })
+//       setcheklist(checkdelet)
+
+//     }
+   
+
+//   }
+// },[GetFlightData,GetSeatData])
+// useEffect(()=>{
+// if(cheklist){
+//   alert("You shall delete all loaded seats on such flights and cancel all reserved or purchased seats")
+// }
+// },[cheklist])
 
   return (
     <div
@@ -254,9 +290,19 @@ useEffect(()=>{
         </Modal.Header>
         <Modal.Body>
         <div className='d-flex justify-content-center align-items-center flex-column '>
-          <h4 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  flight ?</h4>
+          {
+            cheklist?.length > 0 ?(
+              <h6 className='d-flex justify-content-center align-items-center text-center'>You shall delete all loaded seats on such flights and cancel all reserved or purchased seats</h6>
+
+            ):(
+              <h6 className='d-flex justify-content-center align-items-center text-center'>Are you sure you want to delete the  flight ?</h6>
+
+            )
+
+
+          }
           <div className='d-flex justify-content-center align-items-center mt-3 flex-row-reverse'>
-          <button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={()=>HandelDelet(id)} style={{backgroundColor:COLORS.purple,color:"white"}} >Delete</button>
+          <button type="button" className="btn btn-secondary CANCELBTN m-2 " disabled={cheklist?.length > 0 ? true:false} onClick={()=>HandelDelet(id)} style={{backgroundColor:cheklist?.length > 0 ? "grey":COLORS.purple,color:"white"}} >Delete</button>
 
 <button type="button" className="btn btn-secondary CANCELBTN m-2 " onClick={handleClose} style={{backgroundColor:COLORS.purple,color:"white"}}>Cancel</button>
           </div>
@@ -392,8 +438,12 @@ useEffect(()=>{
                       <TableCell className='text-center'>{customer?.duration}</TableCell>
                       <TableCell className='text-center'>{customer?.weight}</TableCell>
                       <TableCell className='text-center' align="right">
-                        
-                        <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow())}} className="fa-solid fa-trash-can m-1"></i>
+                      {
+                          user?.role === "superadmin" ? (
+                            <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}} onClick={()=>{return(setid(customer?.id),handleShow(customer))}} className="fa-solid fa-trash-can m-1"></i>
+
+                          ):null
+                        }
 
                         
                         <i style={{padding:"5px",border:"1px solid",backgroundColor:COLORS.purple,color:"white"}}  onClick={()=>{return(setid(customer?.id),setCustomerData(customer),handleShowEdite())}} className="fa-solid fa-pen-to-square m-1"></i>
