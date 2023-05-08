@@ -13,3 +13,53 @@
     text-align: left;
 
 }
+img, svg {
+    vertical-align: middle;
+    width: 20px;
+}
+.border-unset{
+    border: unset !important;
+    margin-top: 10px;
+    padding: 5px;
+    min-width: 110px !important
+}
+.mr-custom{
+    margin-right: 20px;
+}
+.firstGroupflex div:first-of-type{
+    display: flex;
+    justify-content:  space-around;
+    align-items: flex-start;
+}
+.firstGroupnotFlex {
+    display: flex;
+    justify-content:  space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.firstGroupnotFlex div:first-of-type{
+    display: flex;
+    justify-content:  space-around;
+    align-items: center;
+    flex-direction: column;
+}
+/* .firstGroupflex div .list-none {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+} */
+li.list-none.active{
+    background-color: grey;
+    width: 100%;
+    padding:0px 5px 5px 5px;
+    border-radius: 4px;
+    color:white
+}
+.firstGroupnotFlex button{
+    background-color: transparent;
+}
+.firstGroupnotFlex button svg{
+/* display: none !important; */
+}

@@ -8,6 +8,7 @@ import { NavBar, TopBar, ChatBar } from './components';
 import { GetCountriesHook } from 'Hook/Flight/Get-Countries-Hook';
 import { useEffect } from 'react';
 import { GetcountryNavBarHook } from 'Hook/Country/Get-Country-NavBar-Hook';
+import NewSide from 'layouts/NewSide';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -51,10 +52,9 @@ const Dashboard = props => {
   const handleNavBarMobileClose = () => {
     setOpenNavBarMobile(false);
   };
-  const id =JSON.parse(localStorage.getItem('user'))?.id ;
-console.log(id);
-    const {data}= GetcountryNavBarHook(id)
-
+  const id = JSON.parse(localStorage.getItem('user'))?.id;
+  console.log(id);
+  const { data } = GetcountryNavBarHook(id);
 
   return (
     <div className={classes.root}>
@@ -63,11 +63,12 @@ console.log(id);
         onOpenNavBarMobile={handleNavBarMobileOpen}
       />
       <div className={classes.container}>
-        <NavBar
+        {/* <NavBar
           className={classes.navBar}
           onMobileClose={handleNavBarMobileClose}
           openMobile={openNavBarMobile}
-        />
+        /> */}
+        <NewSide />
         <main className={classes.content}>
           <Suspense fallback={<LinearProgress />}>
             {renderRoutes(route.routes)}
