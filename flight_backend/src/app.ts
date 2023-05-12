@@ -78,7 +78,7 @@ import { DapartureAirport } from './daparture-airport/entities/daparture-airport
     SeatModule,
     SupplierModule,
     FlightCompanyModule,
-    CountryModule,
+  
     CityModule,
     DapartureAirportModule,
   ],
